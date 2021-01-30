@@ -1,0 +1,143 @@
+html,
+body {
+    min-height: 100%;
+    position: relative;
+ 
+}
+.ps-row {
+    @include clearfix();
+    margin: 0 -15px;
+    .ps-column {
+        float: left;
+        width: 20%;
+        padding: 0 15px;
+    }
+    @media (max-width: 1600px) {
+        .ps-column {
+            width: 25%;
+        }
+    }
+    @include media('<md') {
+        .ps-column {
+            width: calc(100% / 3);
+        }
+    }
+    @include media('<sm') {
+        .ps-column {
+            width: calc(100% / 2);
+        }
+    }
+    @include media('<xs') {
+        .ps-column {
+            width: 100%;
+        }
+    }
+}
+
+.ps-col-tiny {
+    @include media('<sm') {
+        .col-xs-12 {
+            width: 50%;
+        }
+    }
+    @include media('<xs') {
+        .col-xs-12 {
+            width: 100%;
+        }
+    }
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.ps-container {
+    max-width: 1650px;
+    margin: 0 auto;
+    padding: 0 15px;
+    @media (max-width: 1680px) {
+        padding: 0 30px;
+        max-width: 100%;
+    }
+    @include media('<xs') {
+        padding: 0 15px;
+    }
+}
+
+.ps-section__content .slick-slide > div {
+    margin: 0 8px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        min-width: 1230px;
+    }
+}
+
+
+.ps-section__content .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .ps-section__content .column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+  }
+
+  
+@media (max-width: 500px) {
+    .ps-section__content .column {
+        float: left;
+        width: 100%;
+        padding: 10px;
+      }
+    
+}
+
+
+.malls_view{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .mall_div{
+        width: 50%;    
+        margin-bottom: 30px;
+        padding: 20px 10px;
+        text-align: center;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+        border: 1px solid #bfbfbf;
+
+        a{
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .mall_img{
+            height: 350px;
+
+        }
+        img{
+            height: 100%;
+            
+        }
+
+
+    }
+}
+
+
+  
+@media (max-width: 700px) {
+    .malls_view{
+
+        .mall_div{
+            width: 100%;    
+}
+}
+
+}
