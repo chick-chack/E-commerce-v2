@@ -1,23 +1,58 @@
 import axios from 'axios';
 // const baseDomain = 'http://45.76.97.89:3000';
 const baseDomain = 'https://check-chack-v2.herokuapp.com/api/v2/ecommerce';
-const baseDomain1 = 'http://localhost:4000/api/v2/ecommerce';
 const authorization_prefix = 'Bearer ';
 
 export const customHeaders = {
 
-    Accept: 'application/json',
+    withCredentials: true,
+    // Accept: 'application/json',
     /* Authorization: authorization_prefix + token || undefined*/
     //  Cookie: localStorage.getItem('currentCookie') ? localStorage.getItem('currentCookie')  : null
+};
+
+export const options = data => {
+    return ({
+        method: data.method,
+        withCredentials: true,
+        // headers: {
+        //     Accept: 'application/json'
+        // },
+        data: data.data,
+        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+    })
+};
+
+export const options_auth = data => {
+    return ({
+        method: data.method,
+        withCredentials: true,
+        // headers: {
+        //     Accept: 'application/json',
+        // }, 
+        data: data.data,
+        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+    })
+};
+
+export const options_ = data => {
+    return ({
+        method: data.method,
+        withCredentials: false,
+        // headers: {
+        //     Accept: 'application/json'
+        // },
+
+        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+    })
 };
 
 
 export const baseUrl = `${baseDomain}`;
 
 export default axios.create({
-    withCredentials: true,
     baseUrl,
-    // headers: customHeaders,
+    headers: customHeaders,
 });
 
 export const serializeQuery = query => {
