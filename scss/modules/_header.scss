@@ -11,7 +11,8 @@
         > i {
             font-size: 30px;
             line-height: 42px;
-            color: #ffffff;
+            // color: #ffffff;
+            color: #000;
         }&:hover{
             color: red!important;
         }
@@ -412,8 +413,8 @@
         display: inline-block;
 
         li {
-            margin-right: 5px;
-            padding-right: 5px;
+            // margin-right: 5px;
+            // padding-right: 5px;
 
             &:after {
                 display: none;
@@ -423,7 +424,7 @@
 
     .header__extra {
         span {
-            background-color: $color-1st;
+            background-color:$color-span;
         }
     }
 
@@ -483,7 +484,7 @@
 
     .header__extra {
         span {
-            background-color: #000;
+            background-color: $color-span;
 
             i {
                 color: #ffffff;

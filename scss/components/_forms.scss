@@ -27,6 +27,7 @@
     display: flex;
     flex-flow: row nowrap;
     position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.15);
 
     .ps-form__categories {
         position: relative;
@@ -67,7 +68,7 @@
 
     .form-control {
         background-color: #fff;
-        color: $color-heading;
+        color: #000000;
         height: 42px;
         border: none;
         border-radius: 0;
@@ -104,7 +105,8 @@
 
     button {
        /*background-color: $color-heading;*/
-       background-color: #0a87b4;
+    //    background-color: #0a87b4;
+    background-color: $button-hover;
         color: #ffffff;
         border: none;
         font-weight: 700;

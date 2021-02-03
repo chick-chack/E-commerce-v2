@@ -52,18 +52,17 @@ class InformationDefault extends Component {
     handleAddItemToCart = e => {
         // e.preventDefault();
         const { cartlist } = this.props.cart;
-
         this.setState({
             test: cartlist
         })
 
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){
         let existItem = this.props.cart.cartlist.find(
             (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
 
         if (existItem) {
             // existItem.quantity += this.state.quantity
             existItem.quantity = this.state.quantity;
-
         }
         else {
             const newProduct = {
@@ -71,66 +70,173 @@ class InformationDefault extends Component {
                 "productChild.colorName_ar": null,
                 "productChild.colorName_en": null,
                 "productChild.id": this.props.product.singleProduct.productChildren[0].id,
+                "productChild.productId":this.props.product.singleProduct.productChildren[0].productId,
                 "productChild.image": this.props.product.singleProduct.productChildren[0].image,
-                " productChild.isOffer": this.props.product.singleProduct.productChildren[0].isOffer,
+                "productChild.isOffer": this.props.product.singleProduct.productChildren[0].isOffer,
                 "productChild.offerRatio": this.props.product.singleProduct.productChildren[0].offerRatio,
                 "productChild.price": this.props.product.singleProduct.productChildren[0].price,
                 "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
                 "productChild.product.name_en": this.props.product.singleProduct.name_en,
-                " productChild.size": this.props.product.singleProduct.productChildren[0].size,
-                " productChildId": this.props.product.singleProduct.productChildren[0].id,
+                "productChild.size": this.props.product.singleProduct.productChildren[0].size,
+                "productChildId": this.props.product.singleProduct.productChildren[0].id,
+                
                 "quantity": this.state.quantity
             }
             this.props.cart.cartlist.push(newProduct)
-        }
-        let QTY= this.state.quantity - this.state.final_QTY;
-        this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
+        } 
+        let QTY;
+        if(this.state.final_QTY===1 ){
 
+             QTY= this.state.quantity-1
+        }
+        else{
+             QTY= this.state.quantity - this.state.final_QTY;
+        } 
+        
+        this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
         modalSuccess('success');
         Router.push('/account/shopping-cart')
+    }
+    else{
+        let existItem = this.props.cart.cartItems.find(
+            (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
+
+        if (existItem) {
+            // existItem.quantity += this.state.quantity
+            existItem.quantity = this.state.quantity;
+        }
+        else {
+            const newProduct = {
+                "productChild.colorCode": null,
+                "productChild.colorName_ar": null,
+                "productChild.colorName_en": null,
+                "productChild.id": this.props.product.singleProduct.productChildren[0].id,
+                "productChild.productId":this.props.product.singleProduct.productChildren[0].productId,
+                "productChild.image": this.props.product.singleProduct.productChildren[0].image,
+                "productChild.isOffer": this.props.product.singleProduct.productChildren[0].isOffer,
+                "productChild.offerRatio": this.props.product.singleProduct.productChildren[0].offerRatio,
+                "productChild.price": this.props.product.singleProduct.productChildren[0].price,
+                "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
+                "productChild.product.name_en": this.props.product.singleProduct.name_en,
+                "productChild.size": this.props.product.singleProduct.productChildren[0].size,
+                "productChildId": this.props.product.singleProduct.productChildren[0].id,
+                "quantity": this.state.quantity
+            }
+            this.props.cart.cartItems.push(newProduct)
+        } 
+        let QTY;
+        if(this.state.final_QTY===1 ){
+
+             QTY= this.state.quantity-1
+        }
+        else{
+             QTY= this.state.quantity - this.state.final_QTY;
+        } 
+        
+        // this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
+        modalSuccess('success');
+        Router.push('/account/shopping-cart')
+    }
     };
 
+    // handleAddItemToCart = e => {
+    //     // e.preventDefault();
+    //     const { cartlist } = this.props.cart;
+    //     this.setState({
+    //         test: cartlist
+    //     })
+
+    //     let existItem = this.props.cart.cartlist.find(
+    //         (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
+
+    //     if (existItem) {
+    //         // existItem.quantity += this.state.quantity
+    //         existItem.quantity = this.state.quantity;
+    //     }
+    //     else {
+    //         const newProduct = {
+    //             "productChild.colorCode": null,
+    //             "productChild.colorName_ar": null,
+    //             "productChild.colorName_en": null,
+    //             "productChild.id": this.props.product.singleProduct.productChildren[0].id,
+    //             "productChild.productId":this.props.product.singleProduct.productChildren[0].productId,
+    //             "productChild.image": this.props.product.singleProduct.productChildren[0].image,
+    //             " productChild.isOffer": this.props.product.singleProduct.productChildren[0].isOffer,
+    //             "productChild.offerRatio": this.props.product.singleProduct.productChildren[0].offerRatio,
+    //             "productChild.price": this.props.product.singleProduct.productChildren[0].price,
+    //             "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
+    //             "productChild.product.name_en": this.props.product.singleProduct.name_en,
+    //             " productChild.size": this.props.product.singleProduct.productChildren[0].size,
+    //             " productChildId": this.props.product.singleProduct.productChildren[0].id,
+                
+    //             "quantity": this.state.quantity
+    //         }
+    //         this.props.cart.cartlist.push(newProduct)
+    //     } 
+    //     let QTY;
+    //     if(this.state.final_QTY===1 ){
+
+    //          QTY= this.state.quantity-1
+    //     }
+    //     else{
+    //          QTY= this.state.quantity - this.state.final_QTY;
+    //     } 
+        
+    //     this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
+    //     modalSuccess('success');
+    //     Router.push('/account/shopping-cart')
+    // };
 
     handleAddItemToCompare = e => {
-        e.preventDefault();
-    
-            
+        e.preventDefault();    
+        console.log("nn",this.props.product.singleProduct)    
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.colorCode == null);
-
-            this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
-
-     
+            this.props.dispatch(addItemToCompare(this.props.product.singleProduct,childProduct ));   
+            Router.push('/account/compare')
         // const { product } = this.props;
         // this.props.dispatch(addItemToCompare(product));
     };
 
     handleAddItemToWishlist = e => {
         e.preventDefault();
+        console.log("nn",this.props.product.singleProduct)
 
         let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
             (item) => item.colorCode == null);
 
         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
+        Router.push('/account/wishlist')
         // const { product } = this.props;
         // const productSelected = product.productChildren[0];
 
         // this.props.dispatch(addItemToWishlist(product, productSelected));
     };
 
+    // handleAddItemToWishlist = e => {
+    //     e.preventDefault();
+    //     if (this.props.childern_ID) {  
+    //         let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
+    //             (item) => item.id == this.props.childern_ID);
+    //         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
+    //     }
+    //     else{
+    //         modalAsking('warning');
+    //     }
+    // };
  
         
 
-    handleIncreaseItemQty = e => {
-        e.preventDefault();
-        if (this.props.product.singleProduct.quantity > this.state.quantity) {
-            this.setState({ quantity: this.state.quantity + 1 });
-        } else {
-            modalWarning('warning', this.props.product.singleProduct.quantity);
-        }
+    // handleIncreaseItemQty = e => {
+    //     e.preventDefault();
+    //     if (this.props.product.singleProduct.quantity > this.state.quantity) {
+    //         this.setState({ quantity: this.state.quantity + 1 });
+    //     } else {
+    //         modalWarning('warning', this.props.product.singleProduct.quantity);
+    //     }
 
 
-    };
+    // };
 
     
     handleIncreaseItemQty = e => {
@@ -190,7 +296,7 @@ class InformationDefault extends Component {
             this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
         }
 
-
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){
         let existItem = this.props.cart.cartlist.find(
             (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
 
@@ -202,6 +308,21 @@ class InformationDefault extends Component {
             })
 
         }
+    }
+        else{
+            let existItem = this.props.cart.cartItems.find(
+                (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
+    
+            if (existItem) {
+                // existItem.quantity += this.state.quantity
+                this.setState({
+                    quantity: existItem.quantity,
+                    final_QTY:existItem.quantity
+                })
+    
+            }
+        }
+        
 
 
         // if (this.props.childern_ID) {
@@ -515,20 +636,20 @@ class InformationDefault extends Component {
                         onClick={this.handleAddItemToCart.bind(this)}>
                         {i18next.t('addtocart')}
                     </a>
-                    <a
+                    {/* <a
                         className="ps-btn"
                         href="#"
                         onClick={this.handleAddItemToCart.bind(this)}>
                         {i18next.t('buynow')}
-                    </a>
+                    </a> */}
                     <div className="ps-product__actions">
                         <a
-                            href="#"
+                            href="/account/wishlist"
                             onClick={this.handleAddItemToWishlist.bind(this)}>
                             <i className="icon-heart"></i>
                         </a>
                         <a
-                            href="#"
+                            href="/account/compare"
                             onClick={this.handleAddItemToCompare.bind(this)}>
                             <i className="icon-chart-bars"></i>
                         </a>

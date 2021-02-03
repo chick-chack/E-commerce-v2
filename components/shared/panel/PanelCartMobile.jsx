@@ -32,9 +32,10 @@ class PanelCartMobile extends Component {
 
 
     render() {
-        const { amount, cartItems } = this.props;
-        const { cartlist}= this.props;
+        const { amount, cartItems , auth} = this.props;
+        const { cartlist}= this.props.cart;
         return (
+            
             <div className="ps-cart--mobile">
                 <div className="ps-cart__content">
                     {cartlist && cartlist.length > 0 ? (
@@ -116,8 +117,8 @@ class PanelCartMobile extends Component {
                                          .reduce((acc, obj) => acc + (obj.quantity * obj['productChild.price'] ), 0)
                                          .toFixed(2) : "nooooooooooooooooooo"
                                     } */}
-                                         {this.props.cartlist? 
-                                         Object.values(this.props.cartlist)
+                                         {this.props.cart.cartlist? 
+                                         Object.values(this.props.cart.cartlist)
                                          .reduce((acc, obj) => acc + (obj.quantity * (obj['productChild.isOffer']
                                                                                 ? obj['productChild.price'] -( ( obj['productChild.price'] * obj['productChild.offerRatio'])/100)
                                                                                 : obj['productChild.price'] )), 0)
@@ -138,7 +139,7 @@ class PanelCartMobile extends Component {
                     </div>
                 ) : (
                     <div className="ps-cart__footer">
-                        <Link href="/shop">
+                        <Link href="/">
                             <a className="ps-btn ps-btn--fullwidth">Shop now</a>
                         </Link>
                     </div>
@@ -149,6 +150,6 @@ class PanelCartMobile extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return state.cart;
+    return state;
 };
 export default connect(mapStateToProps)(PanelCartMobile);

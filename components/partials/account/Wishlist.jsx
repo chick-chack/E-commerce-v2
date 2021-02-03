@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../../store/cart/action';
 import { removeWishlistItem } from '../../../store/wishlist/action';
-import { add_to_cart } from '../../../store/cart/action';
+import { add_to_cart, updateCartSuccess } from '../../../store/cart/action';
 import Link from 'next/link';
 import { Rate } from 'antd';
 import Router from 'next/router';
@@ -28,6 +28,8 @@ class Wishlist extends Component {
 
         console.log("add cart in wishlist e:", e, "product:", product)
         console.log("product props", this.props.product)
+
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){ 
         if (this.props.cart.cartlist) {
             if (this.props.cart.cartlist.length > 0) {
                 let existItem = this.props.cart.cartlist.find(
@@ -37,27 +39,26 @@ class Wishlist extends Component {
                     existItem.quantity ++;
                 }
                 else {
-                    let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
-                        (item) => item.id == this.props.childern_ID
-                    );
-                    console.log("child id index ", index)
+                    // let index = this.props.wishlist.wishlistItems.product.productChildren_orginal.findIndex(
+                    //     (item) => item.id == this.props.childern_ID
+                    // );
+                    // console.log("child id index ", index)
                     const newProduct = {
                         "productChild.colorCode": product.productSelected.colorCode,
-                        "productChild.colorName_ar": product.productSelected.colorName_ar,
-                        "productChild.colorName_en": product.productSelected.colorName_en,
-                        "productChild.id": product.productSelected.id,
-                        //"productChild.id":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                        "productChild.colorName_ar":  product.productSelected.colorName_ar,
+                        "productChild.colorName_en":  product.productSelected.colorName_en,
+                        "productChild.id":  product.productSelected.id,
+                        "productChild.productId": product.product.productId,
                         "productChild.image":product.productSelected.image,
-                        " productChild.isOffer": product.productSelected.isOffer,
+                        "productChild.isOffer": product.productSelected.isOffer,
                         "productChild.offerRatio": product.productSelected.offerRatio,
                         "productChild.price": product.productSelected.price,
                         "productChild.product.name_ar": product.product.name_ar,
                         "productChild.product.name_en": product.product.name_en,
-                        " productChild.size": product.productSelected.size,
-                        " productChildId":product.productSelected.id,
+                        "productChild.size": product.productSelected.size,
+                        "productChildId": product.productSelected.id,
                         //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                         "quantity":1
-                        // updatedAt: "2021-01-20T07:53:56.844Z"
                     }
                     this.props.cart.cartlist.push(newProduct)
                 }
@@ -68,7 +69,71 @@ class Wishlist extends Component {
         this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
 
         modalSuccess('success');
-        Router.push('/account/shopping-cart')
+        Router.push('/account/shopping-cart')}
+
+        else{
+            if (this.props.cart.cartItems) {
+                console.log("tester", this.props.wishlist.wishlistItems)
+                if (this.props.cart.cartItems.length > 0) {
+                    let existItem = this.props.cart.cartItems.find(
+                        item => item['productChild.id'] == product.productSelected.id
+                    )
+                    if (existItem) {
+                        existItem.quantity ++;
+                        this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
+                        this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
+
+                    }
+                    else {
+                        console.log("this.props.product ", this.props.wishlist.wishlistItems)
+                        // let index = this.props.wishlist.wishlistItems.findIndex(
+                        //     (item) => item.product.productSelected.id == this.props.childern_ID
+                        // );
+                        // console.log("child id index ", index)
+                        const newProduct = {
+                            "productChild.colorCode": product.productSelected.colorCode,
+                            "productChild.colorName_ar":  product.productSelected.colorName_ar,
+                            "productChild.colorName_en":  product.productSelected.colorName_en,
+                            "productChild.id":  product.productSelected.id,
+                            "productChild.productId": product.product.productId,
+                            "productChild.image":product.productSelected.image,
+                            "productChild.isOffer": product.productSelected.isOffer,
+                            "productChild.offerRatio": product.productSelected.offerRatio,
+                            "productChild.price": product.productSelected.price,
+                            "productChild.product.name_ar": product.product.name_ar,
+                            "productChild.product.name_en": product.product.name_en,
+                            "productChild.size": product.productSelected.size,
+                            "productChildId": product.productSelected.id,
+                            //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                            "quantity":1
+                        }
+                        // this.props.cart.cartItems.push(newProduct)
+                        console.log("new yyyyyproduct", newProduct)
+                        this.props.cart.cartItems.push(newProduct)
+                        this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
+                        this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
+                        // let QTY;
+                        // if(this.state.final_QTY===1 ){
+            
+                        //      QTY= this.state.quantity-1
+                        // }
+                        // else{
+                        //      QTY= this.state.quantity - this.state.final_QTY;
+                        // } 
+                        
+                        //  this.props.dispatch(add_to_local_cart(newProduct,  QTY))
+                         Router.push('/account/shopping-cart')
+                        console.log("------------------------", this.props.cart.cartItems)
+                    }
+                }
+    
+            }
+            // this.props.dispatch(add_to_cart(product.productSelected.id, 1))
+            // this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
+    
+            modalSuccess('success');
+            Router.push('/account/shopping-cart')}
+        
     };
 
     handleRemoveWishListItem = (e, product) => {
