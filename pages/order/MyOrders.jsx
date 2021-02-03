@@ -9,6 +9,7 @@ import BreadCrumb from '../../components/elements/BreadCrumb';
 import MyOrders from '../../components/partials/order/MyOrders';
 import HeaderMobile from '../../components/shared/headers/HeaderMobile';
 import NavigationList from '../../components/shared/navigation/NavigationList';
+import Login from '../../components/partials/account/Login';
 import { order_list } from '../../store/order/action';
 import i18next from 'i18next';
 
@@ -24,8 +25,6 @@ class OrderDefaultPage extends React.Component {
 
     static async getInitialProps(ctx) {
         console.log("index shop, getinitial", ctx.query);
-        /* brand: (12) ["1", "2", "3", "4", "5", "6", "7", "8", "9", "13", "14", "15"]
-            __proto__: Object */
         return { query: ctx.query };
     }  
     componentDidMount() {
@@ -42,25 +41,20 @@ class OrderDefaultPage extends React.Component {
 
 
 render(){
+    const { auth } = this.props;   
     return (
-        // <div className="site-content">
-        //     <HeaderDefault />
-        //     <HeaderMobile />
-        //     <NavigationList />
-        //     {/* <PostDetailBackground /> */}
-        //     <div className="container">
-        //         {/* <RelatedPosts />
-        //         <PostComments /> */}
-        //     </div>
-        //     <FooterDefault />
-        // </div>
         <div className="site-content">
         <HeaderDefault />
         <HeaderMobile />
         <NavigationList />
-        <div className="ps-page--simple">
-            <MyOrders />
-        </div>
+        {auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (
+                <div className="ps-page--simple">
+                   <MyOrders />
+               </div>
+
+                ) : (
+                    <Login />
+                )}
         <Newsletters layout="container" />
         <FooterDefault />
     </div>
@@ -70,6 +64,6 @@ render(){
    
 };
 
-export default connect(state => state.order)(OrderDefaultPage);
+export default connect(state => state)(OrderDefaultPage);
 
 // export default OrderDefaultPage;

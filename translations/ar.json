@@ -187,7 +187,10 @@
     "myorders":"طلباتي ",
     "choosepaymentpay":"اختر طريقة الدفع",
     "addaddress":"إضافة عنوان",
-    "noaddress":"لا يوجد عنوان"
+    "noaddress":"لا يوجد عنوان",
+    "compareproduct":"مقارنة منتج",
+    "comparelistempty":" قائمة المقارنة فارغة",
+    "showproduct":"عرض المنتج"
 
 
 }

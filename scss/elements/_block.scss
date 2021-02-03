@@ -258,7 +258,7 @@
             line-height: 18px;
 
             &:hover {
-                color: #ffffff;
+                color: $color-heading;
             }
         }
     }
@@ -3229,10 +3229,11 @@
     }
 
     .ps-list--arrow {
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
         li {
             a {
                 padding-left: 0;
-                color: $color-heading;
+                color: #000000;
 
                 &:before {
                     display: none;
@@ -3242,7 +3243,11 @@
                     color: $color-1st;
                 }
             }
+            &:hover a{
+                color: #ffffff;
+            }
         }
+
     }
 
     .ps-block__heading {
@@ -3264,7 +3269,8 @@
         right: 0;
         left: auto;
         z-index: 30;
-        padding-top: 10px;
+        margin-top: 5px;
+        // padding-top: 10px;
         transform: translate(0 20px) scale3d(1, 1, 0);
         transition: all 0.4s ease;
         @include hidden;
@@ -3275,7 +3281,7 @@
             @include show;
             transform: translate(0 20px) scale3d(1, 1, 1);
             background-color: #fff;
-            padding: 10px 15px;
+            // padding: 10px 15px;
         }
     }
 }

@@ -36,6 +36,9 @@ class MobileHeaderActions extends Component {
         // const { cartTotal } = this.props.cart;
         const { amount, cartTotal, cartItems , cartlist} = this.props.cart;
         return (
+
+        auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (
+
             <div className="navigation__right">
                 <Link href="/account/shopping-cart">
                     <a className="header__extra" href="#">
@@ -47,19 +50,31 @@ class MobileHeaderActions extends Component {
                         </span>
                     </a>
                 </Link>
-
-                {auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (
                     <AccountQuickLinksMobile />
-                ) : (
+                    </div>
+                ) :
+                
+                 (
+                    <div className="navigation__right">
+                <Link href="/account/shopping-cart">
+                    <a className="header__extra" href="#">
+                        <i className="icon-bag2"></i>
+                        <span>
+                            {/* <i>{cartTotal ? cartTotal : 0}</i> */}
+                            <i>{this.props.cart.cartItems ? this.props.cart.cartItems.length : 0}</i>
+
+                        </span>
+                    </a>
+                </Link>
+
                     <div className="header__extra">
                         <Link href="/account/login">
                             <i className="icon-user"></i>
                         </Link>
                     </div>
-                )}
-            </div>
-        );
-    }
+                    </div>
+                ))}       
+    
 }
 
 const mapStateToProps = state => {

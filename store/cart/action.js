@@ -50,23 +50,18 @@ export const actionTypes = {
     GET_CART_LIST_SUCCESS: 'GET_CART_LIST_SUCCESS',
     GET_CART_LIST_ERROR: 'GET_CART_LIST_ERROR',
 
+
+    // local storage
+
+    ADD_TO_LOCAL_CART:"ADD_TO_LOCAL_CART"
     
 };
 
 /**********************************************************
-|||||||||| start  New api for cart ||||||||||||||||||||||||
+|||||||||| start  New api for cart log in  ||||||||||||||||
 **********************************************************/
 
-// export function add_to_cart( productId , quantity , currentCookie) {
-//     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", productId ,"||||||", quantity , "||||||", currentCookie)
-//     return { type: actionTypes.ADD_TO_CART,
-//             productId,
-//             quantity,
-//             currentCookie  };
-// }
-
 export function add_to_cart( productId , quantity ) {
-  //  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", productId ,"||||||", quantity , "||||||")
     return { type: actionTypes.ADD_TO_CART,
             productId,
             quantity };
@@ -127,7 +122,6 @@ export function deletecartitemError(error) {
     };
 }
 
-// 
 
 export function getcartlist() {
     return { type: actionTypes.GET_CART_LIST };
@@ -147,10 +141,96 @@ export function getcartlistError(error) {
     };
 }
 
+/********************************************************
+|||||||||| end  New api for cart ||||||||||||||||||||||||
+*********************************************************/
 
-    /*************************************************************
-     |||||||||| end  New api for cart ||||||||||||||||||||||||
-     ***********************************************************/
+
+/**********************************************************
+||||||||||||||||||| start local cart||||| ||||||||||||||||
+**********************************************************/
+
+export function add_to_local_cart( product , quantity ) {
+    console.log("*************8", product, quantity)
+    return { type: actionTypes.ADD_TO_LOCAL_CART,
+            product,
+            quantity };
+}
+
+export function add_to_local_cart_Success() {
+    return {
+        type: actionTypes.ADD_TO_CART_SUCCESS,
+    };
+}
+
+export function add_to_local_cart_Error(error) {
+    return {
+        type: actionTypes.ADD_TO_CART_ERROR,
+        error,
+    };
+}
+
+// 
+
+export function deletealllocalcart() {
+    return { type: actionTypes.DELETE_ALL_CARTS };
+}
+
+export function deletealllocalcartSuccess() {
+    return {
+        type: actionTypes.DELETE_ALL_CARTS_SUCCESS,
+    };
+}
+
+export function deletealllocalcartError(error) {
+    return {
+        type: actionTypes.DELETE_ALL_CARTS_ERROR,
+        error,
+    };
+}
+
+
+export function deletelocalcartitem(productId) {
+
+    return { type: actionTypes.DELETE_CART_ITEM,
+                productId };
+}
+
+export function deletelocalcartitemSuccess() {
+    return {
+        type: actionTypes.DELETE_CART_ITEM_SUCCESS,
+    };
+}
+
+export function deletelocalcartitemError(error) {
+    return {
+        type: actionTypes.DELETE_CART_ITEM_ERROR,
+        error,
+    };
+}
+
+
+export function getlocalcartlist() {
+    return { type: actionTypes.GET_CART_LIST };
+}
+
+export function getlocalcartlistSuccess(data) {
+    return {
+        type: actionTypes.GET_CART_LIST_SUCCESS,
+        data:data.data
+    };
+}
+
+export function getlocalcartlistError(error) {
+    return {
+        type: actionTypes.GET_CART_LIST_ERROR,
+        error,
+    };
+}
+
+/**********************************************
+||||||||||  end local cart  ||||||||||||||||||||
+***********************************************/
 
 
 export function getCart() {
@@ -200,6 +280,7 @@ export function decreaseItemQty(product) {
 }
 
 export function updateCartSuccess(payload) {
+    console.log("kjjkjjjjjjjiiiiiiiiiiiiiiii", payload)
 
     return {
         type: actionTypes.UPDATE_CART_SUCCESS,

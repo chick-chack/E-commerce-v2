@@ -63,3 +63,23 @@
 .ant-notification{
     z-index: 999999999999999!important;
 }
+
+.ant-dropdown-menu {
+    padding: 0!important;
+}
+
+// .ant-dropdown-menu-item,
+// .ant-dropdown-menu-submenu-title {
+//     padding: 0!important;
+// }
+.ant-dropdown-menu-item:hover,
+.ant-dropdown-menu-submenu-title:hover {
+    background-color: $button-hover!important;
+}
+.ant-dropdown-menu-item > a{
+    padding: 10px 15px!important;
+}
+.ant-dropdown-menu-item > a:hover,
+ .ant-dropdown-menu-submenu-title > a:hover {
+    color:#ffffff!important;
+}

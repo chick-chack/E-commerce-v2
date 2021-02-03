@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ModuleProductDetailSharing from '~/components/elements/detail/modules/elements/ModuleProductDetailSharing';
-// import ModuleProductDetailSpecification from '~/components/elements/detail/modules/elements/ModuleProductDetailSpecification';
 import ModuleProductDetailDescription from '~/components/elements/detail/modules/elements/ModuleProductDetailDescription';
 import ImageFromApi from '~/components/elements/detail/modules/elements/ImageFromApi';
 import Rating from '~/components/elements/Rating';
 import ThumbnailHasVariant from '~/components/elements/detail/modules/thumbnail/ThumbnailHasVariant';
-import { addItem, add_to_cart, getcartlist } from '~/store/cart/action';
+import { addItem, add_to_cart, getcartlist,add_to_local_cart, updateCartSuccess } from '~/store/cart/action';
 import { addItemToCompare } from '~/store/compare/action';
 import { addItemToWishlist } from '~/store/wishlist/action';
 import { formatCurrency } from '../../../../utilities/product-helper';
@@ -80,8 +79,10 @@ class ModuleProductHasVariants extends React.Component {
         return { query: ctx.query };
     }
 
+    handleAddItemToCart = e =>{
 
-    handleAddItemToCart = e => {
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){
+            
         if (this.props.childern_ID) {
             if (this.props.cart.cartlist) {
                 if (this.props.cart.cartlist.length > 0) {
@@ -90,6 +91,7 @@ class ModuleProductHasVariants extends React.Component {
                     )
                     if (existItem) {
                         existItem.quantity = this.state.quantity;
+                   
                      
                     }
                     else {
@@ -102,20 +104,23 @@ class ModuleProductHasVariants extends React.Component {
                             "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
                             "productChild.colorName_en": this.props.product.singleProduct.productChildren_orginal[index].colorName_en,
                             "productChild.id": this.props.product.singleProduct.productChildren_orginal[index].id,
-                            //    "productChild.id":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                            "productChild.productId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                             "productChild.image": this.props.product.singleProduct.productChildren_orginal[index].image,
-                            " productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
+                            "productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
                             "productChild.offerRatio": this.props.product.singleProduct.productChildren_orginal[index].offerRatio,
                             "productChild.price": this.props.product.singleProduct.productChildren_orginal[index].price,
                             "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
                             "productChild.product.name_en": this.props.product.singleProduct.name_en,
-                            " productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
-                            " productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
+                            "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
+                            "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
                             //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                             "quantity": this.state.quantity
                             // updatedAt: "2021-01-20T07:53:56.844Z"
                         }
                         this.props.cart.cartlist.push(newProduct)
+                        // console.log("new yyyyyproduct", newProduct)
+                        // this.props.cart.cartItems.push(newProduct)
+                        // console.log("------------------------", this.props.cart.cartItems)
                     }
                 } else {
                     let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
@@ -127,15 +132,15 @@ class ModuleProductHasVariants extends React.Component {
                         "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
                         "productChild.colorName_en": this.props.product.singleProduct.productChildren_orginal[index].colorName_en,
                         "productChild.id": this.props.product.singleProduct.productChildren_orginal[index].id,
-                        //"productChild.id":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                        "productChild.productId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                         "productChild.image": this.props.product.singleProduct.productChildren_orginal[index].image,
-                        " productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
+                        "productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
                         "productChild.offerRatio": this.props.product.singleProduct.productChildren_orginal[index].offerRatio,
                         "productChild.price": this.props.product.singleProduct.productChildren_orginal[index].price,
                         "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
                         "productChild.product.name_en": this.props.product.singleProduct.name_en,
-                        " productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
-                        " productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
+                        "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
+                        "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
                         "quantity": this.state.quantity
                     }
                     this.props.cart.cartlist.push(newProduct)
@@ -143,27 +148,128 @@ class ModuleProductHasVariants extends React.Component {
 
             }
 
-            let QTY= this.state.quantity - this.state.final_QTY;
+            let QTY;
+            if(this.state.final_QTY===1 ){
+
+                 QTY= this.state.quantity-1
+            }
+            else{
+                 QTY= this.state.quantity - this.state.final_QTY;
+            } 
             
             this.props.dispatch(add_to_cart(this.props.childern_ID,  QTY))
 
             modalSuccess('success');
-            Router.push('/account/shopping-cart')
+           Router.push('/account/shopping-cart')
         }
 
 
         else {
-           // alert("please choose the size and color")
+          
              modalAsking('warning');
         }
-        // let tempProduct = product;
-        // tempProduct.quantity = this.state.quantity;
-        // this.props.dispatch(addItem(product));
-        //this.props.dispatch(add_to_cart( this.props.childern_ID, this.state.quantity))
-        //this.props.dispatch(getcartlist());
 
+        }
+        else {
+            if (this.props.childern_ID) {
+            if (this.props.cart.cartItems) {
+                if (this.props.cart.cartItems.length > 0) {
+                    let existItem = this.props.cart.cartItems.find(
+                        item => item['productChild.id'] == this.props.childern_ID
+                    )
+                    if (existItem) {
+                        
+                        existItem.quantity =  this.state.quantity;
+                        
+                   this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
+                        console.log("--------------it is here ----------", this.props.cart.cartItems, "mkjnkn", existItem )
+                        
+                     
+                    }
+                    else {
+                        let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
+                            (item) => item.id == this.props.childern_ID
+                        );
+                    
+                        const newProduct = {
+                            "productChild.colorCode": this.props.product.singleProduct.productChildren_orginal[index].colorCode,
+                            "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
+                            "productChild.colorName_en": this.props.product.singleProduct.productChildren_orginal[index].colorName_en,
+                            "productChild.id": this.props.product.singleProduct.productChildren_orginal[index].id,
+                            "productChild.productId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                            "productChild.image": this.props.product.singleProduct.productChildren_orginal[index].image,
+                            "productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
+                            "productChild.offerRatio": this.props.product.singleProduct.productChildren_orginal[index].offerRatio,
+                            "productChild.price": this.props.product.singleProduct.productChildren_orginal[index].price,
+                            "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
+                            "productChild.product.name_en": this.props.product.singleProduct.name_en,
+                            "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
+                            "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
+                            //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                            "quantity": this.state.quantity
+                            // updatedAt: "2021-01-20T07:53:56.844Z"
+                        }
+                        // this.props.cart.cartlist.push(newProduct)
+                        console.log("new yyyyyproduct", newProduct)
+                        this.props.cart.cartItems.push(newProduct)
+                        let QTY;
+                        if(this.state.final_QTY===1 ){
+            
+                             QTY= this.state.quantity-1
+                        }
+                        else{
+                             QTY= this.state.quantity - this.state.final_QTY;
+                        } 
+                        
+                         Router.push('/account/shopping-cart')
+                        console.log("------------------------", this.props.cart.cartItems)
+                    }
+                } else {
+                    let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
+                        (item) => item.id == this.props.childern_ID
+                    );
+                 
+                    const newProduct = {
+                        "productChild.colorCode": this.props.product.singleProduct.productChildren_orginal[index].colorCode,
+                        "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
+                        "productChild.colorName_en": this.props.product.singleProduct.productChildren_orginal[index].colorName_en,
+                        "productChild.id": this.props.product.singleProduct.productChildren_orginal[index].id,
+                        "productChild.productId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                        "productChild.image": this.props.product.singleProduct.productChildren_orginal[index].image,
+                        "productChild.isOffer": this.props.product.singleProduct.productChildren_orginal[index].isOffer,
+                        "productChild.offerRatio": this.props.product.singleProduct.productChildren_orginal[index].offerRatio,
+                        "productChild.price": this.props.product.singleProduct.productChildren_orginal[index].price,
+                        "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
+                        "productChild.product.name_en": this.props.product.singleProduct.name_en,
+                        "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
+                        "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
+                        "quantity": this.state.quantity
+                    }
+                    // this.props.cart.cartlist.push(newProduct)
+                    console.log("new product", newProduct)
+                    this.props.cart.cartItems.push(newProduct)
+                  //  this.props.add_to_local_cart(newProduct,1);
+                    console.log("------------------------", this.props.cart.cartItems)
+                    let QTY;
+                    if(this.state.final_QTY===1 ){
+        
+                         QTY= this.state.quantity-1
+                    }
+                    else{
+                         QTY= this.state.quantity - this.state.final_QTY;
+                    } 
+                    
+                    //  this.props.dispatch(add_to_local_cart(newProduct,  this.state.quantity))
+                     Router.push('/account/shopping-cart')
+                }
+            }
+            modalSuccess('success');  
+        }
+        else {
+             modalAsking('warning');
+        }
+             }     }
 
-    };
 
     handleAddItemToCompare = e => {
         e.preventDefault();
@@ -171,26 +277,12 @@ class ModuleProductHasVariants extends React.Component {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
             this.props.dispatch(addItemToCompare(this.props.product.singleProduct,childProduct ));
+            Router.push('/account/compare')
         }
         else{
             modalAsking('warning');
         }
     };
-
-    
-    
-    // {
-    //     e.preventDefault();
-    //     const { singleProduct } = this.props.product;
-    //     this.props.dispatch(addItemToCompare(singleProduct));
-    // };
-
-    // handleAddItemToWishlist = e => {
-    //     e.preventDefault();
-    //     const { singleProduct } = this.props.product;
-    //     this.props.dispatch(addItemToWishlist(singleProduct));
-    // };
-
     
     handleAddItemToWishlist = e => {
         e.preventDefault();
@@ -198,12 +290,12 @@ class ModuleProductHasVariants extends React.Component {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
             this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
+            Router.push('/account/wishlist')
         }
         else{
             modalAsking('warning');
         }
     };
-
 
     handleIncreaseItemQty = e => {
         e.preventDefault();
@@ -212,6 +304,7 @@ class ModuleProductHasVariants extends React.Component {
             let test = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
              if(test){
+                 console.log("hjhjhjhjhjhjhjhjhj")
                 if (test.quantity > this.state.quantity) {
                     this.setState({ quantity: this.state.quantity + 1 });
                 } else {
@@ -219,7 +312,6 @@ class ModuleProductHasVariants extends React.Component {
                 }
              }   
         }
-        
         else{
             modalAsking('warning');
         }
@@ -227,9 +319,7 @@ class ModuleProductHasVariants extends React.Component {
 
     handleDecreaseItemQty = e => {
         e.preventDefault();
-        // if (this.state.quantity > 1) {
-        //     this.setState({ quantity: this.state.quantity - 1 });
-        // }
+ 
         if (this.props.childern_ID) {
 
             if (this.state.quantity > 1) {
@@ -374,6 +464,7 @@ class ModuleProductHasVariants extends React.Component {
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
             }
         }
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){
         if (this.props.childern_ID) {
             if (this.props.cart.cartlist) {
                 if (this.props.cart.cartlist.length > 0) {
@@ -393,6 +484,29 @@ class ModuleProductHasVariants extends React.Component {
 
             }
          
+        }
+    }
+        else{
+            if (this.props.childern_ID) {
+                if (this.props.cart.cartItems) {
+                    if (this.props.cart.cartItems.length > 0) {
+                        let existItem = this.props.cart.cartItems.find(
+                            item => item['productChild.id'] == this.props.childern_ID
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY:existItem.quantity
+                            })
+                            // existItem.quantity += this.state.quantity
+                         
+                        }
+                     
+                    } 
+    
+                }
+             
+            }
         }
     
 
@@ -823,22 +937,16 @@ class ModuleProductHasVariants extends React.Component {
                             onClick={this.handleAddItemToCart.bind(this)}>
                             {i18next.t('addtocart')}
                         </button>
-                        {/* <a
-                            className="ps-btn"
-                            href="#"
-                            onClick={this.handleAddItemToCart.bind(this)}>
-                            {i18next.t('buynow')}
-                        </a> */}
                         <div className="ps-product__actions">
                             <a
-                                href="#"
+                                href="/account/wishlist"
                                 onClick={this.handleAddItemToWishlist.bind(
                                     this
                                 )}>
                                 <i className="icon-heart"></i>
                             </a>
                             <a
-                                href="#"
+                                href="/account/compare"
                                 onClick={this.handleAddItemToCompare.bind(
                                     this
                                 )}>
@@ -849,33 +957,7 @@ class ModuleProductHasVariants extends React.Component {
 
                     {ModuleProductDetailSpecification}
                     <ModuleProductDetailSharing />
-                    {/* <div className="ps-product__actions-mobile">
-                        <a
-                            className="ps-btn ps-btn--black"
-                            href="#"
-                            onClick={this.handleAddItemToCart.bind(this)}>
-                            {i18next.t('addtocart')}
-                        </a>
-                        <a
-                            className="ps-btn"
-                            href="#"
-                            onClick={this.handleAddItemToCart.bind(this)}>
-                            {i18next.t('buynow')}
-                        </a>
-                    </div> */}
-
-
                 </ div>
-                {/* <div>
-                    <h2>Original use case:</h2>
-                    <MagicZoom>
-                        <span>
-                            <img src={'http://lorempixel.com/520/400/sports/1'} />
-                        </span>
-                    </MagicZoom>
-                </div>
-          */}
-               {/* <MagicTest /> */}
             </div >
         );
     }
