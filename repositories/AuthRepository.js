@@ -13,10 +13,11 @@ class AuthRepository {
         };
 
         try {
-            return await Repository.post(`${baseUrl}/auth/login`, info)
-            // return response;
+            const response = await Repository.post(`${baseUrl}/auth/login`, info)
+            // console.log(response)
+            return response;
         } catch (error) {
-            console.log(error)
+            return error;
         }
 
     }

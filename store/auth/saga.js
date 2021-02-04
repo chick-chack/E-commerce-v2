@@ -105,8 +105,6 @@ function* signUp(payload) {
 function* loginSaga(payload) {
     try {
         const data = yield call(AuthRepository.postLogin, payload);
-        // yield put(loginSuccess(data));
-        // modalSuccess('success');
         if (data.status == 200) {
             yield put(loginSuccess(data.data));
             modalSuccess('success');

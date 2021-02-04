@@ -27,9 +27,6 @@ class Checkout extends Component {
         return (
             <div className="ps-checkout ps-section--shopping">
                 <div className="container">
-                    <div className="ps-section__header">
-                        <h1>{i18next.t('checkoutInfo')}</h1>
-                    </div>
                     <div className="ps-section__content">
                         <FormCheckoutInformation
                             amount={amount}

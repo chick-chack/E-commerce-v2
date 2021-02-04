@@ -8,6 +8,7 @@
         "start": "next start"
     },
     "dependencies": {
+        "@paypal/paypal-js": "^2.1.5",
         "@zeit/next-sass": "^1.0.1",
         "antd": "^4.5.2",
         "axios": "^0.19.2",
@@ -31,6 +32,7 @@
         "react": "^16.13.1",
         "react-custom-scrollbars": "^4.2.1",
         "react-dom": "^16.13.1",
+        "react-helmet": "^6.1.0",
         "react-html-parser": "^2.0.2",
         "react-i18next": "^11.8.0",
         "react-image-lightbox": "^5.1.1",

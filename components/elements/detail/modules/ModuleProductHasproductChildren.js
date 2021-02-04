@@ -42,7 +42,6 @@ const modalAsking = (type) => {
     });
 };
 
-
 class ModuleProductHasVariants extends React.Component {
     constructor(props) {
         super(props);
@@ -54,10 +53,10 @@ class ModuleProductHasVariants extends React.Component {
             colorItems: null,
             price: null, has_zise: false, has_color: false,
             has_zise_first: false, has_color_first: false,
-            final_QTY:1,
+            final_QTY: 1,
             reflectoinItem: null,
             reflectionChanged: null
-            
+
         };
         this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
     }
@@ -76,7 +75,7 @@ class ModuleProductHasVariants extends React.Component {
 
 
     static async getInitialProps(ctx) {
-       
+
         return { query: ctx.query };
     }
 
@@ -90,13 +89,13 @@ class ModuleProductHasVariants extends React.Component {
                     )
                     if (existItem) {
                         existItem.quantity = this.state.quantity;
-                     
+
                     }
                     else {
                         let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
                             (item) => item.id == this.props.childern_ID
                         );
-                    
+
                         const newProduct = {
                             "productChild.colorCode": this.props.product.singleProduct.productChildren_orginal[index].colorCode,
                             "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
@@ -121,7 +120,7 @@ class ModuleProductHasVariants extends React.Component {
                     let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
                         (item) => item.id == this.props.childern_ID
                     );
-                 
+
                     const newProduct = {
                         "productChild.colorCode": this.props.product.singleProduct.productChildren_orginal[index].colorCode,
                         "productChild.colorName_ar": this.props.product.singleProduct.productChildren_orginal[index].colorName_ar,
@@ -143,9 +142,9 @@ class ModuleProductHasVariants extends React.Component {
 
             }
 
-            let QTY= this.state.quantity - this.state.final_QTY;
-            
-            this.props.dispatch(add_to_cart(this.props.childern_ID,  QTY))
+            let QTY = this.state.quantity - this.state.final_QTY;
+
+            this.props.dispatch(add_to_cart(this.props.childern_ID, QTY))
 
             modalSuccess('success');
             Router.push('/account/shopping-cart')
@@ -153,8 +152,8 @@ class ModuleProductHasVariants extends React.Component {
 
 
         else {
-           // alert("please choose the size and color")
-             modalAsking('warning');
+            // alert("please choose the size and color")
+            modalAsking('warning');
         }
         // let tempProduct = product;
         // tempProduct.quantity = this.state.quantity;
@@ -167,18 +166,18 @@ class ModuleProductHasVariants extends React.Component {
 
     handleAddItemToCompare = e => {
         e.preventDefault();
-        if (this.props.childern_ID) {  
+        if (this.props.childern_ID) {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
-            this.props.dispatch(addItemToCompare(this.props.product.singleProduct,childProduct ));
+            this.props.dispatch(addItemToCompare(this.props.product.singleProduct, childProduct));
         }
-        else{
+        else {
             modalAsking('warning');
         }
     };
 
-    
-    
+
+
     // {
     //     e.preventDefault();
     //     const { singleProduct } = this.props.product;
@@ -191,15 +190,15 @@ class ModuleProductHasVariants extends React.Component {
     //     this.props.dispatch(addItemToWishlist(singleProduct));
     // };
 
-    
+
     handleAddItemToWishlist = e => {
         e.preventDefault();
-        if (this.props.childern_ID) {  
+        if (this.props.childern_ID) {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
-            this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
+            this.props.dispatch(addItemToWishlist(this.props.product.singleProduct, childProduct));
         }
-        else{
+        else {
             modalAsking('warning');
         }
     };
@@ -211,16 +210,16 @@ class ModuleProductHasVariants extends React.Component {
         if (this.props.childern_ID) {
             let test = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.childern_ID);
-             if(test){
+            if (test) {
                 if (test.quantity > this.state.quantity) {
                     this.setState({ quantity: this.state.quantity + 1 });
                 } else {
                     modalWarning('warning', this.state.quantity);
                 }
-             }   
+            }
         }
-        
-        else{
+
+        else {
             modalAsking('warning');
         }
     };
@@ -236,17 +235,16 @@ class ModuleProductHasVariants extends React.Component {
                 this.setState({ quantity: this.state.quantity - 1 });
             }
 
-        }else{
+        } else {
             modalAsking('warning');
         }
     };
 
     // select color 
     handleSelectColor(colorId) {
-        // const router = useRouter()
-        if (this.props.childern_ID != undefined && this.props.childern_ID == colorId) { } else {
-            Router.push('/product/' + this.props.product.singleProduct.id + '?id=' + colorId)
-        }
+        // if (this.props.childern_ID != undefined && this.props.childern_ID == colorId) { } else {
+        //     Router.push('/product/' + this.props.product.singleProduct.id + '?id=' + colorId)
+        // }
         const { singleProduct } = this.props.product;
         this.setState({ has_color: true })
         if (this.state.has_zise_first) {
@@ -257,22 +255,22 @@ class ModuleProductHasVariants extends React.Component {
                 const selectedVariant = selectedChild_z_f.colors.find(
                     item => item.id === colorId
                 );
-          
+
                 if (selectedVariant) {
                     const sizeItems = selectedVariant.sizes;
                     this.setState({ sizeItems: sizeItems });
-                 
+
                 }
                 this.setState({ selectedVariant: selectedChild_z_f });
                 this.setState({ selectedChild_z_f: selectedVariant });
             }
         } else {
             this.setState({ has_color_first: true });
-           
+
             var selectedVariant;
             if (singleProduct && singleProduct.productChildren.length > 0) {
                 const selectedVariantt = singleProduct.productChildren.find(item => item.id == colorId);
-               
+
                 if (selectedVariantt == undefined) {
                     for (var i = 0; i < singleProduct.productChildren.length; i++) {
                         for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
@@ -292,7 +290,7 @@ class ModuleProductHasVariants extends React.Component {
                         }
                     }
                 }
-             
+
                 if (selectedVariant) {
                     const sizeItems = selectedVariant.sizes;
                     this.setState({ sizeItems: sizeItems });
@@ -304,9 +302,6 @@ class ModuleProductHasVariants extends React.Component {
 
     // select size 
     handleSelectSize(sizeId) {
-        if (this.props.childern_ID != undefined && this.props.childern_ID == sizeId) { } else {
-            Router.push('/product/' + this.props.product.singleProduct.id + '?id=' + sizeId)
-        }
         const { singleProduct } = this.props.product;
         if (this.props.childern_ID != undefined) {
             this.setState({ has_zise: true })
@@ -352,10 +347,13 @@ class ModuleProductHasVariants extends React.Component {
         }
     }
 
+    todo(id) {
+        this.handleSelectColor(id);
+        this.handleSelectSize(id);
+
+    }
     componentDidMount() {
-        const { id } = this.props;
         this.props.dispatch(getcartlist());
-        
         const { product } = this.props;
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
             for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
@@ -367,8 +365,6 @@ class ModuleProductHasVariants extends React.Component {
                     }
                 }
             }
-
-
         } else {
             if (product.singleProduct && product.singleProduct.productChildren.length > 0) {
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
@@ -383,38 +379,17 @@ class ModuleProductHasVariants extends React.Component {
                     if (existItem) {
                         this.setState({
                             quantity: existItem.quantity,
-                            final_QTY:existItem.quantity
+                            final_QTY: existItem.quantity
                         })
-                        // existItem.quantity += this.state.quantity
-                     
                     }
-                 
-                } 
+
+                }
 
             }
-         
         }
-    
-
     }
 
     render() {
-
-        let reflectoinItem1 = this.getReflectoinItem(),
-        reflectionOpt = {
-            type: 'donor',
-            position: {
-                left: '100%',
-                top: '10%'
-            },
-            size: {
-                height: 100,
-                width: 300
-            }
-
-        };
-
-
 
         const { currency } = this.props.setting;
         const { singleProduct } = this.props.product;
@@ -539,26 +514,28 @@ class ModuleProductHasVariants extends React.Component {
                                 }`
                             }
                             key={item.id}
-                            onClick={e => this.handleSelectColor(item.id)}>
-                            <span className="ps-variant__tooltip">
-                                {item.colorName_en}
-                            </span>
-                            {
-                                colorItems.images[0] != undefined ? (
-                                    <ImageFromApi
-                                        url={colorItems.images[0]}
-                                        alt={item.colorName_en}
-                                    />
-                                ) : (
-                                        ''
-                                    )
-                            }
+                            onClick={e => this.todo(item.id)}
+                        >
+                            <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                < div>
+                                    <span className="ps-variant__tooltip">
+                                        {item.colorName_en}
+                                    </span>
+                                    {
+                                        colorItems.images[0] != undefined ? (
+                                            <ImageFromApi
+                                                url={colorItems.images[0]}
+                                                alt={item.colorName_en}
+                                            />
+                                        ) : (
+                                                ''
+                                            )
+                                    }</div>
+                            </Link>
                         </div >
                     );
                 });
-            }
-
-            else {
+            } else {
                 colorSelectionArea = singleProduct.productChildren.map(item => {
                     return (
                         <div
@@ -568,18 +545,24 @@ class ModuleProductHasVariants extends React.Component {
                                 : ''
                                 }`}
                             key={item.id}
-                            onClick={e => this.handleSelectColor(item.id)}>
-                            <span className="ps-variant__tooltip">
-                                {item.colorName_en}
-                            </span>
-                            {item.images != undefined ? (
-                                <ImageFromApi
-                                    url={item.images[0]}
-                                    alt={item.colorName_en}
-                                />
-                            ) : (
-                                    ''
-                                )}
+                            onClick={e => this.todo(item.id)}
+                        >
+                            <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                < div>
+                                    <span className="ps-variant__tooltip">
+                                        {item.colorName_en}
+                                    </span>
+
+                                    {item.images != undefined ? (
+                                        <ImageFromApi
+                                            url={item.images[0]}
+                                            alt={item.colorName_en}
+                                        />
+                                    ) : (
+                                            ''
+                                        )}
+                                </div>
+                            </Link>
                         </div>
                     );
 
@@ -588,7 +571,6 @@ class ModuleProductHasVariants extends React.Component {
             }
 
             if (this.state.has_color_first) {
-                console.log(sizeItems)
                 sizeSelectionArea = sizeItems.map(item => {
                     return (
                         <div
@@ -597,20 +579,22 @@ class ModuleProductHasVariants extends React.Component {
                                 : ''
                                 }`}
                             key={item.id}
-                            onClick={e => this.handleSelectSize(item.id)}
+                            onClick={e => this.todo(item.id)}
                         >
-                            <span className="ps-variant__tooltip">
-                                {item.size}
-                            </span>
-                            <span className="ps-variant__size">
-                                {item.size}
-                            </span>
-                        </div>
+                            <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                < div>
+                                    <span className="ps-variant__tooltip">
+                                        {item.size}
+                                    </span>
+                                    <span className="ps-variant__size">
+                                        {item.size}
+                                    </span>
+                                </div>
+                            </Link>
+                        </div >
                     );
                 });
-            }
-
-            else {
+            } else {
                 sizeSelectionArea = singleProduct.productChildren_size.map(item => {
                     return (
                         <div
@@ -619,16 +603,19 @@ class ModuleProductHasVariants extends React.Component {
                                 : ''
                                 }`}
                             key={item.id}
-                            onClick={e => this.handleSelectSize(item.id)}
+                            onClick={e => this.todo(item.id)}
                         >
-                            <span className="ps-variant__tooltip">
-                                {item.size}
-                            </span>
-                            <span className="ps-variant__size">
-                                {item.size}
-                            </span>
+                            <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                < div>
+                                    <span className="ps-variant__tooltip">
+                                        {item.size}
+                                    </span>
+                                    <span className="ps-variant__size">
+                                        {item.size}
+                                    </span>
+                                </div>
+                            </Link>
                         </div>
-
                     );
                 });
             }
@@ -700,7 +687,6 @@ class ModuleProductHasVariants extends React.Component {
                             <figcaption>
                                 {i18next.t('size')}:
                             <strong className="pl-1">
-
                                     {localStorage.getItem('lang') === "en" ?
                                         selectedSize !== null
                                             ? ' ' + selectedSize.size
@@ -717,12 +703,7 @@ class ModuleProductHasVariants extends React.Component {
                     </div>
                 );
             }
-
-
-
-        }
-
-        else {
+        } else {
             if (singleProduct.is_sale) {
                 priceArea = (
                     <h4 className="ps-product__price sale">
@@ -747,7 +728,7 @@ class ModuleProductHasVariants extends React.Component {
 
         return (
             <div className="ps-product__header" >
-                { thumbnailArea}
+                {thumbnailArea}
                 < div className="ps-product__info" >
                     <h1>   {localStorage.getItem('lang') === "en" ?
                         singleProduct.name_en
@@ -875,7 +856,7 @@ class ModuleProductHasVariants extends React.Component {
                     </MagicZoom>
                 </div>
           */}
-               {/* <MagicTest /> */}
+                {/* <MagicTest /> */}
             </div >
         );
     }

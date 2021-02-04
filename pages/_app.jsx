@@ -23,6 +23,7 @@ import 'react-rater/lib/react-rater.css';
 import 'react-phone-input-2/lib/style.css'
 import axios from 'axios';
 import i18next from 'i18next';
+import { loadScript } from '@paypal/paypal-js';
 // import { appWithTranslation} from '../i18next';
 
 class MyApp extends App {
@@ -30,28 +31,32 @@ class MyApp extends App {
     constructor(props) {
         super(props);
         this.persistor = persistStore(props.store);
-        
+
 
     }
 
-    state={
-        lang:null
+    state = {
+        lang: null
     }
 
     componentDidMount() {
+        loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
+            .then(paypal => {
+                paypal.Buttons().render();
+            });
         //console.log("persistore", this.persistor);
         //console.log("this persistore",persistStore( this.props.store));
         /* language */
-        this.setState({lang: localStorage.getItem('lang')|| 'en' })
+        this.setState({ lang: localStorage.getItem('lang') || 'en' })
 
         i18next.changeLanguage(this.state.lang);
-        if(this.state.lang==='ar'){
+        if (this.state.lang === 'ar') {
             document.getElementById('__next').classList.add('rtlpage');
         }
 
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById('__next').classList.add('loaded');
-           
+
         }, 100);
 
         this.setState({ open: true });
@@ -70,14 +75,14 @@ class MyApp extends App {
 
     // }
     render() {
-        
-     
+
+
         i18next.changeLanguage(this.state.lang);
-        if(this.state.lang==='ar'){
+        if (this.state.lang === 'ar') {
             document.getElementById('__next').classList.add('rtlpage');
         }
-     
-        
+
+
         /*
         this.props : component
         err
@@ -88,7 +93,7 @@ class MyApp extends App {
         */
 
         const { Component, pageProps, store } = this.props;
-        
+
         const getLayout =
             Component.getLayout || (page => <DefaultLayout children={page} />);
         return getLayout(
