@@ -121,8 +121,8 @@ class Index extends Component {
                 <SubscribePopup active={subscribe} />
                 <main id="homepage-1">
 
-                    {/* <HomeBanner />
-                    <SiteFeatures /> */}
+                    <HomeBanner />
+                    {/* <SiteFeatures /> */}
                     <MallsView />
                     <StoreView />
                     <HomeDefault />

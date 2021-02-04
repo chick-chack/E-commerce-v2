@@ -600,6 +600,9 @@
         strong {
             font-size: 18px;
             vertical-align: middle;
+            &:hover{
+                color: $color-heading;
+            }
         }
 
         i {
@@ -607,6 +610,9 @@
             margin-right: 0.5em;
             font-size: 24px;
             color: $color-heading;
+            &:hover{
+                color: $color-heading;
+            }
         }
     }
 

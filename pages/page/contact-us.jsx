@@ -18,23 +18,47 @@ const ContactUsPage = () => {
         },
         {
             text: 'ContactUs',
+            url:'/page/contact-us'
         },
     ];
 
     return (
         <div className="site-content">
+
+         
             <HeaderDefault />
             <HeaderMobile />
             <NavigationList />
             <div className="ps-page--single" id="contact-us">
                 <BreadCrumb breacrumb={breadCrumb} />
-                <ContactMap />
-                <ContactInfo />
-                <ContactForm />
+                <div className="ps-container" style={{margin:"30px 0"}}>
+                    <div className="row">
+                        <div className="col-md-6 col-12">
+                        <ContactMap />
+                        </div>
+                        <div className="col-md-6 col-12">
+                        <ContactForm />
+
+                        </div>
+                    </div>
+                {/* <div className="ps-section__left" style={{maxWidth:"50%"}}>
+                  
+                </div>
+                <div className="ps-section__right">
+                    <ContactForm />
+                </div>
+                       */}
+                        
+              
+                </div>
+           
+                {/* <ContactInfo /> */}
+          
             </div>
             <Newsletter layout="container" />
             <FooterDefault />
-        </div>
+    
+      </div>
     );
 };
 
