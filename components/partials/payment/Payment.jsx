@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
+import { add_order } from '../../../store/order/action';
 
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -19,24 +20,30 @@ class YourComponent extends React.Component {
     }
 
     createOrder(data, actions) {
+        var t = this.return_total()
+        console.log(t)
         return actions.order.create({
+
             purchase_units: [
                 {
                     amount: {
-                        value: this.return_total(),
+                        value: t,
                     },
                 },
             ],
         });
     }
 
-    onApprove(data, actions) {
-        console.log('-------------------------------------8-------------------------------------------')
-        console.log(data)
-        console.log(actions)
-        console.log('-------------------------------------8-------------------------------------------')
-        return actions.order.capture();
-    }
+    onApprove = (data, actions) => {
+        actions.order.capture().then(details => {
+            console.log('---------------------------------------------7-----------------------------------');
+            console.log(details);
+            console.log('---------------------------------------------7-----------------------------------');
+
+            this.props.dispatch(add_order(this.props.value, 1, details))
+            // this.setState({ showButtons: false, paid: true });
+        });
+    };
 
     render() {
         return (

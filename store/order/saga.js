@@ -31,15 +31,16 @@ const modalWarning = (type) => {
 
 // start new api for cart
 
-function* add_order({  addressId, paymentType }) {
-    console.log("saga ordfer", addressId, paymentType )
+function* add_order({ addressId, paymentType, paypalData }) {
+    console.log("saga ordfer", addressId, paymentType, paypalData)
     try {
-        const data1 = yield call(OrderRepository.add_orders,  addressId, paymentType);
+        const data1 = yield call(OrderRepository.add_orders, addressId, paymentType, paypalData);
+        console.log("sssssssssssss",data1)
         modalSuccess('success');
         yield put(add_order_Success(data1));
     } catch (err) {
         modalWarning('warning');
-        yield put(add_order_Error(data1));
+        yield put(add_order_Error(err));
     }
 }
 
@@ -67,9 +68,9 @@ function* orders_details({ id }) {
 ||||||||||||||| order list group ||||||||||||||||||||||||||
 =========================================================*/
 
-function* order_list_group({ id}) {
+function* order_list_group({ id }) {
     try {
-        const data = yield call(OrderRepository.order_list_group,id);
+        const data = yield call(OrderRepository.order_list_group, id);
         yield put(order_list_group_Success(data));
     } catch (err) {
         console.log(err);

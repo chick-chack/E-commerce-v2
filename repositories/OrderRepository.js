@@ -9,16 +9,26 @@ class OrdertRepository {
     }
 
     // add new orders
-    async add_orders(addressId, paymentType) {
+    async add_orders(addressId, paymentType, paypalData) {
+
+        console.log(addressId, paymentType, paypalData)
         var info = {
             "addressId": addressId,
-            "paymentType": paymentType
+            "paymentType": paymentType,
+            "paypalData": paypalData
         };
+        console.log(info)
         try {
             const response = await Repository.post(`${baseUrl}/order/add`, info)
+            console.log('------------------------7--------------------------------')
+            console.log(response)
+            console.log('------------------------7--------------------------------')
             return response.data;
         } catch (error) {
+            console.log('------------------------8--------------------------------')
             console.log(error)
+            console.log('------------------------8--------------------------------')
+            return error
         }
     }
 

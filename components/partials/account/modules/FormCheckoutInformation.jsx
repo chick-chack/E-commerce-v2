@@ -94,9 +94,10 @@ class FormCheckoutInformation extends Component {
             })
         } else {
             console.log(this.state.value, this.state.paymentValue)
-            this.props.dispatch(add_order(this.state.value, this.state.paymentValue))
             if (this.state.paymentValue == 1) {
                 this.setState({ payment_state: true })
+            } else {
+                this.props.dispatch(add_order(this.state.value, this.state.paymentValue, null))
             }
         }
     }
@@ -119,7 +120,7 @@ class FormCheckoutInformation extends Component {
                 </Helmet>
                 <div className="ps-form__content">
 
-                {!this.state.payment_state && <div className="ps-section__header">
+                    {!this.state.payment_state && <div className="ps-section__header">
                         <h1>{i18next.t('checkoutInfo')}</h1>
                     </div>}
 
@@ -400,7 +401,7 @@ class FormCheckoutInformation extends Component {
                             </div>
                         </div>
                     </div>}
-                    {this.state.payment_state && <Payment />}
+                    {this.state.payment_state && <Payment value={this.state.value} />}
                 </div>
             </div>
         );

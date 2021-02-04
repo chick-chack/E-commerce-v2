@@ -21,12 +21,12 @@ export const actionTypes = {
 
 };
 
-export function add_order(addressId, paymentType) {
-    console.log("order ", addressId, paymentType)
+export function add_order(addressId, paymentType, paypalData) {
     return {
         type: actionTypes.ADD_ORDER,
         addressId,
         paymentType,
+        paypalData
     };
 }
 
@@ -50,7 +50,7 @@ export function order_details(id) {
 export function order_details_Success(data) {
 
     return {
-        type: actionTypes.ORDER_DETAILS_SUCCESS,data
+        type: actionTypes.ORDER_DETAILS_SUCCESS, data
     };
 }
 
@@ -83,8 +83,10 @@ export function order_list_Error(error) {
 =======================================================*/
 
 export function order_list_group(id) {
-    return { type: actionTypes.ORDER_LIST_GROUP,
-            id, };
+    return {
+        type: actionTypes.ORDER_LIST_GROUP,
+        id,
+    };
 }
 
 export function order_list_group_Success(data) {
