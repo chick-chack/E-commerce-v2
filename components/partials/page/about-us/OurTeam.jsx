@@ -1,13 +1,14 @@
 import React from 'react';
-
+import ReactPlayer from 'react-player';
 const OurTeam = () => (
     <div className="ps-our-team">
-        <div className="container">
+        <div className="">container
             <div className="ps-section__header">
-                <h3>Meet Our Leaders</h3>
+                <h3>Who we are? </h3>
             </div>
             <div className="ps-section__content">
-                <figure>
+            <ReactPlayer url="https://chickchack.s3.eu-west-2.amazonaws.com/landing-assets/1604397282182chickchack.mp4"  type="video/mp4"   className="react-player" style={{height:"100%"}}/>
+                {/* <figure>
                     <div className="ps-block--ourteam">
                         <img src="/static/img/users/our-team/1.jpg" alt="chickchack" />
                         <div className="ps-block__content">
@@ -196,6 +197,8 @@ const OurTeam = () => (
                         </a>
                     </div>
                 </figure>
+            
+             */}
             </div>
         </div>
     </div>

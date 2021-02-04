@@ -14,6 +14,14 @@ const localeSubpaths = {
 
 
 
+// next.config.js
+const withVideos = require('next-videos')
+
+module.exports = withVideos()
+
+//////////////////////
+
+
 const nextSettings = {
     exportTrailingSlash: true,
     exportPathMap: function() {
