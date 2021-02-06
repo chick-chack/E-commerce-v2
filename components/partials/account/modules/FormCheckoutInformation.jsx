@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useMemo } from 'react';
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
 import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
@@ -27,7 +29,8 @@ class FormCheckoutInformation extends Component {
             test:this.props.cart.cartlist,
             value:null,
             paymentValue:1,
-            show:"none"
+            show:"none",
+            countryVal:null
         }
     }
 
@@ -93,12 +96,25 @@ if(this.state.value==null){
         this.props.dispatch(add_order(this.state.value, this.state.paymentValue))
     }  }
 
-  
+     changeHandler = value => {
+         console.log('value', value)
+       this.setState({
+           countryVal:value
+       })
+      }
 
     render() {
         const { amount, cartItems, cartTotal, cartList} = this.props.cart;
         const {address_list} = this.props.address;
-console.log("ghghghgh", address_list)
+        // const options = useMemo(() => countryList().getData(), [])
+        const options = countryList().getData();
+        console.log("--------------------------------------", options);
+     const countryCodes = require('country-codes-list')
+ 
+     const myCountryCodesObject = countryCodes.customList('countryCode', 'countryNameEn')
+     console.log("option", myCountryCodesObject);
+     console.log("optionbbbbbbbbbbbbbbbbbbbbbbbbb", countryCodes.customArray);
+// console.log("ghghghgh", address_list)
         return (
             <div
                 className="ps-form--checkout"
@@ -162,7 +178,10 @@ console.log("ghghghgh", address_list)
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <div className="form-group">
-                                            <Form.Item
+                                        <Select 
+                                        
+                                         className="form-control"  options={myCountryCodesObject}  value={this.state.countryVal} onChange={this.changeHandler} />
+                                            {/* <Form.Item
                                                 // label="First Name"
                                                 name="country"
                                                 rules={[
@@ -177,7 +196,7 @@ console.log("ghghghgh", address_list)
                                                     type="text"
                                                     placeholder="country"
                                                 />
-                                            </Form.Item>
+                                            </Form.Item> */}
                                         </div>
                                     </div>
                                     <div className="col-sm-6">

@@ -15,10 +15,17 @@ const StyleSheets = () => (
         <meta name="author" content="nouthemes" />
         <meta name="keywords" content="chickchack, React, eCommerce, Template" />
         <meta name="description" content="Chick Chack" />
-        <link
+        {/* <link
             href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext"
             rel="stylesheet"
-        />
+        /> */}
+
+
+        {/* add cairo font */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+
         <link
             rel="stylesheet"
             href="/static/fonts/Linearicons/Font/demo-files/demo.css"

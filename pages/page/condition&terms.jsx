@@ -5,20 +5,20 @@ import Newletters from '../../components/partials/commons/Newletters';
 import HeaderDefault from '../../components/shared/headers/HeaderDefault';
 import HeaderMobile from '../../components/shared/headers/HeaderMobile';
 import NavigationList from '../../components/shared/navigation/NavigationList';
-import BlankContent from '../../components/partials/page/Blank';
+import ConditionContent from '../../components/partials/page/ConditionContent';
 import i18next from 'i18next';
 
 
 
-const BlankPage = () => {
+const ConditionPage = () => {
     const breadCrumb = [
         {
-            text: 'Home',
+            text: i18next.t('home'),
             url: '/',
         },
         {
-            text: i18next.t('privacypolicy'),
-            url:'/page/blank'
+            text: i18next.t('condition&terms'),
+            url:'/page/condition&terms'
         },
     ];
 
@@ -29,7 +29,7 @@ const BlankPage = () => {
             <NavigationList />
             <div className="ps-page--single">
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-                <BlankContent />
+                <ConditionContent />
             </div>
             <Newletters layout="container" />
             <FooterDefault />
@@ -37,4 +37,4 @@ const BlankPage = () => {
     );
 };
 
-export default BlankPage;
+export default ConditionPage;
