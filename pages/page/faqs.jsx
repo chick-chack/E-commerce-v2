@@ -15,6 +15,7 @@ const FaqsPage = () => {
         },
         {
             text: 'Frequently Asked Questions',
+            url:'/page/faqs'
         },
     ];
 
