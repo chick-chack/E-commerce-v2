@@ -20,6 +20,14 @@ const   modalWarning = (type) => {
     });
 };
 
+const   modalWarning_add = (type) => {
+    notification[type]({
+        message: 'Warning',
+        description: "please select your country ",
+        duration: 3,
+    });
+};
+
 class FormCheckoutInformation extends Component {
     constructor(props) {
         super(props);
@@ -62,28 +70,33 @@ class FormCheckoutInformation extends Component {
       }
 
     handleLoginSubmit = (e) => {
-        console.log(e);
-        const newAddress = {
-            "name": e.name,
-            "country": e.country,
-            "city":e.city,
-            "neighborhood": e.neighborhood,
-            "street": e.street,
-            "postCode": e.postCode,
+        if (this.state.countryVal == null){
+            modalWarning_add('warning');
         }
-        // this.props.cart.cartlist.push(this.props.product.singleProduct.productChildren[0])
-        this.props.address.address_list.push(newAddress)
-
+        else{
+            console.log(e);
+            const newAddress = {
+                // "name": e.name,
+                // "country": e.country,
+                // "city":e.city,
+                // "neighborhood": e.neighborhood,
+                // "street": e.street,
+                // "postCode": e.postCode,
+                "name": e.name,
+                "country": this.state.countryVal.label,
+                "countryCode": this.state.countryVal.value,
+                "state":  e.neighborhood,
+                "city": e.city,
+                "restAddress": e.street,
+                "postCode":  e.postCode,
+            }
+            this.props.address.address_list.push(newAddress)
     
-        // this.props.address.address_list.push()
-         this.props.dispatch(add_address(e))
-        // // this.props.dispatch(getcartlist())
-        // const {cartlist } = this.props.cart;
-        // this.setState({
-        //     test: cartlist
-        // })
+             this.props.dispatch(add_address(e,this.state.countryVal))
 
-        // Router.push('/account/shipping');
+        }
+      
+
     };
 
     addOrder=()=> {
@@ -108,7 +121,7 @@ if(this.state.value==null){
         const {address_list} = this.props.address;
         // const options = useMemo(() => countryList().getData(), [])
         const options = countryList().getData();
-        console.log("--------------------------------------", options);
+        // console.log("--------------------------------------", options);
      const countryCodes = require('country-codes-list')
  
      const myCountryCodesObject = countryCodes.customList('countryCode', 'countryNameEn')
@@ -126,7 +139,7 @@ if(this.state.value==null){
                         <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
                             <div className="ps-form__billing-info">
                            
-                           <div className="address-list" style={{marginBottom:"25px"}}>
+                           <div className="address-list list_add" style={{marginBottom:"25px"}}>
                            <h3 className="ps-form__heading">
                                    {i18next.t('choosetheaddress')}
                                 </h3>
@@ -180,7 +193,7 @@ if(this.state.value==null){
                                         <div className="form-group">
                                         <Select 
                                         
-                                         className="form-control"  options={myCountryCodesObject}  value={this.state.countryVal} onChange={this.changeHandler} />
+                                         className="form-control"  options={options}  value={this.state.countryVal} onChange={this.changeHandler} />
                                             {/* <Form.Item
                                                 // label="First Name"
                                                 name="country"

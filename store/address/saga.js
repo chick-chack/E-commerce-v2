@@ -29,10 +29,11 @@ const modalWarning = (type) => {
 
 // Address api's
 
-function* add_address({ data }) 
+function* add_address({ data, countryVal }) 
 {
+    console.log("saga data & country", data, countryVal)
     try {
-        const data1 = yield call(AddressRepository.add_address, data);
+        const data1 = yield call(AddressRepository.add_address, data, countryVal);
         modalSuccess('success');
         yield put(add_address_Success(data1));
     } catch (err) {
