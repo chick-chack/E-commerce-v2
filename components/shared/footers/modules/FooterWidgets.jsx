@@ -52,16 +52,16 @@ const FooterWidgets = () => (
                         <a>{i18next.t('condition&terms')}</a>
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href="/page/blank">
                         <a>{i18next.t('shipping')}</a>
                     </Link>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <Link href="/page/blank">
                         <a>{i18next.t('return')}</a>
                     </Link>
-                </li>
+                </li> */}
                 <li>
                     <Link href="/page/faqs">
                         <a>{i18next.t('faqs')}</a>

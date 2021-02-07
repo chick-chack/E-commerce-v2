@@ -28,6 +28,7 @@ class ProductDetailFullwidth extends Component {
                                             childern_ID={this.props.childern_ID}/>
                                 <DefaultDescription />
                             </div>
+                            
                         );
                     } else {
                         return (
