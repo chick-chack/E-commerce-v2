@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useMemo } from 'react';
+import Select from 'react-select'
+import countryList from 'react-select-country-list'
 import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
@@ -31,7 +33,9 @@ class FormCheckoutInformation extends Component {
             value: null,
             paymentValue: 1,
             show: "none",
+            countryVal: null,
             payment_state: false
+
         }
     }
 
@@ -108,11 +112,21 @@ class FormCheckoutInformation extends Component {
     }
 
 
+    changeHandler = value => {
+        console.log('value', value)
+        this.setState({
+            countryVal: value
+        })
+    }
 
     render() {
         const { amount, cartItems, cartTotal, cartList } = this.props.cart;
         const { address_list } = this.props.address;
-        console.log("ghghghgh", address_list)
+        // const options = useMemo(() => countryList().getData(), [])
+        const options = countryList().getData();
+        const countryCodes = require('country-codes-list')
+
+        const myCountryCodesObject = countryCodes.customList('countryCode', 'countryNameEn')
         return (
             <div
                 className="ps-form--checkout"
@@ -157,7 +171,7 @@ class FormCheckoutInformation extends Component {
 
                                 <Form
                                     style={{ marginBottom: "25px" }}
-                                    onFinish={this.handlesaveSubmit} >
+                                    onFinish={this.handleLoginSubmit} >
                                     <div className="ps-form__billing-info">
                                         <h3 className="ps-form__heading">
                                             {i18next.t('addnewaddress')}
@@ -185,22 +199,25 @@ class FormCheckoutInformation extends Component {
                                     <div className="row">
                                         <div className="col-sm-6">
                                             <div className="form-group">
-                                                <Form.Item
-                                                    // label="First Name"
-                                                    name="country"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message:
-                                                                'Enter your country!',
-                                                        },
-                                                    ]}>
-                                                    <Input
-                                                        className="form-control"
-                                                        type="text"
-                                                        placeholder="country"
-                                                    />
-                                                </Form.Item>
+                                                <Select
+
+                                                    className="form-control" options={options} value={this.state.countryVal} onChange={this.changeHandler} />
+                                                {/* <Form.Item
+                                                // label="First Name"
+                                                name="country"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message:
+                                                            'Enter your country!',
+                                                    },
+                                                ]}>
+                                                <Input
+                                                    className="form-control"
+                                                    type="text"
+                                                    placeholder="country"
+                                                />
+                                            </Form.Item> */}
                                             </div>
                                         </div>
                                         <div className="col-sm-6">
@@ -410,6 +427,7 @@ class FormCheckoutInformation extends Component {
                 </div>
             </div>
         );
+
     }
 }
 

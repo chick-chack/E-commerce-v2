@@ -18,7 +18,6 @@ const persistConfig = {
     key: 'chickchack',
     storage,
     whitelist: ['cart', 'compare', 'auth', 'wishlist'],
-    // whitelist: [ 'compare', 'auth', 'wishlist'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

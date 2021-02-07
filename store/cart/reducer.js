@@ -35,11 +35,13 @@ function reducer(state = initCart, action) {
             };
 
         case actionTypes.UPDATE_CART_SUCCESS:
+            console.log("jbjb", action.payload)
             return {
-                ...state,
-                ...{ cartItems: action.payload.cartItems },
-                ...{ amount: action.payload.amount },
-                ...{ cartTotal: action.payload.cartTotal },
+                 ...state,
+                ...{ cartItems: action.payload },
+                // ...{ cartItems: action.payload.cartItems },
+                // ...{ amount: action.payload.amount },
+                // ...{ cartTotal: action.payload.cartTotal },
             };
         case actionTypes.CLEAR_CART_SUCCESS:
             return {
@@ -67,43 +69,7 @@ function reducer(state = initCart, action) {
                 ...state,
                 // ...{ cartlist: action.data },
             }
-        // case actionTypes.GET_CART_SUCCESS:
-        //     return {
-        //         ...state,
-        //     };
-
-        // case actionTypes.UPDATE_CART_SUCCESS:
-        //     // console.log("reducer cart updated...........(action.payload.cartItems )...........!",action.payload.cartItems[0].product );
-        //     // {
-        //     //     action.payload.cartItems.map(item => {
-        //     //         console.log("hellllo", item.productSelected.id)
-        //     //     })
-        //     // }
-        //     console.log("reducer cart updated...........(action.payload.amount )...........!",action.payload.amount )
-        //     console.log("reducer cart updated...........(cartTotal: action.payload.cartTotal)...........!",action.payload.cartTotal )
-        //     return {
-        //         ...state,
-        //         ...{ cartItems: action.payload.cartItems },
-        //         ...{ amount: action.payload.amount },
-        //         ...{ cartTotal: action.payload.cartTotal },
-        //     };
-        // case actionTypes.CLEAR_CART_SUCCESS:
-        //     return {
-        //         ...state,
-        //         ...{ cartItems: action.payload.cartItems },
-        //         ...{ amount: action.payload.amount },
-        //         ...{ cartTotal: action.payload.cartTotal },
-        //     };
-        // case actionTypes.GET_CART_ERROR:
-        //     return {
-        //         ...state,
-        //         ...{ error: action.error },
-        //     };
-        // case actionTypes.UPDATE_CART_ERROR:
-        //     return {
-        //         ...state,
-        //         ...{ error: action.error },
-        //     };
+ 
         default:
             return state;
     }

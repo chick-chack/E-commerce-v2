@@ -1,26 +1,19 @@
+import i18next from 'i18next';
 import React from 'react';
 
 const ContactForm = () => (
     <div className="ps-contact-form">
-        <div className="container">
             <form className="ps-form--contact-us" action="/" method="get">
-                <h3>Get In Touch</h3>
+                <h3>{i18next.t('contuctus')} </h3>
+                <p>{i18next.t('contuctus_p')}</p>
                 <div className="row">
-                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 type="text"
-                                placeholder="Name *"
-                            />
-                        </div>
-                    </div>
-                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
-                        <div className="form-group">
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="Email *"
+                                placeholder={i18next.t('fullname')}
+                                name="fullname"
                             />
                         </div>
                     </div>
@@ -29,7 +22,8 @@ const ContactForm = () => (
                             <input
                                 className="form-control"
                                 type="text"
-                                placeholder="Subject *"
+                                placeholder={i18next.t('email')}
+                                name="email"
                             />
                         </div>
                     </div>
@@ -38,15 +32,15 @@ const ContactForm = () => (
                             <textarea
                                 className="form-control"
                                 rows="5"
-                                placeholder="Message"></textarea>
+                                placeholder={i18next.t('message')} ></textarea>
                         </div>
                     </div>
                 </div>
                 <div className="form-group submit">
-                    <button className="ps-btn">Send message</button>
+                    <button className="ps-btn">{i18next.t('sendmessage')}</button>
                 </div>
             </form>
-        </div>
+    
     </div>
 );
 

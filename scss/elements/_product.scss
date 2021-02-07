@@ -98,9 +98,11 @@
                 width: 34px;
                 height: 34px;
                 border-radius: 50%;
+                background-color: $button-hover;
+                color: #ffffff;
 
                 &:hover {
-                    background-color: $color-1st;
+                    background-color: $color-heading;
                     color: #ffffff;
                 }
             }
@@ -157,7 +159,7 @@
         padding-right: 1rem;
 
         &:hover {
-            color: $color-1st;
+            color: $color-heading
         }
     }
 
@@ -2302,7 +2304,8 @@
             color: #06c;
 
             &:hover {
-                color: $color-1st;
+                // color: $color-1st;
+                color: $color-span;
             }
         }
 
@@ -2479,6 +2482,11 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        h2{
+            margin: 0 9px;
+            color: #000000;
+        }
 
         .ps-product__price {
             padding-right: 30px;

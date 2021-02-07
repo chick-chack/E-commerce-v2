@@ -42,14 +42,14 @@ const FooterWidgets = () => (
             <h4 className="widget-title"> {i18next.t('quicklinks')}</h4>
             <ul className="ps-list--link">
                 <li>
-                    <Link href="/page/blank">
+                    <Link href="/page/privacy">
                         <a>{i18next.t('policy')}</a>
                     </Link>
                 </li>
 
                 <li>
-                    <Link href="/page/blank">
-                        <a>{i18next.t('terms')}</a>
+                    <Link href="/page/condition&terms">
+                        <a>{i18next.t('condition&terms')}</a>
                     </Link>
                 </li>
                 <li>

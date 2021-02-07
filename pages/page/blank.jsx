@@ -6,6 +6,9 @@ import HeaderDefault from '../../components/shared/headers/HeaderDefault';
 import HeaderMobile from '../../components/shared/headers/HeaderMobile';
 import NavigationList from '../../components/shared/navigation/NavigationList';
 import BlankContent from '../../components/partials/page/Blank';
+import i18next from 'i18next';
+
+
 
 const BlankPage = () => {
     const breadCrumb = [
@@ -14,7 +17,8 @@ const BlankPage = () => {
             url: '/',
         },
         {
-            text: 'Blank Page',
+            text: i18next.t('privacypolicy'),
+            url:'/page/blank'
         },
     ];
 

@@ -63,12 +63,12 @@ class NavigationDefault extends Component {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/aboutus">
+                                <Link href="/page/about-us">
                                     <a>  {i18next.t('aboutus')}</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contactus">
+                                <Link href="/page/contact-us">
                                     <a>  {i18next.t('contactus')}</a>
                                 </Link>
                             </li>

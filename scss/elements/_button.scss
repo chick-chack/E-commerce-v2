@@ -84,11 +84,11 @@ button.ps-btn {
     font-size: 16px;
     font-weight: 600;
     line-height: 20px;
-    color: $color-heading;
+    color: #ffffff;
     border: none;
     font-weight: 600;
     border-radius: 4px;
-    background-color: $color-1st;
+    background-color: $button-hover;
     transition: all 0.4s ease;
     cursor: pointer;
 
@@ -109,7 +109,7 @@ button.ps-btn {
 
         &:hover {
             color: #ffffff;
-            background-color: $color-1st;
+            background-color: $color-heading;
         }
     }
 
@@ -140,7 +140,8 @@ button.ps-btn {
         background-color: #576391;
 
         &:hover {
-            background-color: $color-2nd;
+            // background-color: $color-2nd;
+            background-color: $color-heading;
         }
     }
 
@@ -151,7 +152,8 @@ button.ps-btn {
     }
 
     &.ps-btn--black {
-        background-color: $color-heading;
+        // background-color: $color-heading;
+        background-color: $button-hover;
 
         &.ps-btn--outline {
             background-color: transparent;
@@ -167,11 +169,12 @@ button.ps-btn {
 
     &:hover,
     &:active {
-        background-color: #222;
+        background-color: $color-heading;
         color: #fff;
 
         &.ps-btn--black {
-            background-color: $color-1st;
+            // background-color: $color-1st;
+            background-color: $color-heading;
         }
     }
 }
@@ -245,18 +248,20 @@ button.ps-btn {
     width: 45px;
     height: 45px;
     z-index: 10000;
-    background-color: #fff;
+    background-color: $color-span;
     border: 1px solid #eaeaea;
+    border-radius: 7px;
 
     i {
-        color: $color-text;
+        color: #ffffff;
     }
 
     &:hover {
+        background-color: #e19922;
         cursor: pointer;
-        border-color: $color-1st;
+        border-color:1px solid #eaeaea;
         i {
-            color: $color-1st;
+            color: #ffffff;
         }
     }
 

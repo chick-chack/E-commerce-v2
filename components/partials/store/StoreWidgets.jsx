@@ -8,12 +8,53 @@ class ProductWidgets extends Component {
 
     render() {
         const { collections, collectionSlug, storeinfo } = this.props;
-        console.log('______________________________________________@__________________________');
-        console.log(storeinfo)
+  
         return (
             <section className="store_widgets">
                 {storeinfo && <aside className="widget widget_product widget_features_store">
-                    <p>
+                    <div className="table-responsive">
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                       <p>Store Name : </p>               
+                                    </td>
+                                                 
+                                    <td>
+                                    <p>
+                                         {storeinfo['trader.storeName']}
+                                    </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <p>Store Type : </p>               
+                                    </td>
+                                                 
+                                    <td>
+                                    <p>
+                                    {storeinfo['storeType.name_en']}
+                                    </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <p>Mall  : </p>               
+                                    </td>
+                                                 
+                                    <td>
+                                    <p>
+                                    <p>
+                        {storeinfo['mall.name_en']}
+                    </p>
+                                    </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                             
+                    {/* <p>
                         {storeinfo['trader.storeName']}
                     </p>
                     <p>
@@ -24,7 +65,7 @@ class ProductWidgets extends Component {
                     </p>
                     <p>
                         {storeinfo['trader.storeName']}
-                    </p>
+                    </p> */}
                 </aside>}
             </section>
         );

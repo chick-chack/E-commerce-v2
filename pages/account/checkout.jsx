@@ -20,6 +20,7 @@ const OrderTrackingPage = () => {
         },
         {
             text: i18next.t('checkoutinfo'),
+            url: '/account/checkout',
         },
     ];
     return (

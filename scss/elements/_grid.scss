@@ -115,6 +115,9 @@ body {
             font-size: 25px;
             font-weight: bold;
             margin-bottom: 15px;
+            &:hover{
+                color: $button-hover;
+            }
         }
 
         .mall_img{

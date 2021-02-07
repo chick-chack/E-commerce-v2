@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { Menu } from 'antd';
 import { menuPrimary } from '../../../public/static/data/menu';
 import Link from 'next/link';
+import i18next from 'i18next'
 
 const { SubMenu } = Menu;
 
@@ -38,73 +38,28 @@ class PanelMenu extends Component {
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
                 className="menu--mobile-2">
-                {menuPrimary.menu_1.map((item) => {
-                    if (item.subMenu) {
-                        return (
-                            <SubMenu
-                                key={item.text}
-                                title={
-                                    <Link href={item.url}>
-                                        <a>{item.text}</a>
-                                    </Link>
-                                }>
-                                {item.subMenu.map((subItem) => (
-                                    <Menu.Item key={subItem.text}>
-                                        <Link href={subItem.url}>
-                                            <a>{subItem.text}</a>
-                                        </Link>
-                                    </Menu.Item>
-                                ))}
-                            </SubMenu>
-                        );
-                    } else if (item.megaContent) {
-                        return (
-                            <SubMenu
-                                key={item.text}
-                                title={
-                                    <Link href={item.url}>
-                                        <a>{item.text}</a>
-                                    </Link>
-                                }>
-                                {item.megaContent.map((megaItem) => (
-                                    <SubMenu
-                                        key={megaItem.heading}
-                                        title={<span>{megaItem.heading}</span>}>
-                                        {megaItem.megaItems.map(
-                                            (megaSubItem) => (
-                                                <Menu.Item
-                                                    key={megaSubItem.text}>
-                                                    <Link href={item.url}>
-                                                        <a>
-                                                            {megaSubItem.text}
-                                                        </a>
-                                                    </Link>
-                                                </Menu.Item>
-                                            )
-                                        )}
-                                    </SubMenu>
-                                ))}
-                            </SubMenu>
-                        );
-                    } else {
-                        return (
-                            <Menu.Item key={item.text}>
-                                {item.type === 'dynamic' ? (
-                                    <Link
-                                        href={`${item.url}/[pid]`}
-                                        as={`${item.url}/${item.endPoint}`}>
-                                        l<a>{item.text}</a>
-                                    </Link>
-                                ) : (
-                                    <Link href={item.url} as={item.alias}>
-                                        <a>{item.text}</a>
-                                    </Link>
-                                )}
-                            </Menu.Item>
-                        );
-                    }
-                })}
-            </Menu>
+                    <Menu.Item key={1}> 
+                        <Link href="/">
+                            <a> {i18next.t('home')}</a>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={2}> 
+                        <Link href="/page/about-us">
+                            <a>  {i18next.t('aboutus')}</a>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={3}> 
+                        <Link href="/page/contact-us">
+                            <a>  {i18next.t('contactus')}</a>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={4}> 
+                        <Link href="/order/MyOrders">
+                            <a>  {i18next.t('myorders')}</a>
+                        </Link>
+                    </Menu.Item>
+            </Menu>   
+        
         );
     }
 }

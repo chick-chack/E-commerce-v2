@@ -1,20 +1,137 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addItem } from '../../../store/cart/action';
+import { add_to_cart, updateCartSuccess } from '../../../store/cart/action';
 import { removeCompareItem } from '../../../store/compare/action';
 import LazyLoad from 'react-lazyload';
 import Link from 'next/link';
 import { Rate } from 'antd';
 import Rater from 'react-rater';
 import i18next from 'i18next';
+import Router from 'next/router';
+import { notification } from 'antd';
+
+const modalSuccess = (type) => {
+    notification[type]({
+        message: 'Success',
+        description: 'This product has been added to your cart!',
+        duration: 1,
+    });
+};
+
 
 class Compare extends Component {
     constructor(props) {
         super(props);
     }
 
-    handleAddItemToCart = product => {
-        this.props.dispatch(addItem(product));
+    handleAddItemToCart =(e, product)  => {
+        e.preventDefault();
+        console.log('compare props', product)
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){ 
+            if (this.props.cart.cartlist) {
+                if (this.props.cart.cartlist.length > 0) {
+                    let existItem = this.props.cart.cartlist.find(
+                        item => item['productChild.id'] == product.productSelected.id
+                    )
+                    if (existItem) {
+                        existItem.quantity ++;
+                    }
+                    else {
+                        // let index = this.props.wishlist.wishlistItems.product.productChildren_orginal.findIndex(
+                        //     (item) => item.id == this.props.childern_ID
+                        // );
+                        // console.log("child id index ", index)
+                        const newProduct = {
+                            "productChild.colorCode": product.productSelected.colorCode,
+                            "productChild.colorName_ar":  product.productSelected.colorName_ar,
+                            "productChild.colorName_en":  product.productSelected.colorName_en,
+                            "productChild.id":  product.productSelected.id,
+                            "productChild.productId": product.product.productId,
+                            "productChild.image":product.productSelected.image,
+                            "productChild.isOffer": product.productSelected.isOffer,
+                            "productChild.offerRatio": product.productSelected.offerRatio,
+                            "productChild.price": product.productSelected.price,
+                            "productChild.product.name_ar": product.product.name_ar,
+                            "productChild.product.name_en": product.product.name_en,
+                            "productChild.size": product.productSelected.size,
+                            "productChildId": product.productSelected.id,
+                            //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                            "quantity":1
+                        }
+                        this.props.cart.cartlist.push(newProduct)
+                    }
+                }
+    
+            }
+            this.props.dispatch(add_to_cart(product.productSelected.id, 1))
+            this.props.dispatch(removeCompareItem(product.product, product.productSelected));
+    
+            modalSuccess('success');
+            Router.push('/account/shopping-cart')}
+    
+            else{
+                if (this.props.cart.cartItems) {
+                    console.log("tester", this.props.wishlist.wishlistItems)
+                    if (this.props.cart.cartItems.length > 0) {
+                        let existItem = this.props.cart.cartItems.find(
+                            item => item['productChild.id'] == product.productSelected.id
+                        )
+                        if (existItem) {
+                            existItem.quantity ++;
+                            this.props.dispatch(removeCompareItem(product.product, product.productSelected));
+                            this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
+    
+                        }
+                        else {
+                            console.log("this.props.product ", this.props.wishlist.wishlistItems)
+                            // let index = this.props.wishlist.wishlistItems.findIndex(
+                            //     (item) => item.product.productSelected.id == this.props.childern_ID
+                            // );
+                            // console.log("child id index ", index)
+                            const newProduct = {
+                                "productChild.colorCode": product.productSelected.colorCode,
+                                "productChild.colorName_ar":  product.productSelected.colorName_ar,
+                                "productChild.colorName_en":  product.productSelected.colorName_en,
+                                "productChild.id":  product.productSelected.id,
+                                "productChild.productId": product.product.productId,
+                                "productChild.image":product.productSelected.image,
+                                "productChild.isOffer": product.productSelected.isOffer,
+                                "productChild.offerRatio": product.productSelected.offerRatio,
+                                "productChild.price": product.productSelected.price,
+                                "productChild.product.name_ar": product.product.name_ar,
+                                "productChild.product.name_en": product.product.name_en,
+                                "productChild.size": product.productSelected.size,
+                                "productChildId": product.productSelected.id,
+                                //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
+                                "quantity":1
+                            }
+                            // this.props.cart.cartItems.push(newProduct)
+                            console.log("new yyyyyproduct", newProduct)
+                            this.props.cart.cartItems.push(newProduct)
+                            this.props.dispatch(removeCompareItem(product.product, product.productSelected));
+                            this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
+                            // let QTY;
+                            // if(this.state.final_QTY===1 ){
+                
+                            //      QTY= this.state.quantity-1
+                            // }
+                            // else{
+                            //      QTY= this.state.quantity - this.state.final_QTY;
+                            // } 
+                            
+                            //  this.props.dispatch(add_to_local_cart(newProduct,  QTY))
+                             Router.push('/account/shopping-cart')
+                            console.log("------------------------", this.props.cart.cartItems)
+                        }
+                    }
+        
+                }
+                // this.props.dispatch(add_to_cart(product.productSelected.id, 1))
+                // this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
+        
+                modalSuccess('success');
+                Router.push('/account/shopping-cart')}
+        // this.props.dispatch(addItem(product));
     };
 
     handleRemoveCompareItem = (e, product) => {
@@ -55,8 +172,7 @@ class Compare extends Component {
                                                                             product,
                                                                         )
                                                                     }>
-                                                                    {i18next.t('remove')}
-                                                    </a>
+                                                                    {i18next.t('remove')} </a>
                                                             </td>
                                                         ))
                                                     ) : (
@@ -186,9 +302,16 @@ class Compare extends Component {
                                                     compareItems.length > 0 ? (
                                                         compareItems.map(product => (
                                                             <td key={product.id}>
-                                                                <button className="ps-btn">
+                                                                
+                                                                <button className="ps-btn"
+                                                                    onClick={e =>
+                                                                        this.handleAddItemToCart(
+                                                                            e,
+                                                                            product,
+                                                                        )
+                                                                    }>
                                                                     {i18next.t('addtocart')}
-                                                    </button>
+                                                           </button>
                                                             </td>
                                                         ))
                                                     ) : (

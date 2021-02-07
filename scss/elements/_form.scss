@@ -640,8 +640,14 @@ textarea.form-control {
             a {
                 display: block;
                 font-size: 1.3rem;
-                color: $color-heading;
+                color: #000000;
                 padding: 6px 10px;
+            }
+            &:hover{
+               background-color: $button-hover;
+               a{
+                   color: #ffffff;
+               }
             }
         }
     }
@@ -687,7 +693,7 @@ textarea.form-control {
         left: 50%;
         padding: 5px 10px;
         @include transform(translate(-50%, -50%));
-        background-color: rgba(#000, 0.9);
+        background-color: rgba($color-span, 1);
         @include border-radius(2px);
         color: #ffffff;
         font-size: 12px;
@@ -701,7 +707,7 @@ textarea.form-control {
             top: 100%;
             left: 50%;
             @include transform(translateX(-50%));
-            @include triangle(12px, #000, down);
+            @include triangle(12px, $color-span, down);
         }
     }
 
@@ -798,4 +804,41 @@ textarea.form-control {
         left: 0;
         height: 100%;
     }
+}
+ .css-yk16xz-control{
+     border-width: 0!important;
+     height: 100%!important;
+     min-height: 100%!important;
+     width: 100%!important;
+     margin:0!important;
+     padding: 0!important;
+     border: none!important;
+     -webkit-align-items: center;
+     -webkit-box-align: center;
+     -ms-flex-align: center;
+     align-items: center;
+     background-color: hsl(0, 0%, 100%);
+     border-color: none!important;
+     border-radius:0!important;
+    //  border-style: ;
+     border-width: 0!important;
+ }
+ .css-yk16xz-control,
+.css-1pahdxg-control{
+    box-shadow: none!important;
+    border-color: none!important;
+    background-color: hsl(0, 0%, 100%);
+    border-color: none!important;
+    border-radius:0!important;
+   //  border-style: ;
+    border-width: 0!important;
+    border-width: 0!important;
+    height: 100%!important;
+    min-height: 100%!important;
+    width: 100%!important;
+    margin:0!important;
+    padding: 0!important;
+    border: none!important;
+
+
 }

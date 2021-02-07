@@ -147,6 +147,7 @@
 }
 
 .ps-list--arrow {
+
     a {
         position: relative;
         display: block;
@@ -179,8 +180,17 @@
     }
 
     li {
-        margin-bottom: 20px;
-
+        margin-bottom: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        &:hover{
+            background-color: $button-hover;
+        
+        a{
+            color: #ffffff;
+        }
+    }
         &.current {
             a {
                 color: $color-2nd;
