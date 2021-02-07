@@ -7,6 +7,9 @@ import { getColletionBySlug } from '../../../utilities/product-helper';
 class ProductWidgets extends Component{
 
     render() {
+        console.log('[----------------------------------------------------]')
+        console.log(this.props)
+        console.log('[----------------------------------------------------]')
         const { collections, collectionSlug } = this.props;
         const products = getColletionBySlug(collections, collectionSlug);
         return (

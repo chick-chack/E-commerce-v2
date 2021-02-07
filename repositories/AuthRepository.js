@@ -1,4 +1,4 @@
-import Repository, { baseUrl, serializeQuery, options , options_ } from './Repository';
+import Repository, { baseUrl, serializeQuery } from './Repository';
 import axios from 'axios';
 class AuthRepository {
 
@@ -6,87 +6,30 @@ class AuthRepository {
         this.callback = callback;
     }
 
-
-    // async postLogin(payload) {
-    //     try {
-    //         // const response = await Repository.post(`${baseUrl}/auth/login`, {data: payload.info, withCredentials: true})
-    //         const response = await Repository.post(`${baseUrl}/auth/login`,payload.info)
-    //         return response;
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
     async postLogin(payload) {
         var info = {
             "email": payload.info.email,
             "password": payload.info.password,
         };
 
-        var data = {
-            data: info,
-            url: '/auth/login',
-            method: 'POST'
-        };
-        var res = axios(options(data)) 
-            .then(response => {   
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
+        try {
+            return await Repository.post(`${baseUrl}/auth/login`, info)
+            // return response;
+        } catch (error) {
+            console.log(error)
+        }
 
     }
 
     async logout() {
-
-        var data = {
-            url: '/auth/log-out',
-            method: 'GET',
-        };
-
-        var res = axios(options_(data)) 
-            .then(response => {  
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
-
-        // try{
-        // const response = await Repository.get(`${baseUrl}/auth/log-out`)
-        // return response;}
-        // catch (error) {
-        //     console.log(error)
-        // }
-
-    }
-
-    async logout(){
-        axios({
-            method:  'GET',
-            withCredentials: false,
-            // headers: {
-            //     Accept: 'application/json',
-            // }, 
-            url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce/auth/log-out",
-
-        }).then( response  => {  
+        try {
+            const response = await Repository.get(`${baseUrl}/auth/log-out`)
             return response.data;
-        })
-    }
+        } catch (error) {
+            console.log(error)
+        }
 
-      // async postLogin(payload) {
-    //     try {
-    //         // const response = await Repository.post(`${baseUrl}/auth/login`, {data: payload.info, withCredentials: true})
-    //         const response = await Repository.post(`${baseUrl}/auth/login`,payload.info)
-    //         return response;
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    }
 
 
     async postSignUp(payload) {
@@ -98,19 +41,12 @@ class AuthRepository {
             "country": "PAL",
             "mobile": payload.info.phone
         };
-        var data = {
-            data: info,
-            url: '/auth/sign-up',
-            method: 'POST'
+        try {
+            const response = await Repository.post(`${baseUrl}/auth/sign-up`, info)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-        var res = axios(options(data)) 
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
 

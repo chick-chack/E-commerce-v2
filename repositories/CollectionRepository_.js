@@ -1,4 +1,4 @@
-import Repository, { baseUrl } from './Repository_';
+import Repository, { baseUrl } from './Repository';
 
 class CollectionRepository {
     constructor(callback) {
