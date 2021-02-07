@@ -56,24 +56,6 @@ class ProductBoxedPage extends Component {
         return (
             <div className="layout--product">
                 <HeaderDefault />
-                <HeaderMobile />
-                <NavigationList />
-                <BreadCrumb breacrumb={breadCrumb} />
-                <div className="ps-page--product ps-page--product-box">
-                    <div className="container">
-                        <ProductDetailBox />
-                        <CustomerBought
-                            boxed={true}
-                            collectionSlug="customer_bought"
-                        />
-                        <RelatedProduct
-                            boxed={true}
-                            collectionSlug="shop-recommend-items"
-                        />
-                    </div>
-                </div>
-                <Newletters layout="container" />
-                <FooterDefault />
             </div>
         );
     }

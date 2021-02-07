@@ -6,7 +6,7 @@ import { notification } from 'antd';
 import SearchHeader from './modules/SearchHeader';
 import MiniCart from './modules/MiniCart';
 import AccountQuickLinks from './modules/AccountQuickLinks';
-import { logOut } from '../../../store/auth-01/action';
+// import { logOut } from '../../../store/auth-01/action';
 import CurrencyDropdown from './modules/CurrencyDropdown';
 import { stickyHeader } from '../../../utilities/common-helpers';
 

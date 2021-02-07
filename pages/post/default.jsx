@@ -12,14 +12,7 @@ const PostDetail = () => {
     return (
         <div className="site-content">
             <HeaderDefault />
-            <HeaderMobile />
-            <NavigationList />
-            <PostDetailBackground />
-            <div className="container">
-                <RelatedPosts />
-                <PostComments />
-            </div>
-            <FooterDefault />
+          
         </div>
     );
 };

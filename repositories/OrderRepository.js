@@ -20,14 +20,8 @@ class OrdertRepository {
         console.log(info)
         try {
             const response = await Repository.post(`${baseUrl}/order/add`, info)
-            console.log('------------------------7--------------------------------')
-            console.log(response)
-            console.log('------------------------7--------------------------------')
             return response.data;
         } catch (error) {
-            console.log('------------------------8--------------------------------')
-            console.log(error)
-            console.log('------------------------8--------------------------------')
             return error
         }
     }

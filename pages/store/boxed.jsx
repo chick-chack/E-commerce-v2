@@ -23,7 +23,6 @@ class ProductBoxedPage extends Component {
 
     componentDidMount() {
         const { query } = this.props;
-        const pid = '3';
         if (query) {
             const collectionsParams = [
                 'customer_bought',
@@ -32,48 +31,12 @@ class ProductBoxedPage extends Component {
             ];
             this.props.dispatch(getCollections(collectionsParams));
         }
-        this.props.dispatch(getProductsById(pid));
     }
     render() {
-        const breadCrumb = [
-            {
-                text: 'Home',
-                url: '/',
-            },
-            {
-                text: 'Consumer Electrics',
-                url: '/shop',
-            },
-            {
-                text: 'Refrigerators',
-                url: '/shop',
-            },
-            {
-                text: 'Marshall Kilburn Portable Wireless Speaker',
-            },
-        ];
-
         return (
             <div className="layout--product">
                 <HeaderDefault />
-                <HeaderMobile />
-                <NavigationList />
-                <BreadCrumb breacrumb={breadCrumb} />
-                <div className="ps-page--product ps-page--product-box">
-                    <div className="container">
-                        <ProductDetailBox />
-                        <CustomerBought
-                            boxed={true}
-                            collectionSlug="customer_bought"
-                        />
-                        <RelatedProduct
-                            boxed={true}
-                            collectionSlug="shop-recommend-items"
-                        />
-                    </div>
-                </div>
-                <Newletters layout="container" />
-                <FooterDefault />
+       
             </div>
         );
     }

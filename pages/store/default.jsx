@@ -11,7 +11,7 @@ import NavigationList from '../../components/shared/navigation/NavigationList';
 import BreadCrumb from '../../components/elements/BreadCrumb';
 import { connect } from 'react-redux';
 import { getCollections } from '../../store/collection/action';
-import { getProductsById, getProductsByIdForTesting } from '../../store/product/action';
+import { getProductsById } from '../../store/product/action';
 
 class ProductDefaultPage extends Component {
     constructor(props) {
@@ -33,13 +33,10 @@ class ProductDefaultPage extends Component {
             this.props.dispatch(getCollections(collectionsParams));
         }
         this.props.dispatch(getProductsById(pid));
-      const example=  this.props.dispatch(getProductsByIdForTesting(37));
-      console.log("example", example);
 
     }
 
     render() {
-        console.log("exaaaaaaa",this.props.dispatch(getProductsByIdForTesting(37)))
         const breadCrumb = [
             {
                 text: 'Home',

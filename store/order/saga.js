@@ -32,7 +32,6 @@ const modalWarning = (type) => {
 // start new api for cart
 
 function* add_order({ addressId, paymentType, paypalData }) {
-    console.log("saga ordfer", addressId, paymentType, paypalData)
     try {
         const data1 = yield call(OrderRepository.add_orders, addressId, paymentType, paypalData);
         console.log("sssssssssssss",data1)

@@ -8,6 +8,7 @@ import { getcartlist } from '../../../../store/cart/action';
 import { address_list, add_address } from '../../../../store/address/action'
 import _ from "lodash";
 import { notification } from 'antd';
+import { loadScript } from '@paypal/paypal-js';
 import i18next from 'i18next';
 import Payment from '../../Payment/Payment';
 import { Helmet } from "react-helmet";
@@ -35,6 +36,10 @@ class FormCheckoutInformation extends Component {
     }
 
     componentDidMount() {
+        loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
+            .then(paypal => {
+                paypal.Buttons().render();
+            });
         this.setState({ lang: localStorage.getItem('lang') || 'en' })
         this.props.dispatch(address_list())
         const val = this.props.address.address_list;

@@ -3,11 +3,24 @@ import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
 import { add_order } from '../../../store/order/action';
 
-const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+import { loadScript } from '@paypal/paypal-js';
+
+// let PayPalButton;/
 
 class YourComponent extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            state_: false
+        }
+        loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
+            .then(paypal => {
+                const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+                paypal.Buttons().render();
+                setState({ state_: true })
+            });
+
     }
 
     return_total() {
@@ -45,13 +58,18 @@ class YourComponent extends React.Component {
         });
     };
 
+
     render() {
         return (
+            <div>
+                {this.state.state_ && <div></div>}
+                {!this.state.state_ && <PayPalButton
+                    createOrder={(data, actions) => this.createOrder(data, actions)}
+                    onApprove={(data, actions) => this.onApprove(data, actions)}
+                />}
 
-            <PayPalButton
-                createOrder={(data, actions) => this.createOrder(data, actions)}
-                onApprove={(data, actions) => this.onApprove(data, actions)}
-            />
+            </div>
+
         );
     }
 }

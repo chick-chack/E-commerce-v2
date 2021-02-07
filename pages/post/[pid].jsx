@@ -12,14 +12,14 @@ const PostDetailDynamic = () => {
     return (
         <div className="site-content">
             <HeaderDefault />
-            <HeaderMobile />
+            {/* <HeaderMobile />
             <NavigationList />
             <PostDetailBackground />
             <div className="container">
                 <RelatedPosts />
                 <PostComments />
-            </div>
-            <FooterDefault />
+            </div> */}
+            {/* <FooterDefault /> */}
         </div>
     );
 };
