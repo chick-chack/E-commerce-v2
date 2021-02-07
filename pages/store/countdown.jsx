@@ -12,46 +12,10 @@ import NavigationList from '../../components/shared/navigation/NavigationList';
 import ProductWidgets from '../../components/partials/product/ProductWidgets';
 
 const ProductCountdownPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Garden & Kitchen',
-            url: '/shop',
-        },
-        {
-            text: 'Furniture',
-            url: '/shop',
-        },
-        {
-            text: 'Korea Long Sofa Fabric In Blue Navy Color',
-        },
-    ];
 
     return (
         <div className="layout--product">
             <HeaderDefault />
-            <HeaderMobile />
-            <NavigationList />
-            <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-            <div className="ps-page--product">
-                <div className="ps-container">
-                    <div className="ps-page__container">
-                        <div className="ps-page__left">
-                            <ProductDetailCountdown />
-                        </div>
-                        <div className="ps-page__right">
-                            <ProductWidgets collectionSlug="widget_same_brand" />
-                        </div>
-                    </div>
-                    <CustomerBought collectionSlug="customer_bought" />
-                    <RelatedProduct collectionSlug="shop-recommend-items" />
-                </div>
-            </div>
-            <Newletters />
-            <FooterDefault />
         </div>
     );
 };

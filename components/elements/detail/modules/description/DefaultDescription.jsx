@@ -19,7 +19,6 @@ class DefaultDescription extends Component {
 
     
     render() {
-        console.log("ddddddddddddddddddddddddddddddddd", this.props.singleProduct.numberOfRates)
         const num= this.props.singleProduct.numberOfRates;
         return (
             <div>

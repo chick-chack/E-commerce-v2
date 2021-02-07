@@ -24,7 +24,6 @@ class ProductGrouppedPage extends Component {
 
     componentDidMount() {
         const { query } = this.props;
-        const pid = '3';
         if (query) {
             const collectionsParams = [
                 'customer_bought',
@@ -33,52 +32,11 @@ class ProductGrouppedPage extends Component {
             ];
             this.props.dispatch(getCollections(collectionsParams));
         }
-        this.props.dispatch(getProductsById(pid));
     }
     render() {
-        const breadCrumb = [
-            {
-                text: 'Home',
-                url: '/',
-            },
-            {
-                text: 'Consumer Electrics',
-                url: '/shop',
-            },
-            {
-                text: 'Refrigerators',
-                url: '/shop',
-            },
-            {
-                text: 'Home Theater System',
-                url: '/shop',
-            },
-            {
-                text: 'Edifier Powered Bookshelf Speakers',
-            },
-        ];
         return (
             <div className="layout--product">
                 <HeaderDefault />
-                <HeaderMobile />
-                <NavigationList />
-                <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-                <div className="ps-page--product">
-                    <div className="ps-container">
-                        <div className="ps-page__container">
-                            <div className="ps-page__left">
-                                <ProductDetailGroupped />
-                            </div>
-                            <div className="ps-page__right">
-                                <ProductWidgets collectionSlug="widget_same_brand" />
-                            </div>
-                        </div>
-                        <CustomerBought collectionSlug="customer_bought" />
-                        <RelatedProduct collectionSlug="shop-recommend-items" />
-                    </div>
-                </div>
-                <Newletters />
-                <FooterDefault />
             </div>
         );
     }

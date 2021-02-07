@@ -22,7 +22,6 @@ class ProductImageSwatchesPage extends Component {
 
     componentDidMount() {
         const { query } = this.props;
-        const pid = '3';
         if (query) {
             const collectionsParams = [
                 'customer_bought',
@@ -31,7 +30,6 @@ class ProductImageSwatchesPage extends Component {
             ];
             this.props.dispatch(getCollections(collectionsParams));
         }
-        this.props.dispatch(getProductsById(pid));
     }
     render() {
         const breadCrumb = [
@@ -54,25 +52,7 @@ class ProductImageSwatchesPage extends Component {
         return (
             <div className="layout--product">
                 <HeaderDefault />
-                <HeaderMobile />
-                <NavigationList />
-                <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-                <div className="ps-page--product">
-                    <div className="ps-container">
-                        <div className="ps-page__container">
-                            <div className="ps-page__left">
-                                <ProductDetailImageSwatches />
-                            </div>
-                            <div className="ps-page__right">
-                                <ProductWidgets collectionSlug="widget_same_brand" />
-                            </div>
-                        </div>
-                        <CustomerBought collectionSlug="customer_bought" />
-                        <RelatedProduct collectionSlug="shop-recommend-items" />
-                    </div>
-                </div>
-                <Newletters />
-                <FooterDefault />
+
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import Repository, { baseUrl,options_auth, serializeQuery } from './Repository';
+import Repository, { baseUrl, serializeQuery } from './Repository';
 import axios from 'axios';
 
 class ProductRepository {
@@ -276,7 +276,7 @@ class ProductRepository {
                         'review_1': review_1,
                     },
                     'product': datee,
-                    'review_orginal':response.data.reviews
+                    'review_orginal': response.data.reviews
                 }
                 return info;
 
@@ -331,19 +331,12 @@ class ProductRepository {
             "value": rateValue,
             "productId": productId,
         };
-        var data = {
-            data: info,
-            url: '/rate-product',
-            method: 'POST'
-        };
-        var respose = axios(options_auth(data)) 
-            .then(response => {
-                return response;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return respose;
+        try {
+            const response = await Repository.post(`${baseUrl}/rate-product`, info)
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 }

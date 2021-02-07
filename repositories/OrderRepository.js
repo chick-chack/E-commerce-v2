@@ -1,4 +1,4 @@
-import Repository, { baseUrl, options, options_auth } from './Repository';
+import Repository, { baseUrl } from './Repository';
 import axios from 'axios';
 import Router from 'next/router';
 
@@ -9,78 +9,55 @@ class OrdertRepository {
     }
 
     // add new orders
-    async add_orders(addressId, paymentType) {
+    async add_orders(addressId, paymentType, paypalData) {
+
+        console.log(addressId, paymentType, paypalData)
         var info = {
-            "addressId":addressId,
-            "paymentType":paymentType
+            "addressId": addressId,
+            "paymentType": paymentType,
+            "paypalData": paypalData
         };
-        var data = {
-            data: info,
-            url: '/order/add',
-            method: 'POST'
+        console.log(info)
+        try {
+            const response = await Repository.post(`${baseUrl}/order/add`, info)
+            return response.data;
+        } catch (error) {
+            return error
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // orders list
     async orders_list() {
-        var data = {
-            url: `/order/list`,
-            method: 'GET'
+        try {
+            const response = await Repository.get(`${baseUrl}/order/list`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // orders details
     async orders_details(id) {
-        var data = {
-            // data: info,
-            url: `/order/order-details/${id}`,
-            method: 'GET'
-        }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
-    }
-
-/*================================================
-||||||||||||||| order list group |||||||||||||||||
-================================================*/
-
-async order_list_group(id) {
-    var data = {
-        // data: info,
-        url: `/order/group-list/${id}`,
-        method: 'GET'
-    }
-    var res = axios(options_auth(data))
-        .then(response => {
+        try {
+            const response = await Repository.get(`${baseUrl}/order/order-details/${id}`)
             return response.data;
-        })
-        .catch(error => (console.log(error), {
-            error: JSON.stringify(error)
-        }));
-    return res;
-}
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    /*================================================
+    ||||||||||||||| order list group |||||||||||||||||
+    ================================================*/
+
+    async order_list_group(id) {
+        try {
+            const response = await Repository.get(`${baseUrl}/order/group-list/${id}`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
 

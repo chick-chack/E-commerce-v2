@@ -10,65 +10,37 @@ class CartRepository {
 
     // api return info the specific store
     // async addCart_item(productId, quantity, currentCookie) {
-        async addCart_item(productId, quantity) {
-
-            
+    async addCart_item(productId, quantity) {
         var info = {
             "productChildId": productId,
             "quantity": quantity,
         };
-        var data = {
-            data: info,
-            url: '/cart/add',
-            method: 'POST'
-            // ,
-            // Cookie: currentCookie
+        try {
+            const response = await Repository.post(`${baseUrl}/cart/add`, info)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // api, the most sale products from each category are returned in-store by the store ID
     async deleteallcart(payload) {
-        var data = {
-            url: '/cart/delete-cart',
-            method: 'DELETE',
-            Cookie: payload.Cookie
+        try {
+            const response = await Repository.delete(`${baseUrl}/cart/delete-cart`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // api, VIew all category by store id
     async deletecartitem(id) {
-
-
-        var data = {
-            url: `/cart/delete-item/${id}`,
-            method: 'DELETE',
-            // Cookie: localStorage.getItem("currentCookie")
+        try {
+            const response = await Repository.delete(`${baseUrl}/cart/delete-item/${id}`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // api, get cart list
@@ -79,20 +51,12 @@ class CartRepository {
             // Cookie: localStorage.getItem("currentCookie")
         }
 
-        var res = axios(options_auth(data))
-            .then(response => {
-                
-            //    const sum = Object.values(response.data)
-            //    .reduce((acc, { quantity, price }) => acc + quantity * price, 0)
-            //    .toFixed(2);
-                       
-        // console.log("get cart list repo data response", sum )
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
+        try {
+            const response = await Repository.get(`${baseUrl}/cart/list`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

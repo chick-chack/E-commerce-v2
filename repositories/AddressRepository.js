@@ -1,8 +1,6 @@
-import Repository, { baseUrl, options, options_auth } from './Repository';
-import axios from 'axios';
+import Repository, { baseUrl } from './Repository';
 import Router from 'next/router';
 
-axios.defaults.withCredentials = true
 class AddressRepository {
     constructor(callback) {
         this.callback = callback;
@@ -29,38 +27,23 @@ class AddressRepository {
             "restAddress": data1.street,
             "postCode":  data1.postCode,
         };
-
-        var data = {
-            data: info,
-            url: '/address/add',
-            method: 'POST'
-        };
-        var res = axios(options_auth(data))
-            .then(response => {
-                
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
+        try {
+            const response = await Repository.post(`${baseUrl}/address/add`, info)
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
     }
-    
+
 
     // address list
     async address_list() {
-        var data = {
-            url: `/address/list`,
-            method: 'GET'
+        try {
+            const response = await Repository.get(`${baseUrl}/address/list`)
+            return response.data;
+        } catch (error) {
+            console.log(error)
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
     }
 
     // EDIT ADDRESS
@@ -78,14 +61,12 @@ class AddressRepository {
             url: `/address/edit`,
             method: 'PUT'
         }
-        var res = axios(options_auth(data))
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => (console.log(error), {
-                error: JSON.stringify(error)
-            }));
-        return res;
+        try {
+            const response = await Repository.put(`${baseUrl}/address/edit`, data)
+            return response.data;
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 }

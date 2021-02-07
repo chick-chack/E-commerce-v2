@@ -22,14 +22,14 @@ const InvoiceDetailPage = () => {
     return (
         <div className="site-content">
             <HeaderDefault />
-            <HeaderMobile />
+            {/* <HeaderMobile />
             <NavigationList />
             <div className="ps-page--my-account">
                 <BreadCrumb breacrumb={breadCrumb} />
                 <InvoiceDetail />
             </div>
-            <Newsletters layout="container" />
-            <FooterDefault />
+            <Newsletters layout="container" /> */}
+            {/* <FooterDefault /> */}
         </div>
     );
 };

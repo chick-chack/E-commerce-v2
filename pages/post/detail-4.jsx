@@ -10,15 +10,7 @@ import NavigationList from '../../components/shared/navigation/NavigationList';
 const BlogLeftSidebar = () => (
     <div className="site-content">
         <HeaderDefault />
-        <HeaderMobile />
-        <NavigationList />
-        <div className="ps-page--blog">
-            <div className="container">
-                <BlogDetailSidebar />
-            </div>
-        </div>
-        <Newletters />
-        <FooterDefault />
+
     </div>
 );
 

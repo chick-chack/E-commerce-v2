@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
-import Rating from '../../../Rating';
+// import Rating from '../../../Rating';
 import ModuleProductDetailSharing from '~/components/elements/detail/modules/elements/ModuleProductDetailSharing';
-import { addItem, add_to_cart }  from '../../../../../store/cart/action';
-import { addItemToCompare } from '../../../../../store/compare/action';
-import { addItemToWishlist } from '../../../../../store/wishlist/action';
+import { addItem, add_to_cart } from '../store/cart/action';
+import { addItemToCompare } from '../store/compare/action';
+import { addItemToWishlist } from '../store/wishlist/action';
 // import ModuleProductDetailSpecification from '~/components/elements/detail/modules/elements/ModuleProductDetailSpecification';
 import ModuleProductDetailDescription from '~/components/elements/detail/modules/elements/ModuleProductDetailDescription';
 import { imageSwatcher } from '~/public/static/data/product-detail.json';
@@ -21,42 +21,42 @@ class InformationDefault extends Component {
             selectedSize: null,
             sizeItems: null,
             price: null,
-            test:this.props.car
+            test: this.props.car
         };
     }
 
     handleAddItemToCart = e => {
-       // e.preventDefault();
-       const {cartlist } = this.props;
+        // e.preventDefault();
+        const { cartlist } = this.props;
 
-       this.setState({
-           test: cartlist
-       })
+        this.setState({
+            test: cartlist
+        })
 
 
-       let existItem = this.props.cartlist.find(
-        (item) => item.id === this.props.product.productChildren[0].id)
+        let existItem = this.props.cartlist.find(
+            (item) => item.id === this.props.product.productChildren[0].id)
         console.log("leeeeeeeeeeeeko", existItem);
 
         if (existItem) {
-            existItem.quantity =this.state.quantity
+            existItem.quantity = this.state.quantity
         }
 
 
- 
+
         console.log("-------------------------------", this.props.product.productChildren[0].id)
-    //     console.log("# color id");
-    //     console.log("# size id");
-    //     console.log("# state", this.state);
-    //     const { product } = this.props;
-    //     const productSelected= product.productChildren[0];
-    //     console.log("# product selected ", productSelected);
-    //     let tempProduct = productSelected;
-    //     console.log("temp", tempProduct)
-    //     tempProduct.quantity = this.state.quantity;
-    //     //this.props.dispatch(addItem(productSelected));
-    // this.props.dispatch( addItem( product, productSelected ))
-   this.props.dispatch(add_to_cart(this.props.product.productChildren[0].id, this.state.quantity))
+        //     console.log("# color id");
+        //     console.log("# size id");
+        //     console.log("# state", this.state);
+        //     const { product } = this.props;
+        //     const productSelected= product.productChildren[0];
+        //     console.log("# product selected ", productSelected);
+        //     let tempProduct = productSelected;
+        //     console.log("temp", tempProduct)
+        //     tempProduct.quantity = this.state.quantity;
+        //     //this.props.dispatch(addItem(productSelected));
+        // this.props.dispatch( addItem( product, productSelected ))
+        this.props.dispatch(add_to_cart(this.props.product.productChildren[0].id, this.state.quantity))
 
     };
 
@@ -71,9 +71,9 @@ class InformationDefault extends Component {
         e.preventDefault();
 
         const { product } = this.props;
-        const productSelected= product.productChildren[0];
+        const productSelected = product.productChildren[0];
 
-        this.props.dispatch(addItemToWishlist(product,productSelected));
+        this.props.dispatch(addItemToWishlist(product, productSelected));
     };
 
     handleIncreaseItemQty = e => {
@@ -115,7 +115,7 @@ class InformationDefault extends Component {
         }
     }
     componentDidMount() {
-         const { product } = this.props;
+        const { product } = this.props;
         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", this.props)
         if (product && product.singleProduct.productChildren.length > 0) {
             this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
@@ -127,8 +127,6 @@ class InformationDefault extends Component {
 
         const { product } = this.props;
         const { selectedVariant, selectedSize, sizeItems } = this.state;
-        console.log("product & currency ", product, currency)
-        const { currency}= this.props.setting;
         // let variants, sizeSelectionArea, priceArea, ModuleProductDetailSpecification;
         // if (selectedVariant !== null) {
         //     if (selectedVariant.is_sale) {
@@ -380,10 +378,10 @@ class InformationDefault extends Component {
             //         </a>
             //     </div>
             // </div>
-        
-        
-        
-        
+
+
+
+
         );
     }
 }

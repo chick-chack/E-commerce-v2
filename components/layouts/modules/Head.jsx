@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { Helmet } from "react-helmet";
 
 const StyleSheets = () => (
     <Head>
@@ -35,7 +36,7 @@ const StyleSheets = () => (
             rel="stylesheet"
             href="/static/fonts/font-awesome/css/font-awesome.min.css"
         />
-        
+
         <link
             rel="stylesheet"
             type="text/css"
@@ -46,8 +47,13 @@ const StyleSheets = () => (
             type="text/css"
             href="/static/css/slick.min.css"
         />
-        
-        
+        <Helmet>
+            <meta charSet="utf-8" />
+            <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty"></script>
+        </Helmet>
+        <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty" ></script>
+
+
     </Head>
 );
 
