@@ -7,6 +7,7 @@ import ProductDealOfDay from '../../../elements/products/ProductDealOfDay';
 import { carouselFullwidth } from '../../../../utilities/carousel-helpers';
 import { getColletionBySlug } from '../../../../utilities/product-helper';
 import mall_pic from '../../../../public/static/img/mall.jpg'
+import dubai_pic from '../../../../public/static/img/dubaimall.jpg'
 
 
 class MallView extends Component {
@@ -22,7 +23,7 @@ class MallView extends Component {
                     {/* <h2>List of Malls</h2> */}
                     <div className="row">
                         {  this.props.malls_home.malls ? this.props.malls_home.malls.map((mall, index) => (
-                            <div className="col-6 ">
+                            <div className="col-md-6 col-12 ">
                                 <div className="ps-block--category">
                                     <Link  href={{
                                                     pathname: '/mall', query: {
@@ -34,10 +35,9 @@ class MallView extends Component {
                                         {/* {localStorage.getItem("lang") === "ar" ? mall.name_ar
                                                     : mall.name_en} */} </a>
                                     </Link>
-                                    <img 
-                                     src={mall_pic} 
-                                    // src={mall.logo} 
-                                    alt="Snow" style={{ width: "100%" }} />
+                                    <img
+                                     src= {`${mall.id==1? dubai_pic : mall_pic }`} 
+                                    alt="Snow" style={{ width: "100%" , height:"335px"}} />
                                     <p style={{fontSize:"24px"}}>     {localStorage.getItem("lang") === "ar" ? mall.name_ar
                                                     : mall.name_en}</p>
                                 </div>

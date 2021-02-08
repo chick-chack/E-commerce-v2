@@ -54,7 +54,8 @@ class ModuleProductHasVariants extends React.Component {
             has_zise_first: false, has_color_first: false,
             final_QTY: 1,
             reflectoinItem: null,
-            reflectionChanged: null, childern_IDD: null
+            reflectionChanged: null, childern_IDD: null,
+            current_id:null
 
         };
         this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
@@ -82,18 +83,18 @@ class ModuleProductHasVariants extends React.Component {
 
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
 
-            if (this.props.childern_ID) {
+            if (this.state.current_id) {
                 if (this.props.cart.cartlist) {
                     if (this.props.cart.cartlist.length > 0) {
                         let existItem = this.props.cart.cartlist.find(
-                            item => item['productChild.id'] == this.props.childern_ID
+                            item => item['productChild.id'] == this.state.current_id
                         )
                         if (existItem) {
                             existItem.quantity = this.state.quantity;
                         }
                         else {
                             let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
-                                (item) => item.id == this.props.childern_ID
+                                (item) => item.id == this.state.current_id
                             );
 
                             const newProduct = {
@@ -115,13 +116,10 @@ class ModuleProductHasVariants extends React.Component {
                                 // updatedAt: "2021-01-20T07:53:56.844Z"
                             }
                             this.props.cart.cartlist.push(newProduct)
-                            // console.log("new yyyyyproduct", newProduct)
-                            // this.props.cart.cartItems.push(newProduct)
-                            // console.log("------------------------", this.props.cart.cartItems)
                         }
                     } else {
                         let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
-                            (item) => item.id == this.props.childern_ID
+                            (item) => item.id == this.state.current_id
                         );
 
                         const newProduct = {
@@ -147,13 +145,13 @@ class ModuleProductHasVariants extends React.Component {
                 let QTY;
                 if (this.state.final_QTY === 1) {
 
-                    QTY = this.state.quantity - 1
+                    QTY = this.state.quantity 
                 }
                 else {
                     QTY = this.state.quantity - this.state.final_QTY;
                 }
 
-                this.props.dispatch(add_to_cart(this.props.childern_ID, QTY))
+                this.props.dispatch(add_to_cart(this.state.current_id, QTY))
                 modalSuccess('success');
                 Router.push('/account/shopping-cart')
             }
@@ -165,24 +163,21 @@ class ModuleProductHasVariants extends React.Component {
 
         }
         else {
-            if (this.props.childern_ID) {
+            if (this.state.current_id) {
                 if (this.props.cart.cartItems) {
                     if (this.props.cart.cartItems.length > 0) {
                         let existItem = this.props.cart.cartItems.find(
-                            item => item['productChild.id'] == this.props.childern_ID
+                            item => item['productChild.id'] == this.state.current_id
                         )
                         if (existItem) {
 
                             existItem.quantity = this.state.quantity;
 
                             this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
-                            console.log("--------------it is here ----------", this.props.cart.cartItems, "mkjnkn", existItem)
-
-
                         }
                         else {
                             let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
-                                (item) => item.id == this.props.childern_ID
+                                (item) => item.id == this.state.current_id
                             );
 
                             const newProduct = {
@@ -204,7 +199,6 @@ class ModuleProductHasVariants extends React.Component {
                                 // updatedAt: "2021-01-20T07:53:56.844Z"
                             }
                             // this.props.cart.cartlist.push(newProduct)
-                            console.log("new yyyyyproduct", newProduct)
                             this.props.cart.cartItems.push(newProduct)
                             let QTY;
                             if (this.state.final_QTY === 1) {
@@ -216,11 +210,10 @@ class ModuleProductHasVariants extends React.Component {
                             }
 
                             Router.push('/account/shopping-cart')
-                            console.log("------------------------", this.props.cart.cartItems)
                         }
                     } else {
                         let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
-                            (item) => item.id == this.props.childern_ID
+                            (item) => item.id == this.state.current_id
                         );
 
                         const newProduct = {
@@ -240,10 +233,8 @@ class ModuleProductHasVariants extends React.Component {
                             "quantity": this.state.quantity
                         }
                         // this.props.cart.cartlist.push(newProduct)
-                        console.log("new product", newProduct)
                         this.props.cart.cartItems.push(newProduct)
                         //  this.props.add_to_local_cart(newProduct,1);
-                        console.log("------------------------", this.props.cart.cartItems)
                         let QTY;
                         if (this.state.final_QTY === 1) {
 
@@ -268,9 +259,9 @@ class ModuleProductHasVariants extends React.Component {
 
     handleAddItemToCompare = e => {
         e.preventDefault();
-        if (this.props.childern_ID) {
+        if (this.state.current_id) {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
-                (item) => item.id == this.props.childern_ID);
+                (item) => item.id == this.state.current_id);
             this.props.dispatch(addItemToCompare(this.props.product.singleProduct, childProduct));
             Router.push('/account/compare')
         }
@@ -282,7 +273,7 @@ class ModuleProductHasVariants extends React.Component {
         e.preventDefault();
         if (this.props.childern_ID) {
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
-                (item) => item.id == this.props.childern_ID);
+                (item) => item.id == this.state.current_id);
             this.props.dispatch(addItemToWishlist(this.props.product.singleProduct, childProduct));
             Router.push('/account/wishlist')
         }
@@ -294,9 +285,9 @@ class ModuleProductHasVariants extends React.Component {
     handleIncreaseItemQty = e => {
         e.preventDefault();
 
-        if (this.props.childern_ID) {
+        if (this.state.current_id) {
             let test = this.props.product.singleProduct.productChildren_orginal.find(
-                (item) => item.id == this.props.childern_ID);
+                (item) => item.id == this.state.current_id);
             if (test) {
                 if (test.quantity > this.state.quantity) {
                     this.setState({ quantity: this.state.quantity + 1 });
@@ -313,7 +304,7 @@ class ModuleProductHasVariants extends React.Component {
     handleDecreaseItemQty = e => {
         e.preventDefault();
 
-        if (this.props.childern_ID) {
+        if (this.state.current_id) {
 
             if (this.state.quantity > 1) {
                 this.setState({ quantity: this.state.quantity - 1 });
@@ -341,9 +332,6 @@ class ModuleProductHasVariants extends React.Component {
                     const sizeItems = selectedVariant.sizes;
                     this.setState({ sizeItems: sizeItems });
                 }
-                console.log('--------------------------------------------74---------------------------------')
-                console.log(selectedChild_z_f)
-                console.log('--------------------------------------------74---------------------------------')
                 this.setState({ selectedVariant: selectedChild_z_f });
                 this.setState({ selectedChild_z_f: selectedVariant });
             }
@@ -436,12 +424,21 @@ class ModuleProductHasVariants extends React.Component {
     }
 
     todo_handleSelectColor(id) {
+        console.log("select size", id)
+        this.setState({
+            current_id:id
+        })
         this.handleSelectColor(id);
     }
     todo_handleSelectSize(id) {
+        console.log("select color", id)
+        this.setState({
+            current_id:id
+        })
         this.handleSelectSize(id);
     }
     componentDidMount() {
+        console.log("prooooooooooooooops", this.props)
         this.props.dispatch(getcartlist());
         const { product } = this.props;
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
@@ -456,18 +453,15 @@ class ModuleProductHasVariants extends React.Component {
             }
         } else {
             if (product.singleProduct && product.singleProduct.productChildren.length > 0) {
-                console.log('--------------------------------------------74---------------------------------')
-                console.log(product.singleProduct.productChildren[0])
-                console.log('--------------------------------------------74---------------------------------')
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
             }
         }
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
-            if (this.props.childern_ID) {
+            if (this.state.current_id) {
                 if (this.props.cart.cartlist) {
                     if (this.props.cart.cartlist.length > 0) {
                         let existItem = this.props.cart.cartlist.find(
-                            item => item['productChild.id'] == this.props.childern_ID
+                            item => item['productChild.id'] == this.state.current_id
                         )
                         if (existItem) {
                             this.setState({
@@ -482,11 +476,11 @@ class ModuleProductHasVariants extends React.Component {
             }
         }
         else {
-            if (this.props.childern_ID) {
+            if (this.state.current_id) {
                 if (this.props.cart.cartItems) {
                     if (this.props.cart.cartItems.length > 0) {
                         let existItem = this.props.cart.cartItems.find(
-                            item => item['productChild.id'] == this.props.childern_ID
+                            item => item['productChild.id'] == this.state.current_id
                         )
                         if (existItem) {
                             this.setState({
@@ -585,10 +579,6 @@ class ModuleProductHasVariants extends React.Component {
 
         }
 
-        console.log('---------------------------------------------------------------------------------------------')
-        // console.log(this.state.selectedChild_z_f)
-        // console.log(this.state.selectedVariant)
-        console.log('---------------------------------------------------------------------------------------------')
         if (singleProduct) {
             ModuleProductDetailSpecification = (
                 <div className="ps-product__specification">
@@ -647,7 +637,10 @@ class ModuleProductHasVariants extends React.Component {
                                     ? 'active'
                                     : ''
                                     }`
+                                    
                                 }
+
+
                                 key={item.id}
                                 onClick={e => this.todo_handleSelectColor(item.id)}
                             >

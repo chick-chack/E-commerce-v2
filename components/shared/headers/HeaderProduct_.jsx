@@ -19,10 +19,6 @@ class HeaderProduct extends Component {
 
     componentDidMount() {
 
-        console.log("header........", this.props.singleProduct)
-        console.log("header........ children", this.props.child)
-        console.log(window.location.pathname)
-        console.log(this.props.match);
         if (process.browser) {
             window.addEventListener('scroll', stickyHeader);
         }
@@ -56,7 +52,6 @@ class HeaderProduct extends Component {
         const { productData , child } = this.props;
         const index =  this.props.singleProduct.productChildren_orginal.findIndex( item => 
              item.id == child
-            // console.log("-------------------&&&&&&&&&&&&&&&&&&&", item.id, child)
              )
      console.log("-------------------&&&&&&&&&&&&&&&&&&&", child)
 

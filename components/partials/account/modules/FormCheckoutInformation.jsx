@@ -147,7 +147,7 @@ class FormCheckoutInformation extends Component {
                         <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
                             <div className="ps-form__billing-info">
 
-                                <div className="address-list" style={{ marginBottom: "25px" }}>
+                                <div className="address-list list_add" style={{ marginBottom: "25px" }}>
                                     <h3 className="ps-form__heading">
                                         {i18next.t('choosetheaddress')}
                                     </h3>
