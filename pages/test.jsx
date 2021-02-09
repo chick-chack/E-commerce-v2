@@ -36,26 +36,10 @@ class InformationDefault extends Component {
 
         let existItem = this.props.cartlist.find(
             (item) => item.id === this.props.product.productChildren[0].id)
-        console.log("leeeeeeeeeeeeko", existItem);
 
         if (existItem) {
             existItem.quantity = this.state.quantity
         }
-
-
-
-        console.log("-------------------------------", this.props.product.productChildren[0].id)
-        //     console.log("# color id");
-        //     console.log("# size id");
-        //     console.log("# state", this.state);
-        //     const { product } = this.props;
-        //     const productSelected= product.productChildren[0];
-        //     console.log("# product selected ", productSelected);
-        //     let tempProduct = productSelected;
-        //     console.log("temp", tempProduct)
-        //     tempProduct.quantity = this.state.quantity;
-        //     //this.props.dispatch(addItem(productSelected));
-        // this.props.dispatch( addItem( product, productSelected ))
         this.props.dispatch(add_to_cart(this.props.product.productChildren[0].id, this.state.quantity))
 
     };

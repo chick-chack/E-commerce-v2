@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from "next/head";
 import Newsletters from '../../components/partials/commons/Newletters';
 import FooterDefault from '../../components/shared/footers/FooterDefault';
 import HeaderDefault from '../../components/shared/headers/HeaderDefault';
@@ -25,14 +26,11 @@ const OrderTrackingPage = () => {
     ];
     return (
         <div className="site-content">
+          
             <HeaderDefault />
             <HeaderMobile />
             <NavigationList />
             <div className="ps-page--simple">
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty" data-namespace="paypal_sdk"></script>
-                </Helmet>
                 <BreadCrumb breacrumb={breadCrumb} />
                 <Checkout />
             </div>

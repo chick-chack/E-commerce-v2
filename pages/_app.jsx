@@ -20,19 +20,15 @@ import '../scss/technology.scss';
 import '../scss/autopart.scss';
 import '../scss/electronic.scss';
 import 'react-rater/lib/react-rater.css';
-import 'react-phone-input-2/lib/style.css'
+import 'react-phone-input-2/lib/style.css';
 import axios from 'axios';
 import i18next from 'i18next';
-import { loadScript } from '@paypal/paypal-js';
-// import { appWithTranslation} from '../i18next';
 
 class MyApp extends App {
 
     constructor(props) {
         super(props);
         this.persistor = persistStore(props.store);
-
-
     }
 
     state = {
@@ -40,13 +36,6 @@ class MyApp extends App {
     }
 
     componentDidMount() {
-        loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
-            .then(paypal => {
-                paypal.Buttons().render();
-            });
-        //console.log("persistore", this.persistor);
-        //console.log("this persistore",persistStore( this.props.store));
-        /* language */
         this.setState({ lang: localStorage.getItem('lang') || 'en' })
 
         i18next.changeLanguage(this.state.lang);
@@ -62,35 +51,11 @@ class MyApp extends App {
         this.setState({ open: true });
         //console.log("loaded", document.getElementById('__next') )
     }
-    // componentWillUnmount(){
-    //     const lang=localStorage.getItem('lang') || 'en';
-
-    //     i18next.changeLanguage(lang);
-
-    // }
-    // componentDidUpdate(){
-    //     const lang=localStorage.getItem('lang') || 'en';
-
-    //     i18next.changeLanguage(lang);
-
-    // }
     render() {
-
-
         i18next.changeLanguage(this.state.lang);
         if (this.state.lang === 'ar') {
             document.getElementById('__next').classList.add('rtlpage');
         }
-
-
-        /*
-        this.props : component
-        err
-        isserver
-        pageprops: query:{}
-        router: route:"/", pathname:"/", query:{}
-        store
-        */
 
         const { Component, pageProps, store } = this.props;
 
@@ -109,5 +74,3 @@ class MyApp extends App {
 }
 
 export default withRedux(createStore)(withReduxSaga(MyApp));
-
-//export default withRedux(createStore)(withReduxSaga(appWithTranslation(MyApp)));
