@@ -55,12 +55,11 @@ class ModuleProductHasVariants extends React.Component {
             final_QTY: 1,
             reflectoinItem: null,
             reflectionChanged: null, childern_IDD: null,
-            current_id:null
+            current_id: null
 
         };
         this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
     }
-
 
     handleRefreshReflection(item) {
         this.setState({
@@ -75,12 +74,10 @@ class ModuleProductHasVariants extends React.Component {
 
 
     static async getInitialProps(ctx) {
-
         return { query: ctx.query };
     }
 
     handleAddItemToCart = e => {
-
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
 
             if (this.state.current_id) {
@@ -111,9 +108,7 @@ class ModuleProductHasVariants extends React.Component {
                                 "productChild.product.name_en": this.props.product.singleProduct.name_en,
                                 "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
                                 "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
-                                //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                                 "quantity": this.state.quantity
-                                // updatedAt: "2021-01-20T07:53:56.844Z"
                             }
                             this.props.cart.cartlist.push(newProduct)
                         }
@@ -145,7 +140,7 @@ class ModuleProductHasVariants extends React.Component {
                 let QTY;
                 if (this.state.final_QTY === 1) {
 
-                    QTY = this.state.quantity 
+                    QTY = this.state.quantity
                 }
                 else {
                     QTY = this.state.quantity - this.state.final_QTY;
@@ -156,11 +151,9 @@ class ModuleProductHasVariants extends React.Component {
                 Router.push('/account/shopping-cart')
             }
 
-
             else {
                 modalAsking('warning');
             }
-
         }
         else {
             if (this.state.current_id) {
@@ -194,11 +187,8 @@ class ModuleProductHasVariants extends React.Component {
                                 "productChild.product.name_en": this.props.product.singleProduct.name_en,
                                 "productChild.size": this.props.product.singleProduct.productChildren_orginal[index].size,
                                 "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
-                                //" productChildId":this.props.product.singleProduct.productChildren_orginal[index].productId,
                                 "quantity": this.state.quantity
-                                // updatedAt: "2021-01-20T07:53:56.844Z"
                             }
-                            // this.props.cart.cartlist.push(newProduct)
                             this.props.cart.cartItems.push(newProduct)
                             let QTY;
                             if (this.state.final_QTY === 1) {
@@ -232,9 +222,7 @@ class ModuleProductHasVariants extends React.Component {
                             "productChildId": this.props.product.singleProduct.productChildren_orginal[index].id,
                             "quantity": this.state.quantity
                         }
-                        // this.props.cart.cartlist.push(newProduct)
                         this.props.cart.cartItems.push(newProduct)
-                        //  this.props.add_to_local_cart(newProduct,1);
                         let QTY;
                         if (this.state.final_QTY === 1) {
 
@@ -243,8 +231,6 @@ class ModuleProductHasVariants extends React.Component {
                         else {
                             QTY = this.state.quantity - this.state.final_QTY;
                         }
-
-                        //  this.props.dispatch(add_to_local_cart(newProduct,  this.state.quantity))
                         Router.push('/account/shopping-cart')
                     }
                 }
@@ -424,21 +410,104 @@ class ModuleProductHasVariants extends React.Component {
     }
 
     todo_handleSelectColor(id) {
-        console.log("select size", id)
         this.setState({
-            current_id:id
+            current_id: id
         })
         this.handleSelectColor(id);
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
+            if (id) {
+                if (this.props.cart.cartlist) {
+                    if (this.props.cart.cartlist.length > 0) {
+                        let existItem = this.props.cart.cartlist.find(
+                            item => item['productChild.id'] == id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+                        }
+
+                    }
+
+                }
+            }
+        }
+        else {
+            if (id) {
+                if (this.props.cart.cartItems) {
+                    if (this.props.cart.cartItems.length > 0) {
+                        let existItem = this.props.cart.cartItems.find(
+                            item => item['productChild.id'] == id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+                        }
+
+                    }
+
+                }
+
+            }
+        }
     }
     todo_handleSelectSize(id) {
-        console.log("select color", id)
         this.setState({
-            current_id:id
+            current_id: id
         })
         this.handleSelectSize(id);
+
+        if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
+            if (id) {
+                if (this.props.cart.cartlist) {
+                    if (this.props.cart.cartlist.length > 0) {
+                        let existItem = this.props.cart.cartlist.find(
+                            item => item['productChild.id'] == id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+                        }
+
+                    }
+
+                }
+            }
+        }
+        else {
+            if (id) {
+                if (this.props.cart.cartItems) {
+                    if (this.props.cart.cartItems.length > 0) {
+                        let existItem = this.props.cart.cartItems.find(
+                            item => item['productChild.id'] == id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
     }
     componentDidMount() {
-        console.log("prooooooooooooooops", this.props)
+        if (this.props.id) {
+            this.setState({
+                current_id: this.props.id
+            })
+        }
         this.props.dispatch(getcartlist());
         const { product } = this.props;
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
@@ -474,6 +543,25 @@ class ModuleProductHasVariants extends React.Component {
 
                 }
             }
+            else if (this.props.id) {
+                if (this.props.cart.cartlist) {
+                    if (this.props.cart.cartlist.length > 0) {
+                        let existItem = this.props.cart.cartlist.find(
+                            item => item['productChild.id'] == this.props.id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
         else {
             if (this.state.current_id) {
@@ -496,6 +584,25 @@ class ModuleProductHasVariants extends React.Component {
                 }
 
             }
+            else if (this.props.id) {
+                if (this.props.cart.cartItems) {
+                    if (this.props.cart.cartItems.length > 0) {
+                        let existItem = this.props.cart.cartItems.find(
+                            item => item['productChild.id'] == this.props.id
+                        )
+                        if (existItem) {
+                            this.setState({
+                                quantity: existItem.quantity,
+                                final_QTY: existItem.quantity
+                            })
+                            // existItem.quantity += this.state.quantity
+
+                        }
+
+                    }
+
+                }
+            }
         }
     }
 
@@ -507,23 +614,35 @@ class ModuleProductHasVariants extends React.Component {
         const { selectedVariant, selectedChild_z_f, selectedSize, sizeItems, colorItems } = this.state;
         let variants, sizeSelectionArea, colorSelectionArea, priceArea, thumbnailArea, ModuleProductDetailSpecification;
         if (selectedVariant !== null) {
-            if (this.props.childern_ID && this.props.childern_ID != undefined) {
-                let index;
-                if (this.state.has_zise_first) {
-                    index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                        item.id == this.state.selectedChild_z_f.id)
-                } else {
+            if (this.state.current_id) {
+                let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
+                    item.id == this.state.current_id)
+                priceArea = (
+                    <h4 className="ps-selectedVariant__price">
+                        {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
+                            <p className="ps-product__price sale" style={{ display: "flex" }}>
+                                {currency ? currency.symbol : '$'}
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
+                                <del className="ml-2">
+                                    {currency ? currency.symbol : '$'}
+                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                                </del>
+                                <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
 
-                }
+                            </p>
+                        ) : (
+                                <p className="ps-product__price">
+                                    {currency ? currency.symbol : '$'}
+                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                                </p>
+                            )}
+                    </h4>
+                );
+            }
+            else if (this.props.id) {
 
-                if (this.state.selectedChild_z_f == undefined) {
-                    index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                        item.id == this.state.selectedVariant.id)
-                }
-                else {
-                    index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                        item.id == this.state.selectedChild_z_f.id)
-                }
+                let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
+                    item.id == this.props.id)
 
                 priceArea = (
                     <h4 className="ps-selectedVariant__price">
@@ -546,6 +665,7 @@ class ModuleProductHasVariants extends React.Component {
                             )}
                     </h4>
                 );
+
             }
             else {
                 let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
@@ -576,7 +696,6 @@ class ModuleProductHasVariants extends React.Component {
             thumbnailArea = <ThumbnailHasVariant product={selectedVariant} />;
         }
         else {
-
         }
 
         if (singleProduct) {
@@ -630,14 +749,14 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_zise_first) {
                 colorSelectionArea = colorItems.colors.map(item => {
                     return (
-                        <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             < div
                                 className={`ps-variant ps-variant--image ${selectedChild_z_f &&
                                     selectedChild_z_f.id === item.id
                                     ? 'active'
                                     : ''
                                     }`
-                                    
+
                                 }
 
 
@@ -665,7 +784,7 @@ class ModuleProductHasVariants extends React.Component {
             } else {
                 colorSelectionArea = singleProduct.productChildren.map(item => {
                     return (
-                        <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--image ${selectedVariant &&
                                     selectedVariant.id === item.id
@@ -700,7 +819,7 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_color_first) {
                 sizeSelectionArea = sizeItems.map(item => {
                     return (
-                        <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
                                     ? 'active'
@@ -724,7 +843,7 @@ class ModuleProductHasVariants extends React.Component {
             } else {
                 sizeSelectionArea = singleProduct.productChildren_size.map(item => {
                     return (
-                        <Link href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
                                     ? 'active'

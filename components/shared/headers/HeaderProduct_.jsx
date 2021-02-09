@@ -53,7 +53,7 @@ class HeaderProduct extends Component {
         const index =  this.props.singleProduct.productChildren_orginal.findIndex( item => 
              item.id == child
              )
-     console.log("-------------------&&&&&&&&&&&&&&&&&&&", child)
+    //  console.log("-------------------&&&&&&&&&&&&&&&&&&&", child)
 
 
         let f_index= this.props.singleProduct.productChildren_orginal.findIndex( item => 
@@ -61,11 +61,11 @@ class HeaderProduct extends Component {
             // console.log("-----------------------------------------------",     item.colorCode);
         )
 
-        console.log("-----------------------------------------------",f_index);
+        // console.log("-----------------------------------------------",f_index);
         
-        console.log(" almost done ",index);
+        // console.log(" almost done ",index);
         const singleProduct = this.props.singleProduct;
-        console.log(" almost done props ",singleProduct);
+        // console.log(" almost done props ",singleProduct);
         return (
             <header
                 className="header header--1 header--product"

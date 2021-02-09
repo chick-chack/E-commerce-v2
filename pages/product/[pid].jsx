@@ -13,6 +13,8 @@ import { getProductsById } from '../../store/product/action';
 import HeaderProduct from '../../components/shared/headers/HeaderProduct';
 import { getCollections } from '../../store/collection/action';
 import RelatedProduct from '../../components/partials/product/RelatedProduct';
+import HeaderDefault from '../../components/shared/headers/HeaderDefault';
+import HeaderMobile from '../../components/shared/headers/HeaderMobile';
 import i18next from 'i18next';
 
 class ProductDefaultPage extends React.Component {
@@ -66,8 +68,6 @@ class ProductDefaultPage extends React.Component {
     render() {
         const { singleProductTest } = this.props;
         const { singleProduct } = this.props;
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", this.props.query)
-        // if (singleProduct) {
         const breadCrumb = [
             {
                 text: i18next.t('home'),
@@ -95,11 +95,15 @@ class ProductDefaultPage extends React.Component {
 
         return (
             <div className="layout--product">
-                {singleProduct ? (<HeaderProduct productData={singleProduct } child={this.state.childern}   />
+                {/* {singleProduct ? (<HeaderProduct productData={singleProduct } child={this.state.childern}   />
                 ) : (
                         ''
-                    )}
-                <HeaderMobileProduct />
+                    )} */}
+                     <HeaderDefault />
+
+
+                    <HeaderMobile />
+                {/* <HeaderMobileProduct /> */}
                 <NavigationList />
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <div className="ps-page--product">

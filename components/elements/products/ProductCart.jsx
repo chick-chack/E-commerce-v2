@@ -4,6 +4,7 @@ import LazyLoad from 'react-lazyload';
 import { isStaticData } from '../../../utilities/app-settings';
 import { baseUrl } from '../../../repositories/Repository';
 const ProductCart = ({ product }) => {
+    console.log("prooooooooooooooooooooooooooo", product)
     return (
         <div className="ps-product--cart">
             <div className="ps-product__thumbnail">
@@ -15,7 +16,7 @@ const ProductCart = ({ product }) => {
                     pathname:`/product/${product['productChild.productId']}`,
                     query: 
                     {
-                        id: product['productChild.id'],
+                        id: product.productChildId,
                     }
                 }}
                  
