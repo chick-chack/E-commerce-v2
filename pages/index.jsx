@@ -26,15 +26,12 @@ import { getBannersBySlugs, getPromotionsBySlugs } from '../store/media/action';
 import SwicherDemo from '~/components/shared/switcher-demo/SwitcherDemo';
 import { switchDemoPanel } from '~/store/app/action';
 import { getMalls_Home, getProduct_Home } from '../store/collection/action';
-
 import { Helmet } from "react-helmet";
 import { getCollectionsfortest } from '../store/collection/action';
 import HomeDefault from '../components/partials/homepage/home-default/HomeDefault';
 
 // import '../i18next';
 import i18next from 'i18next';
-
-
 
 class Index extends Component {
     constructor(props) {
@@ -54,26 +51,6 @@ class Index extends Component {
     componentDidMount() {
 
         const { query } = this.props;
-
-        /*  query : {}  empty */
-        // const { token} = this.props.query;
-
-        //localStorage.setItem('token', token);
-        // const lang=localStorage.getItem('lang') || 'en';
-        // i18next.changeLanguage(lang);
-        // console.log("lang storage", lang);
-        // console.log("index page , query:", query, "  ctx: ", "props fronm index:" ,this.props);
-        /*
-       ctx.query: query:{}
-       ctx: empty
-       this.props:     categories: []
-                       collection: {}
-                       collections: []
-                       dispatch: ƒ ()
-                       query: {}
-                       testproducts: []
-                       __proto__: Object*/
-
 
         if (query) {
 
@@ -115,34 +92,16 @@ class Index extends Component {
         const { subscribe } = this.state;
         return (
             <div className="site-content">
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty"></script>
-                </Helmet>
                 <HeaderDefault />
-
-
                 <HeaderMobile />
                 <NavigationList />
                 <SubscribePopup active={subscribe} />
                 <main id="homepage-1">
-
                     <HomeBanner />
-                    {/* <SiteFeatures /> */}
                     <MallsView />
                     <StoreView />
                     <HomeDefault />
-                    {/* <TestProducts /> 
-                    <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
-                    <BestOffers collectionSlug="best-offers" />
-                    <HomeAdsColumns />
-                    <HomeDefaultTopCategories />
-                    <ConumerElectronics collectionSlug="consumer-electronics" />
-                    <Clothings collectionSlug="clothings" />
-                    <GardenAndKitchen collectionSlug="garden-and-kitchen" /> */}
-                    {/* <HomeAds /> */}
                     <DownLoadApp />
-                    {/* <NewArrivals collectionSlug="new-arrivals-products" /> */}
                     <Newletters />
                 </main>
                 <FooterFullwidth />

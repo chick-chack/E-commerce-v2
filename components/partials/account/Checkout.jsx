@@ -7,8 +7,8 @@ import FormCheckoutInformation from './modules/FormCheckoutInformation';
 class Checkout extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            lang:null
+        this.state = {
+            lang: null,
         }
     }
 
@@ -17,13 +17,11 @@ class Checkout extends Component {
     }
 
 
-    componentDidMount(){
-        this.setState({lang: localStorage.getItem('lang')|| 'en' })
-
-    
+    componentDidMount() {
+        this.setState({ lang: localStorage.getItem('lang') || 'en' })
     }
     render() {
-        const { amount, cartTotal, cartItems, cartList} = this.props;
+        const { amount, cartTotal, cartItems, cartList } = this.props;
         return (
             <div className="ps-checkout ps-section--shopping">
                 <div className="container">

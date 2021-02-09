@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { Helmet } from "react-helmet";
 
 const StyleSheets = () => (
     <Head>
@@ -16,16 +15,10 @@ const StyleSheets = () => (
         <meta name="author" content="nouthemes" />
         <meta name="keywords" content="chickchack, React, eCommerce, Template" />
         <meta name="description" content="Chick Chack" />
-        {/* <link
-            href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext"
-            rel="stylesheet"
-        /> */}
-
-
+    
         {/* add cairo font */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
-
 
         <link
             rel="stylesheet"
@@ -42,18 +35,12 @@ const StyleSheets = () => (
             type="text/css"
             href="/static/css/bootstrap.min.css"
         />
+        
         <link
             rel="stylesheet"
             type="text/css"
             href="/static/css/slick.min.css"
         />
-        <Helmet>
-            <meta charSet="utf-8" />
-            <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty"></script>
-        </Helmet>
-        <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty" ></script>
-
-
     </Head>
 );
 

@@ -40,10 +40,20 @@ class FormCheckoutInformation extends Component {
     }
 
     componentDidMount() {
-        loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
-            .then(paypal => {
-                paypal.Buttons().render();
-            });
+
+        // loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
+        //     .then(paypal => {
+        //         paypal.Buttons().render();
+        //     });
+        // const jsScript = document.createElement('script')
+        // jsScript.src =
+        //     'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty'
+
+        // document.body.appendChild(jsScript)
+
+        // jsScript.addEventListener('load', () => {
+
+        // })
         this.setState({ lang: localStorage.getItem('lang') || 'en' })
         this.props.dispatch(address_list())
         const val = this.props.address.address_list;
@@ -133,10 +143,10 @@ class FormCheckoutInformation extends Component {
             // onFinish={this.handleLoginSubmit}
 
             >
-                <Helmet>
+                {/* <Helmet>
                     <meta charSet="utf-8" />
                     <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty" data-namespace="paypal_sdk"></script>
-                </Helmet>
+                </Helmet> */}
                 <div className="ps-form__content">
 
                     {!this.state.payment_state && <div className="ps-section__header">
