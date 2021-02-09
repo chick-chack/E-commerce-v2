@@ -19,7 +19,6 @@ class ThumbnailHasVariant extends Component {
     }
 
     handleOpenLightbox = (e, imageIndex) => {
-        console.log(imageIndex)
         e.preventDefault();
         this.setState({ photoIndex: imageIndex, isOpen: true });
     };
@@ -79,14 +78,10 @@ class ThumbnailHasVariant extends Component {
         const { product } = this.props;
         const { photoIndex, isOpen } = this.state;
         const productImages = [];
-        console.log(productImages)
-        console.log(this.props)
         if (product.images.length > 0) {
             product.images.map(variant => {
-                console.log(variant)
                 productImages.push(variant);
             });
-            console.log(productImages)
         }
 
         return (
@@ -135,7 +130,6 @@ class ThumbnailHasVariant extends Component {
                     focusOnSelect={true}
                     {...variantSetting}
                     className="ps-product__variants">
-                    {/* {console.log(product.images.length)} */}
                     {product.images !== undefined && product.images.map(variant => (
                         <div className="item" key={product.id}>
                             <ThumbnailImage url={variant} />

@@ -10,6 +10,7 @@ import Promotion from '../../../elements/media/Promotion';
 import BannerItem from '../../../elements/media/BannerItem';
 import mall from '../../../../public/static/img/mall.jpg';
 import support from '../../../../public/static/img/support.jpg'
+import dubai_pic from '../../../../public/static/img/dubaimall.jpg'
 
 
 class HomeBanner extends Component {
@@ -41,7 +42,7 @@ class HomeBanner extends Component {
             dots: false,
             infinite: true,
             speed: 500,
-            autoplay:true,
+            autoplay:false,
             slidesToShow: 1,
             slidesToScroll: 1,
             nextArrow: <NextArrow />,
@@ -65,9 +66,9 @@ class HomeBanner extends Component {
             promotion2 = getItemBySlug(promotionData.items, 'main_2');
         }
         return (
-            <div className="ps-home-banner ps-home-banner--1" style={{paddingTop:"0"}}>
-                <div className="ps-container" style={{padding:"0"}}>
-                <div className="ps-section__left" style={{paddingRight:"0"}}>
+            <div className="ps-home-banner ps-home-banner--1" >
+                <div className="ps-container" >
+                <div className="ps-section__left" >
                 <Slider
                                 {...carouselSetting}
                                 className="ps-carousel">

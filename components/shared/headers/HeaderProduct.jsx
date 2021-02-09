@@ -19,6 +19,7 @@ class HeaderProduct extends Component {
 
     componentDidMount() {
 
+        console.log("header........-------------------------------", this.props)
         console.log("header........", this.props.singleProduct)
         console.log("header........ children", this.props.child)
         console.log(window.location.pathname)

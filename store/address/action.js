@@ -17,10 +17,12 @@ export const actionTypes = {
 
 };
 
-export function add_address(data) {
+export function add_address(data, countryVal) {
+    console.log("daaaaaaaaaaaaaaaa", data, "co", countryVal)
     return {
         type: actionTypes.ADD_ADDRESS,
         data,
+        countryVal,
     };
 }
 

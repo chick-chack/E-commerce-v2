@@ -87,6 +87,17 @@ export const carouselFullwidth = {
     prevArrow: <PrevArrow />,
     lazyload: true,
     responsive: [
+        
+        {
+            breakpoint: 2000,
+            settings: {
+                slidesToShow: 6,
+                slidesToScroll: 3,
+                dots: true,
+                arrows: false,
+            },
+        },
+
         {
             breakpoint: 1750,
             settings: {

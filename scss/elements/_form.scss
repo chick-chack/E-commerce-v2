@@ -729,7 +729,7 @@ textarea.form-control {
         }
 
         &.active {
-            border-color: $color-1st;
+            border-color: $color-span;
             .ps-variant__size {
                 color: $color-heading;
             }
@@ -779,7 +779,7 @@ textarea.form-control {
             position: relative;
         }
         &.active {
-            border-color: $color-1st;
+            border-color: $color-span;
         }
     }
 
