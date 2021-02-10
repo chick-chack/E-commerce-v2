@@ -40,33 +40,13 @@ class FormCheckoutInformation extends Component {
     }
 
     componentDidMount() {
-
-        // loadScript({ 'client-id': 'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty' })
-        //     .then(paypal => {
-        //         paypal.Buttons().render();
-        //     });
-        // const jsScript = document.createElement('script')
-        // jsScript.src =
-        //     'AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty'
-
-        // document.body.appendChild(jsScript)
-
-        // jsScript.addEventListener('load', () => {
-
-        // })
         this.setState({ lang: localStorage.getItem('lang') || 'en' })
         this.props.dispatch(address_list())
         const val = this.props.address.address_list;
-        // this.props.address.address_list ? 
-        // this.setState({
-        //     value:val[0].id
-        // }): ''
-
     }
 
     onChange = (e) => {
         console.log('radio checked', e.target.value);
-        // setValue(e.target.value);
         this.setState({
             value: e.target.value,
             show: "none"
@@ -90,19 +70,8 @@ class FormCheckoutInformation extends Component {
             "street": e.street,
             "postCode": e.postCode,
         }
-        // this.props.cart.cartlist.push(this.props.product.singleProduct.productChildren[0])
         this.props.address.address_list.push(newAddress)
-
-
-        // this.props.address.address_list.push()
         this.props.dispatch(add_address(e))
-        // // this.props.dispatch(getcartlist())
-        // const {cartlist } = this.props.cart;
-        // this.setState({
-        //     test: cartlist
-        // })
-
-        // Router.push('/account/shipping');
     };
 
     addOrder = () => {
@@ -112,7 +81,6 @@ class FormCheckoutInformation extends Component {
                 show: "block"
             })
         } else {
-            console.log(this.state.value, this.state.paymentValue)
             if (this.state.paymentValue == 1) {
                 this.setState({ payment_state: true })
             } else {
@@ -132,7 +100,6 @@ class FormCheckoutInformation extends Component {
     render() {
         const { amount, cartItems, cartTotal, cartList } = this.props.cart;
         const { address_list } = this.props.address;
-        // const options = useMemo(() => countryList().getData(), [])
         const options = countryList().getData();
         const countryCodes = require('country-codes-list')
 
@@ -140,19 +107,11 @@ class FormCheckoutInformation extends Component {
         return (
             <div
                 className="ps-form--checkout"
-            // onFinish={this.handleLoginSubmit}
-
             >
-                {/* <Helmet>
-                    <meta charSet="utf-8" />
-                    <script src="https://www.paypal.com/sdk/js?client-id=AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty" data-namespace="paypal_sdk"></script>
-                </Helmet> */}
                 <div className="ps-form__content">
-
                     {!this.state.payment_state && <div className="ps-section__header">
                         <h1>{i18next.t('checkoutInfo')}</h1>
                     </div>}
-
                     {!this.state.payment_state && <div className="row">
                         <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
                             <div className="ps-form__billing-info">
@@ -212,22 +171,6 @@ class FormCheckoutInformation extends Component {
                                                 <Select
 
                                                     className="form-control" options={options} value={this.state.countryVal} onChange={this.changeHandler} />
-                                                {/* <Form.Item
-                                                // label="First Name"
-                                                name="country"
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        message:
-                                                            'Enter your country!',
-                                                    },
-                                                ]}>
-                                                <Input
-                                                    className="form-control"
-                                                    type="text"
-                                                    placeholder="country"
-                                                />
-                                            </Form.Item> */}
                                             </div>
                                         </div>
                                         <div className="col-sm-6">
@@ -354,7 +297,7 @@ class FormCheckoutInformation extends Component {
                             </div>
 
                         </div>
-                        <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12  ps-block--checkout-order">
+                        {this.state.payment_state && <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12  ps-block--checkout-order">
                             <div className="ps-form__orders">
                                 <h3>{i18next.t('urorder')}</h3>
                                 <div className="ps-block--checkout-order">
@@ -406,21 +349,12 @@ class FormCheckoutInformation extends Component {
                                             <figcaption>
                                                 <strong>{i18next.t('subtotal')}</strong>
                                                 <small>$
-                                                {/* {
-                                         this.props.cartlist? 
-                                         Object.values(this.props.cartlist)
-                                         .reduce((acc, obj) => acc + (obj.quantity * obj['productChild.price'] ), 0)
-                                         .toFixed(2) : "nooooooooooooooooooo"
-                                    } */}
                                                     {this.props.cart.cartlist ?
                                                         Object.values(this.props.cart.cartlist)
                                                             .reduce((acc, obj) => acc + (obj.quantity * (obj['productChild.isOffer']
                                                                 ? obj['productChild.price'] - ((obj['productChild.price'] * obj['productChild.offerRatio']) / 100)
                                                                 : obj['productChild.price'])), 0)
                                                             .toFixed(2) : "nooooooooooooooooooo"}
-                                                    {/*                                                     
-                                                    {amount} */}
-
                                                 </small>
                                             </figcaption>
                                         </figure>
@@ -431,7 +365,7 @@ class FormCheckoutInformation extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                     </div>}
                     {this.state.payment_state && <Payment value={this.state.value} />}
                 </div>

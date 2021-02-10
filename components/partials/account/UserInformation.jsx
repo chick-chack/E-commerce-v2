@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import { Form, Input, Radio, DatePicker } from 'antd';
+import { logOut } from '../../../store/auth/action';
 import Router from 'next/router';
 
 class UserInformation extends Component {
@@ -9,12 +10,18 @@ class UserInformation extends Component {
         super(props);
     }
 
+    handleLogout = e => {
+        e.preventDefault();
+        this.props.dispatch(logOut());
+        Router.push('/account/login')
+    };
+
     render() {
         const { compare, wishlist, auth } = this.props;
         console.log(auth.isLoggedIn)
-        if (!auth.isLoggedIn) { 
+        if (!auth.isLoggedIn) {
             // Router.push('/login')
-        
+
         }
         const accountLinks = [
             {
@@ -57,7 +64,7 @@ class UserInformation extends Component {
                             <div className="ps-section__left">
                                 <aside className="ps-widget--account-dashboard">
                                     <div className="ps-widget__header">
-                                        <img src="/static/img/users/3.jpg" />
+                                        {/* <img src="/static/img/users/3.jpg" /> */}
                                         <figure>
                                             <figcaption>Hello</figcaption>
                                             <p v-if={auth.userinfo.data}>{auth.userinfo.data.email}</p>
@@ -86,8 +93,10 @@ class UserInformation extends Component {
                                             ))}
                                             <li>
                                                 <Link href="/account/my-account">
-                                                    <a>
-                                                        <i className="icon-power-switch"></i>
+
+                                                    <a
+                                                        href="#"
+                                                        onClick={this.handleLogout.bind(this)}>
                                                         Logout
                                                     </a>
                                                 </Link>
