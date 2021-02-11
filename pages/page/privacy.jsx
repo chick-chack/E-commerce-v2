@@ -31,7 +31,7 @@ const PrivacyPage = () => {
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <PrivacyContent />
             </div>
-            <Newletters layout="container" />
+            {/* <Newletters layout="container" /> */}
             <FooterDefault />
         </div>
     );

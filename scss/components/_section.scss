@@ -116,6 +116,11 @@
         }
     }
 
+    .paypal-buttons-context-iframe{
+        display: flex!important;
+        margin: 50px auto!important;
+    }
+
     @include media('<md') {
         padding: 75px 0;
         .ps-section__header {

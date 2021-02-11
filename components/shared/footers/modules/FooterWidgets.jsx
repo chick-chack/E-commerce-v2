@@ -48,7 +48,7 @@ const FooterWidgets = () => (
                 </li>
 
                 <li>
-                    <Link href="/page/condition&terms">
+                    <Link href="/page/terms">
                         <a>{i18next.t('condition&terms')}</a>
                     </Link>
                 </li>

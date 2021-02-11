@@ -18,7 +18,7 @@ const ConditionPage = () => {
         },
         {
             text: i18next.t('condition&terms'),
-            url:'/page/condition&terms'
+            url:'/page/terms'
         },
     ];
 
@@ -31,7 +31,7 @@ const ConditionPage = () => {
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <ConditionContent />
             </div>
-            <Newletters layout="container" />
+            {/* <Newletters layout="container" /> */}
             <FooterDefault />
         </div>
     );

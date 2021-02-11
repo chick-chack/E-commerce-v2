@@ -109,6 +109,7 @@ class ProductDefaultPage extends React.Component {
                 <div className="ps-page--product">
                     <div className="ps-container">
                         <div className="ps-page__container">
+                            
                             <div className="ps-page__left">
                                 <ProductDetailFullwidth childern_ID={this.state.childern} id={this.props.query.id} />
                             </div>
@@ -116,17 +117,9 @@ class ProductDefaultPage extends React.Component {
                                 <ProductWidgets collectionSlug="widget_same_brand" />
                             </div>
                         </div>
-                        {/* <CustomerBought
-                            layout="fullwidth"
-                            collectionSlug="customer_bought"
-                        />
-                        <RelatedProduct
-                            layout="fullwidth"
-                            collectionSlug="shop-recommend-items"
-                        /> */}
                     </div>
                 </div>
-                <Newletters />
+                {/* <Newletters /> */}
                 <FooterDefault />
             </div>
         );

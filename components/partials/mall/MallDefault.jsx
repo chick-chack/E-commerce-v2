@@ -47,14 +47,14 @@ class MallDefault extends Component {
     render() {
         const { sections_product } = this.props;
         const products_test = getColletionBySlug_test(sections_product);
-        console.log("ttttttttttttttttttttttttttttttttttttt colle", products_test)
         return (
             <div>
 
                 {
-
                     products_test ? products_test.map((product, index) => (
-                        <div key={index} className="ps-deal-of-day">
+                        <div>
+                            {product.data.length>0?
+                            <div key={index} className="ps-deal-of-day">
                             <div className="ps-container">
                                 <div className="ps-section__header">
                                     <div className="ps-block--countdown-deal">
@@ -64,51 +64,16 @@ class MallDefault extends Component {
                                                 product.title_en : product.title_ar}</h3>
                                         </div>
                                     </div>
-                                    {/* <Link href={`/view_all/${product.title}`}>
-                                    <a>{i18next.t('viewall')} </a>
-                                </Link>  */}
-
-                                    {/* <Link
-                                        href={{
-                                            pathname: '/mall/productssection', query: {
-                                                mallname: localStorage.getItem("lang") === "ar" ? mall.name_ar
-                                                    : mall.name_en, mallid: mall.id
-                                            },
-                                        }} >
-                                        {localStorage.getItem("lang") === "ar" ? mall.name_ar
-                                            : mall.name_en}
-                                    </Link> */}
                                           <Link
                                         href={{
                                             pathname: '/mall/productssection', query: {
-                                                // mallname: localStorage.getItem("lang") === "ar" ? mall.name_ar
-                                                // : mall.name_en,
                                                  mallid: this.state.mall_id,
                                                  mallname:this.state.mall_name,
                                                 SectionName:product.title},}
-                                            
                                         } >
                                             <a>{i18next.t('viewall')}</a>
                                      
                                     </Link>
-                                    
-                                    {/* <Link
-                                        href="/mall/1/[ProductsSection]"
-                                        as={`/mall/1/${product.title}`}>
-                                        <a>{i18next.t('viewall')}</a>
-                                    </Link> */}
-                                          {/* <Link
-                                        href="/mall/ProductsSection"
-                                        as={`/mall/1${product.title}`}>
-                                        <a>{i18next.t('viewall')}</a>
-                                    </Link> */}
-
-
-                                    {/* <Link href={`/mall/${product.title}`}>
-                                    <a>{i18next.t('viewall')} </a>
-                                </Link>  */}
-
-
                                 </div>
                                 <div className="ps-section__content">
                                     <Slider
@@ -127,7 +92,8 @@ class MallDefault extends Component {
                             </div>
                         </div>
 
-
+                    : <div> </div>}
+                        </div>
                     )
 
                     ) : <h2>{i18next.t("nodatafund")}</h2>

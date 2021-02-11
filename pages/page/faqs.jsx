@@ -6,15 +6,16 @@ import Newletters from '../../components/partials/commons/Newletters';
 import HeaderDefault from '../../components/shared/headers/HeaderDefault';
 import HeaderMobile from '../../components/shared/headers/HeaderMobile';
 import NavigationList from '../../components/shared/navigation/NavigationList';
+import i18next from 'i18next';
 
 const FaqsPage = () => {
     const breadCrumb = [
         {
-            text: 'Home',
+            text: i18next.t('home'),
             url: '/',
         },
         {
-            text: 'Frequently Asked Questions',
+            text: i18next.t('commonquestions'),
             url:'/page/faqs'
         },
     ];
@@ -30,7 +31,7 @@ const FaqsPage = () => {
                     <FaqsContent />
                 </div>
             </div>
-            <Newletters layout="container" />
+            {/* <Newletters layout="container" /> */}
             <FooterDefault />
         </div>
     );

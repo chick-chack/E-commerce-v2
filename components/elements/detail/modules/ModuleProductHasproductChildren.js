@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
@@ -10,12 +11,14 @@ import { addItem, add_to_cart, getcartlist, add_to_local_cart, updateCartSuccess
 import { addItemToCompare } from '~/store/compare/action';
 import { addItemToWishlist } from '~/store/wishlist/action';
 import { formatCurrency } from '../../../../utilities/product-helper';
-import MagicTest from 'components/reactMagicZoom/magic';
-import MagicZoom from 'react-magic-zoom';
+import MagicZoom from '../../magiczoom/reactMagicZoom';
 import Router from 'next/router';
 import Rater from 'react-rater';
 import { notification } from 'antd';
 import i18next from 'i18next';
+import ReactMagicZoom from 'react-magic-zoom';
+import im from '../../../../public/static/img/support.jpg';
+
 
 const modalWarning = (type, item) => {
     notification[type]({
@@ -53,12 +56,20 @@ class ModuleProductHasVariants extends React.Component {
             price: null, has_zise: false, has_color: false,
             has_zise_first: false, has_color_first: false,
             final_QTY: 1,
+            childern_IDD: null,
+            current_id: null,
             reflectoinItem: null,
-            reflectionChanged: null, childern_IDD: null,
-            current_id: null
+            reflectionChanged: null
 
         };
         this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
+       
+      
+    }
+
+
+    static async getInitialProps(ctx) {
+        return { query: ctx.query };
     }
 
     handleRefreshReflection(item) {
@@ -72,10 +83,6 @@ class ModuleProductHasVariants extends React.Component {
         return this.refs.id && this.refs.id.getReflection();
     }
 
-
-    static async getInitialProps(ctx) {
-        return { query: ctx.query };
-    }
 
     handleAddItemToCart = e => {
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
@@ -611,6 +618,21 @@ class ModuleProductHasVariants extends React.Component {
         const { currency } = this.props.setting;
         const { singleProduct } = this.props.product;
 
+        let reflectoinItem1 = this.getReflectoinItem(),
+        reflectionOpt = {
+            type: 'donor',
+            position: {
+                left: '100%',
+                top: '10%'
+            },
+            size: {
+                height: 100,
+                width: 300
+            }
+
+        };
+
+
         const { selectedVariant, selectedChild_z_f, selectedSize, sizeItems, colorItems } = this.state;
         let variants, sizeSelectionArea, colorSelectionArea, priceArea, thumbnailArea, ModuleProductDetailSpecification;
         if (selectedVariant !== null) {
@@ -1071,7 +1093,32 @@ class ModuleProductHasVariants extends React.Component {
                     {ModuleProductDetailSpecification}
                     <ModuleProductDetailSharing />
                 </ div>
+                
+                
+                
+                {/* <div>
+                    <h2>Original use case:</h2>
+                    <MagicZoom>
+                        <span>
+                            <img src={'http://lorempixel.com/520/400/sports/1'} />
+                        </span>
+                    </MagicZoom>
+                </div> */}
+                
+                {/* <div >
+                    <MagicZoom
+                        reflection={reflectionOpt}
+                        subscribeOnReflection={this.handleRefreshReflection}
+                    >
+                        <span>
+                            <img src={'http://lorempixel.com/520/400/sports/2'} />
+                        </span>
+                    </MagicZoom>
 
+                    <div>
+                        {reflectoinItem1}
+                    </div>
+                </div> */}
             </div >
         );
     }

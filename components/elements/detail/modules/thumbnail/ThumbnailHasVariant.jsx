@@ -85,7 +85,7 @@ class ThumbnailHasVariant extends Component {
         }
 
         return (
-            <div className="ps-product__thumbnail" data-vertical="true">
+            <div className="ps-product__thumbnail" >
                 <figure>
                     <div className="ps-wrapper">
                         <Slider
@@ -96,7 +96,7 @@ class ThumbnailHasVariant extends Component {
                             {product.images !== undefined && product.images.map((variant, index) => (
                                 <div className="item" key={product.id}>
                                     <a
-                                        href="#"
+                                        href=""
                                         onClick={e =>
                                             this.handleOpenLightbox(e, index)
                                         }
@@ -108,7 +108,7 @@ class ThumbnailHasVariant extends Component {
                             {product.images == undefined && product.image !== null &&
                                 <div className="item" key={product.id}>
                                     <a
-                                        href="#"
+                                        href=""
                                         onClick={e =>
                                             this.handleOpenLightbox(e, index)
                                         }
