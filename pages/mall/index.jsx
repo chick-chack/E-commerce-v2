@@ -126,7 +126,7 @@ class MallDefaultPage extends React.Component {
                         </div> */}
                     </div>
                 </div>
-                <Newletters layout="container" />
+                {/* <Newletters layout="container" /> */}
                 <FooterDefault />
             </div>
         );

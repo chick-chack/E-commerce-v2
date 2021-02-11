@@ -21,6 +21,7 @@ import '../scss/autopart.scss';
 import '../scss/electronic.scss';
 import 'react-rater/lib/react-rater.css';
 import 'react-phone-input-2/lib/style.css';
+import '../components/elements/magiczoom/scss/_react-magic-zoom.scss';
 import axios from 'axios';
 import i18next from 'i18next';
 

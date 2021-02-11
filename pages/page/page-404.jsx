@@ -43,7 +43,7 @@ const Page404 = () => {
                     </div>
                 </div>
             </div>
-            <Newletters layout="container" />
+            {/* <Newletters layout="container" /> */}
             <FooterDefault />
         </div>
     );

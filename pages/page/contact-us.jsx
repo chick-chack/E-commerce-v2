@@ -55,7 +55,7 @@ const ContactUsPage = () => {
                 {/* <ContactInfo /> */}
           
             </div>
-            <Newsletter layout="container" />
+            {/* <Newsletter layout="container" /> */}
             <FooterDefault />
     
       </div>

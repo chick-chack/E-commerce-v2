@@ -55,7 +55,7 @@ const AboutUsPage = () => {
             </div>
     
             <div>
-            <Newsletter layout="container" />
+            {/* <Newsletter layout="container" /> */}
             <FooterDefault />
         </div>
             </div>

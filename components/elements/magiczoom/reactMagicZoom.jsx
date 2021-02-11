@@ -30,11 +30,13 @@ class MagicZoom extends React.Component {
 
                 reflection: {
                     size: {
-                        height: 0,
-                        width: 0
+                        height: 500,
+                        width: 500
                     },
+                    scale: 2,
 
                     position: {
+                        left:0
                     },
 
                     background: {
@@ -453,10 +455,10 @@ class MagicZoom extends React.Component {
 
 export default MagicZoom;
 
-MagicZoom.propTypes = {
-    children: React.PropTypes.element.isRequired,
-    type: React.PropTypes.oneOf(['auto', 'custom', 'invider', 'donor'])
-};
+// MagicZoom.propTypes = {
+//     children: React.PropTypes.element.isRequired,
+//     type: React.PropTypes.oneOf(['auto', 'custom', 'invider', 'donor'])
+// };
 
 MagicZoom.defaultProps = {
     // temporary for testing

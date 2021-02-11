@@ -31,7 +31,7 @@ const BlankPage = () => {
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <BlankContent />
             </div>
-            <Newletters layout="container" />
+            {/* <Newletters layout="container" /> */}
             <FooterDefault />
         </div>
     );

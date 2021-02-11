@@ -75,10 +75,7 @@ class Index extends Component {
             this.props.dispatch(getPromotionsBySlugs(promotionSlugs));
             this.props.dispatch(getCollections(collectionsSlug));
             this.props.dispatch(switchDemoPanel(false));
-            // this.props.dispatch(getMalls());
             this.props.dispatch(getMalls_Home());
-            // this.props.dispatch(getProduct_Home());
-
             this.props.dispatch(getCollectionsfortest());
 
 
@@ -102,7 +99,7 @@ class Index extends Component {
                     <StoreView />
                     <HomeDefault />
                     <DownLoadApp />
-                    <Newletters />
+                    {/* <Newletters /> */}
                 </main>
                 <FooterFullwidth />
                 <SwicherDemo />
