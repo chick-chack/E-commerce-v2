@@ -9,8 +9,6 @@ export const initCart = {
 };
 
 function reducer(state = initCart, action) {
-    console.log(action.data)
-    console.log(action.type)
     switch (action.type) {
         case actionTypes.ADD_ORDER_SUCCESS:
             return {

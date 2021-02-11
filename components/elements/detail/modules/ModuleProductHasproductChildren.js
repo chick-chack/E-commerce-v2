@@ -385,6 +385,31 @@ class ModuleProductHasVariants extends React.Component {
                 }
             }
 
+        } else if (this.props.id != undefined && this.props.id != '') {
+            this.setState({ has_zise: true })
+            let item = singleProduct.productChildren.find(item => item.id == sizeId)
+            if (item == undefined) {
+                for (var i = 0; i < singleProduct.productChildren.length; i++) {
+                    for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
+                        if (sizeId == singleProduct.productChildren[i].sizes[j].id) {
+                            const selectedVariant = singleProduct.productChildren[i].sizes[j];
+                            this.setState({ selectedSize: singleProduct.productChildren[i].sizes[j] });
+                            this.setState({ selectedChild_z_f: singleProduct.productChildren[i].sizes[j] });
+
+                        }
+                    }
+                }
+            } else {
+                const selectedVariant = item.sizes;
+                if (selectedVariant.length > 0) {
+                    const selectedSizeItem = selectedVariant.find(item => item.id === sizeId);
+                    if (selectedSizeItem) {
+                        this.setState({ selectedSize: selectedSizeItem });
+                        this.setState({ selectedChild_z_f: selectedSizeItem });
+                    }
+                }
+            }
+
         } else if (this.state.has_color_first) {
             this.setState({ has_zise: true })
             const selectedVariant = this.state.selectedVariant.sizes;
@@ -503,6 +528,7 @@ class ModuleProductHasVariants extends React.Component {
 
     }
     componentDidMount() {
+        console.log('0')
         if (this.props.id) {
             this.setState({
                 current_id: this.props.id
@@ -510,17 +536,39 @@ class ModuleProductHasVariants extends React.Component {
         }
         this.props.dispatch(getcartlist());
         const { product } = this.props;
+
+        console.log(this.props)
+        // this.props.childern_ID = 52;
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
+            console.log('1')
             for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
+                console.log('2')
                 for (var j = 0; j < product.singleProduct.productChildren[i].sizes.length; j++) {
+                    console.log('3')
                     if (this.props.childern_ID == product.singleProduct.productChildren[i].sizes[j].id) {
+                        console.log('4')
                         this.handleSelectColor(this.props.childern_ID);
                         this.setState({ has_color_first: true });
                         this.handleSelectSize(this.props.childern_ID);
                     }
                 }
             }
+        } else if (this.props.id != undefined && this.props.id != null && this.props.id != '') {
+            console.log('1')
+            for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
+                console.log('2')
+                for (var j = 0; j < product.singleProduct.productChildren[i].sizes.length; j++) {
+                    console.log('3')
+                    if (this.props.id == product.singleProduct.productChildren[i].sizes[j].id) {
+                        console.log('4')
+                        this.handleSelectColor(this.props.id);
+                        this.setState({ has_color_first: true });
+                        this.handleSelectSize(this.props.id);
+                    }
+                }
+            }
         } else {
+            console.log('1tr')
             if (product.singleProduct && product.singleProduct.productChildren.length > 0) {
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
             }
@@ -617,6 +665,7 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.current_id) {
                 let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
                     item.id == this.state.current_id)
+                console.log(index)
                 priceArea = (
                     <h4 className="ps-selectedVariant__price">
                         {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
