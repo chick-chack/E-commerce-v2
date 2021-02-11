@@ -14,6 +14,11 @@ export const actionTypes = {
     ORDER_LIST_SUCCESS: 'ORDER_LIST_SUCCESS',
     ORDER_LIST_ERROR: 'ORDER_LIST_ERROR',
 
+    // order list
+    ORDER_PREVIEW: 'ORDER_PREVIEW',
+    ORDER_PREVIEW_SUCCESS: 'ORDER_PREVIEW_SUCCESS',
+    ORDER_PREVIEW_ERROR: 'ORDER_PREVIEW_ERROR',
+
     // order list group
     ORDER_LIST_GROUP: 'ORDER_LIST_GROUP',
     ORDER_LIST_GROUP_SUCCESS: 'ORDER_LIST_GROUP_SUCCESS',
@@ -99,6 +104,28 @@ export function order_list_group_Success(data) {
 export function order_list_group_Error(error) {
     return {
         type: actionTypes.ORDER_LIST_GROUP_ERROR,
+        error,
+    };
+}
+
+//  ORDER PREVIEW
+export function order_preview(info) {
+    return {
+        type: actionTypes.ORDER_PREVIEW,
+        info,
+    };
+}
+
+export function order_preview_Success(data) {
+    return {
+        type: actionTypes.ORDER_PREVIEW_SUCCESS,
+        data
+    };
+}
+
+export function order_preview_Error(error) {
+    return {
+        type: actionTypes.ORDER_PREVIEW_ERROR,
         error,
     };
 }

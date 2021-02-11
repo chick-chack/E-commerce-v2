@@ -4,16 +4,28 @@ import countryList from 'react-select-country-list'
 import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
-import { Form, Input, Radio } from 'antd';
-import { add_order } from '../../../../store/order/action';
-import { getcartlist } from '../../../../store/cart/action';
+import { Collapse, Form, Input, Radio } from 'antd';
+import { add_order, order_preview } from '../../../../store/order/action';
 import { address_list, add_address } from '../../../../store/address/action'
 import _ from "lodash";
 import { notification } from 'antd';
-import { loadScript } from '@paypal/paypal-js';
 import i18next from 'i18next';
-import Payment from '../../Payment/Payment';
-import { Helmet } from "react-helmet";
+import { PayPalButton } from "react-paypal-button-v2";
+
+const { Panel } = Collapse;
+const modalSuccess = type => {
+    notification[type]({
+        message: 'Success',
+        description: 'Transaction completed',
+    });
+};
+
+const modalWarning_ = type => {
+    notification[type]({
+        message: 'failed',
+        description: 'Transaction failed',
+    });
+};
 
 const modalWarning = (type) => {
     notification[type]({
@@ -34,9 +46,45 @@ class FormCheckoutInformation extends Component {
             paymentValue: 1,
             show: "none",
             countryVal: null,
-            payment_state: false
+            first_state: false,
+            second_state: false,
 
         }
+    }
+
+
+    return_total() {
+        return this.props.cart.cartlist ?
+            Object.values(this.props.cart.cartlist)
+                .reduce((acc, obj) => acc + (obj.quantity * (obj['productChild.isOffer']
+                    ? obj['productChild.price'] - ((obj['productChild.price'] * obj['productChild.offerRatio']) / 100)
+                    : obj['productChild.price'])), 0)
+                .toFixed(2) : "nooooooooooooooooooo"
+    }
+
+    createOrder(data, actions) {
+        return actions.order.create({
+
+            purchase_units: [
+                {
+                    amount: {
+                        value: this.props.order.order_preview.totalPrice,
+                    },
+                },
+            ],
+        });
+    }
+
+    onApprove = (data, actions) => {
+        actions.order.capture().then(details => {
+            this.props.dispatch(add_order(this.state.value, 1, details))
+            modalSuccess('success');
+            Router.push('/order/MyOrders')
+        });
+    };
+
+    onCancel = () => {
+        modalWarning('warning');
     }
 
     componentDidMount() {
@@ -74,24 +122,29 @@ class FormCheckoutInformation extends Component {
         this.props.dispatch(add_address(e))
     };
 
-    addOrder = () => {
+    f_first_state = () => {
         if (this.state.value == null) {
             modalWarning('warning');
             this.setState({
                 show: "block"
             })
         } else {
-            if (this.state.paymentValue == 1) {
-                this.setState({ payment_state: true })
-            } else {
-                this.props.dispatch(add_order(this.state.value, this.state.paymentValue, null))
+            var info = {
+                "addressId": this.state.value,
+                "paymentType": this.state.paymentValue,
             }
+            const t = this.props.dispatch(order_preview(info))
+            this.setState({ first_state: true, second_state: false })
         }
     }
 
+    f_second_state = () => {
+        this.setState({ second_state: true, first_state: false })
+    }
+
+
 
     changeHandler = value => {
-        console.log('value', value)
         this.setState({
             countryVal: value
         })
@@ -109,11 +162,11 @@ class FormCheckoutInformation extends Component {
                 className="ps-form--checkout"
             >
                 <div className="ps-form__content">
-                    {!this.state.payment_state && <div className="ps-section__header">
+                    {!this.state.second_state && !this.state.first_state && <div className="ps-section__header">
                         <h1>{i18next.t('checkoutInfo')}</h1>
                     </div>}
-                    {!this.state.payment_state && <div className="row">
-                        <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                    <div className="row">
+                        {!this.state.second_state && !this.state.first_state && <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
                             <div className="ps-form__billing-info">
 
                                 <div className="address-list list_add" style={{ marginBottom: "25px" }}>
@@ -289,7 +342,7 @@ class FormCheckoutInformation extends Component {
                                         </a>
                                     </Link>
                                     <div className="ps-block__footer">
-                                        <button onClick={this.addOrder} className="ps-btn">
+                                        <button onClick={this.f_first_state} className="ps-btn">
                                             {i18next.t('continuetoshipping')}
                                         </button>
                                     </div>
@@ -297,84 +350,102 @@ class FormCheckoutInformation extends Component {
                             </div>
 
                         </div>
-                        {this.state.payment_state && <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12  ps-block--checkout-order">
-                            <div className="ps-form__orders">
-                                <h3>{i18next.t('urorder')}</h3>
-                                <div className="ps-block--checkout-order">
-                                    <div className="ps-block__content">
-                                        <figure>
-                                            <figcaption>
-                                                <strong>{i18next.t('product')}</strong>
-                                                <strong>{i18next.t('total')}</strong>
-                                            </figcaption>
-                                        </figure>
-                                        <figure className="ps-block__items">
-                                            {this.props.cart.cartlist &&
-                                                this.props.cart.cartlist.map(product => (
-                                                    <Link
-                                                        href="/"
-                                                        key={product['productChild.id']}>
-                                                        <a>
-                                                            <strong>
-                                                                {this.state.lang === "ar" ?
-                                                                    product['productChild.product.name_ar']
-                                                                    : product['productChild.product.name_en']
+                        }
 
-                                                                }
-                                                                {/* {product.title} */}
-                                                                <span>
-                                                                    x
-                                                                {
-                                                                        product.quantity
-                                                                    }
-                                                                </span>
-                                                            </strong>
-                                                            <small>
-                                                                $
-                                                            {product.quantity *
-                                                                    // product['productChild.price']
-                                                                    (product['productChild.isOffer']
-                                                                        ? product['productChild.price'] - ((product['productChild.price'] * product['productChild.offerRatio']) / 100)
-                                                                        : product['productChild.price'])
+                        {
+                            this.state.first_state && this.props.order.order_preview &&
 
-                                                                }
+                            <div className="col-xl-8 col-lg-8 col-sm-12  ps-block--checkout-order">
+                                <div className="ps-form__orders">
+                                    <h3>{i18next.t('urorder')}</h3>
+                                    <div className="ps-block--checkout-order">
+                                        <div className="ps-block__content">
+                                            {/* <Preview_order /> */}
+                                            <figure>
+                                                <figcaption>
+                                                    <strong>{i18next.t('groups')}</strong>
+                                                    <strong>{i18next.t('total')}</strong>
+                                                </figcaption>
+                                            </figure>
+                                            <figure className="ps-block__items">
+                                                {this.props.order.order_preview.addedGroupData &&
+                                                    this.props.order.order_preview.addedGroupData.map((item, index) => (
+                                                        <Collapse >
+                                                            <Panel header={item.groupName} key={index} extra={item.price} >
 
+                                                                <figcaption>
+                                                                    <strong>{i18next.t('product')}</strong>
+                                                                    <strong> {i18next.t('price')} </strong>
+                                                                </figcaption>
+                                                                {item.details.map(product => (
+                                                                    <Link
+                                                                        href="/"
+                                                                        key={product['productChildId']}>
+                                                                        <a>
+                                                                            <strong>
+                                                                                {/* {this.state.lang === "ar" ?
+                                                                                    product['productChild.product.name_ar']
+                                                                                    : product['productChild.product.name_en']
 
-                                                            </small>
-                                                        </a>
-                                                    </Link>
-                                                ))}
-                                        </figure>
-                                        <figure>
-                                            <figcaption>
-                                                <strong>{i18next.t('subtotal')}</strong>
-                                                <small>$
-                                                    {this.props.cart.cartlist ?
-                                                        Object.values(this.props.cart.cartlist)
-                                                            .reduce((acc, obj) => acc + (obj.quantity * (obj['productChild.isOffer']
-                                                                ? obj['productChild.price'] - ((obj['productChild.price'] * obj['productChild.offerRatio']) / 100)
-                                                                : obj['productChild.price'])), 0)
-                                                            .toFixed(2) : "nooooooooooooooooooo"}
-                                                </small>
-                                            </figcaption>
-                                        </figure>
-                                        <figure className="ps-block__shipping">
-                                            <h3>{i18next.t('shipping')}</h3>
-                                            <p>{i18next.t('calculatedatnextstep')}</p>
-                                        </figure>
+                                                                                } */}
+                                                                                Name
+                                                                                <span>  x {product.quantity}  </span>
+                                                                            </strong>
+                                                                            <small>
+                                                                                $ {product.price}
+
+                                                                            </small>
+                                                                        </a>
+                                                                    </Link>
+                                                                ))}
+                                                            </Panel>
+                                                        </Collapse>
+
+                                                    ))}
+                                            </figure>
+                                            <figure>
+                                                <figcaption>
+                                                    <strong>{i18next.t('subtotal')}</strong>
+                                                    <small>
+                                                        $ {this.props.order.order_preview.totalPrice}
+                                                    </small>
+                                                </figcaption>
+                                            </figure>
+                                            <figure className="ps-block__shipping">
+                                                <h3>{i18next.t('shipping')}</h3>
+                                                <p>{i18next.t('calculatedatnextstep')}</p>
+                                            </figure>
+
+                                            <div className="ps-form__submit">
+                                                <div className="ps-block__footer">
+                                                    <button onClick={this.f_second_state} className="ps-btn">
+                                                        {i18next.t('continue')}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>}
-                    </div>}
-                    {this.state.payment_state && <Payment value={this.state.value} />}
+                        }
+                    </div>
+
+
+                    {this.state.second_state && <PayPalButton
+                        createOrder={(data, actions) => this.createOrder(data, actions)}
+                        onApprove={(data, actions) => this.onApprove(data, actions)}
+                        onCancel={() => this.onCancel()}
+                        options={{
+                            clientId: "AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty"
+                        }}
+                    />}
                 </div>
             </div>
         );
 
     }
-}
 
+}
 // export default FormCheckoutInformation;
 
 const mapStateToProps = state => {
