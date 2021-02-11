@@ -9,7 +9,23 @@ class OrdertRepository {
     }
 
     // add new orders
-    async add_orders(addressId, paymentType, paypalData) {
+    async order_preview(info) {
+
+        var info = {
+            "addressId": info.addressId,
+            "paymentType": info.paymentType,
+        };
+        try {
+            const response = await Repository.put(`${baseUrl}/order/preview`, info)
+            console.log(response)
+            return response.data.data;
+        } catch (error) {
+            return error
+        }
+    }
+
+    // preview orders
+    async add_orders(addressId, paymentType) {
 
         console.log(addressId, paymentType, paypalData)
         var info = {

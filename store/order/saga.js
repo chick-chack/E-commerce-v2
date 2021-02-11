@@ -12,6 +12,8 @@ import {
     order_list_Error,
     order_list_group_Success,
     order_list_group_Error,
+    order_preview_Success,
+    order_preview_Error,
 } from './action';
 
 const modalSuccess = (type) => {
@@ -34,7 +36,7 @@ const modalWarning = (type) => {
 function* add_order({ addressId, paymentType, paypalData }) {
     try {
         const data1 = yield call(OrderRepository.add_orders, addressId, paymentType, paypalData);
-        console.log("sssssssssssss",data1)
+        console.log("sssssssssssss", data1)
         modalSuccess('success');
         yield put(add_order_Success(data1));
     } catch (err) {
@@ -76,9 +78,20 @@ function* order_list_group({ id }) {
     }
 }
 
+function* order_preview({ info }) {
+    try {
+        const data = yield call(OrderRepository.order_preview, info);
+        console.log(data);
+        yield put(order_preview_Success(data));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export default function* rootSaga() {
     yield all([takeEvery(actionTypes.ADD_ORDER, add_order)]);
     yield all([takeEvery(actionTypes.ORDER_LIST, orders_list)]);
     yield all([takeEvery(actionTypes.ORDER_DETAILS, orders_details)]);
     yield all([takeEvery(actionTypes.ORDER_LIST_GROUP, order_list_group)]);
+    yield all([takeEvery(actionTypes.ORDER_PREVIEW, order_preview)]);
 }

@@ -2,11 +2,15 @@ import { actionTypes } from './action';
 
 export const initCart = {
     order_list: [],
-    order_list_group:[],
-    order_details: []
+    order_list_group: [],
+    order_details: [],
+    order_preview: null,
+    load_order_preview: false
 };
 
 function reducer(state = initCart, action) {
+    console.log(action.data)
+    console.log(action.type)
     switch (action.type) {
         case actionTypes.ADD_ORDER_SUCCESS:
             return {
@@ -59,6 +63,18 @@ function reducer(state = initCart, action) {
                 ...{ error: action.error },
             };
 
+        case actionTypes.ORDER_PREVIEW_SUCCESS:
+            return {
+                ...state,
+                ...{ order_preview: action.data },
+                ...{ load_order_preview: true }
+            };
+
+        case actionTypes.ORDER_PREVIEW_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
 
         default:
             return state;

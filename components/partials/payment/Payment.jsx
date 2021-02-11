@@ -3,13 +3,27 @@ import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
 import { add_order } from '../../../store/order/action';
 import { PayPalButton } from "react-paypal-button-v2";
+import { notification } from 'antd';
+import Router from 'next/router';
+
+const modalSuccess = type => {
+    notification[type]({
+        message: 'Success',
+        description: 'Transaction completed',
+    });
+};
+
+const modalWarning = type => {
+    notification[type]({
+        message: 'failed',
+        description: 'Transaction completed',
+    });
+};
+
 
 class YourComponent extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount() {
     }
 
     return_total() {
@@ -39,10 +53,14 @@ class YourComponent extends React.Component {
     onApprove = (data, actions) => {
         actions.order.capture().then(details => {
             this.props.dispatch(add_order(this.props.value, 1, details))
-            // this.setState({ showButtons: false, paid: true });
+            modalSuccess('success');
+            Router.push('/order/MyOrders')
         });
     };
 
+    onCancel = () => {
+        modalWarning('warning');
+    }
 
     render() {
         return (
@@ -50,6 +68,7 @@ class YourComponent extends React.Component {
                 <PayPalButton
                     createOrder={(data, actions) => this.createOrder(data, actions)}
                     onApprove={(data, actions) => this.onApprove(data, actions)}
+                    onCancel={() => this.onCancel()}
                     options={{
                         clientId: "AeLHkpPiNQTJVprDom78nbEtB_6x_YOO9JzxneLbm3cn8Y_dGHkm3BlBOIWxoQVKymM_IOaU4xtUYKty"
                     }}
