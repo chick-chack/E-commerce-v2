@@ -5,9 +5,9 @@ import ThumbnailDefault from './modules/thumbnail/ThumbnailDefault';
 import InformationDefault from './modules/information/InformationDefault';
 import DefaultDescription from './modules/description/DefaultDescription';
 import ModuleProductHasproductChildren from '~/components/elements/detail/modules/ModuleProductHasproductChildren';
-
+import BounceLoader from "react-spinners/BounceLoader";
 class ProductDetailFullwidth extends Component {
-    
+
     constructor(props) {
         super(props);
     }
@@ -20,10 +20,11 @@ class ProductDetailFullwidth extends Component {
                     if (singleProduct.productChildren[0].colorName_en != null) {
                         return (
                             <div className="ps-product--detail ps-product--fullwidth">
-                                <ModuleProductHasproductChildren 
-                                            product={singleProduct} 
-                                            id={this.props.id}
-                                            childern_ID={this.props.childern_ID}/>
+                                <ModuleProductHasproductChildren
+                                    product={singleProduct}
+                                    id={this.props.id}
+                                    childern_ID={this.props.childern_ID}
+                                    pid={this.props.pid} />
                                 <DefaultDescription />
                             </div>
 
@@ -40,13 +41,25 @@ class ProductDetailFullwidth extends Component {
                         );
                     }
                 } else {
-                    return <p>No Data</p>;
+                    return <div style={{ textAlign: 'center' }}>
+                        <div className="ps-form__orders">
+                            <BounceLoader color='#BA915E' loading={true} size={150} />
+                        </div>
+                    </div >
                 }
             } else {
-                return <p>No Data</p>;
+                return <div style={{ textAlign: 'center' }}>
+                    <div className="ps-form__orders">
+                        <BounceLoader color='#BA915E' loading={true} size={150} />
+                    </div>
+                </div>
             }
         } else {
-            return <p>No Data</p>;
+            return <div style={{ textAlign: 'center' }}>
+                <div className="ps-form__orders">
+                    <BounceLoader color='#BA915E' loading={true} size={150} />
+                </div>
+            </div>
         }
     }
 }
@@ -55,7 +68,7 @@ const mapStateToProps = state => {
     return state.product;
 };
 
-export default connect(state => {return state })(ProductDetailFullwidth);
+export default connect(state => { return state })(ProductDetailFullwidth);
 
 
 

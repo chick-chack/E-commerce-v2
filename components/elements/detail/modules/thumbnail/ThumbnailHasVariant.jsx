@@ -10,6 +10,7 @@ import { isStaticData } from '../../../../../utilities/app-settings';
 class ThumbnailHasVariant extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
             galleryCarousel: null,
             variantCarousel: null,

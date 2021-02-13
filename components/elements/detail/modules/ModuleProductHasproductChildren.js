@@ -19,7 +19,6 @@ import i18next from 'i18next';
 import ReactMagicZoom from 'react-magic-zoom';
 import im from '../../../../public/static/img/support.jpg';
 
-
 const modalWarning = (type, item) => {
     notification[type]({
         message: 'Warning',
@@ -59,12 +58,10 @@ class ModuleProductHasVariants extends React.Component {
             childern_IDD: null,
             current_id: null,
             reflectoinItem: null,
-            reflectionChanged: null
+            reflectionChanged: null, thumbnailArea: null
 
         };
         this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
-       
-      
     }
 
 
@@ -262,6 +259,7 @@ class ModuleProductHasVariants extends React.Component {
             modalAsking('warning');
         }
     };
+
     handleAddItemToWishlist = e => {
         e.preventDefault();
         if (this.props.childern_ID) {
@@ -325,8 +323,11 @@ class ModuleProductHasVariants extends React.Component {
                     const sizeItems = selectedVariant.sizes;
                     this.setState({ sizeItems: sizeItems });
                 }
-                this.setState({ selectedVariant: selectedChild_z_f });
-                this.setState({ selectedChild_z_f: selectedVariant });
+                this.setState({ selectedVariant: selectedChild_z_f, selectedChild_z_f: selectedVariant });
+
+                if (singleProduct.id == this.props.pid) {
+                    this.setState({ thumbnailArea: <ThumbnailHasVariant product={selectedChild_z_f} /> });
+                }
             }
         } else {
             this.setState({ has_color_first: true });
@@ -360,6 +361,10 @@ class ModuleProductHasVariants extends React.Component {
                     this.setState({ sizeItems: sizeItems });
                 }
                 this.setState({ selectedVariant: selectedVariant });
+
+                if (singleProduct.id == this.props.pid) {
+                    this.setState({ thumbnailArea: <ThumbnailHasVariant product={selectedVariant} /> });
+                }
             }
         }
     }
@@ -368,6 +373,31 @@ class ModuleProductHasVariants extends React.Component {
     handleSelectSize(sizeId) {
         const { singleProduct } = this.props.product;
         if (this.props.childern_ID != undefined && this.props.childern_ID != '') {
+            this.setState({ has_zise: true })
+            let item = singleProduct.productChildren.find(item => item.id == sizeId)
+            if (item == undefined) {
+                for (var i = 0; i < singleProduct.productChildren.length; i++) {
+                    for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
+                        if (sizeId == singleProduct.productChildren[i].sizes[j].id) {
+                            const selectedVariant = singleProduct.productChildren[i].sizes[j];
+                            this.setState({ selectedSize: singleProduct.productChildren[i].sizes[j] });
+                            this.setState({ selectedChild_z_f: singleProduct.productChildren[i].sizes[j] });
+
+                        }
+                    }
+                }
+            } else {
+                const selectedVariant = item.sizes;
+                if (selectedVariant.length > 0) {
+                    const selectedSizeItem = selectedVariant.find(item => item.id === sizeId);
+                    if (selectedSizeItem) {
+                        this.setState({ selectedSize: selectedSizeItem });
+                        this.setState({ selectedChild_z_f: selectedSizeItem });
+                    }
+                }
+            }
+
+        } else if (this.props.id != undefined && this.props.id != '') {
             this.setState({ has_zise: true })
             let item = singleProduct.productChildren.find(item => item.id == sizeId)
             if (item == undefined) {
@@ -461,6 +491,16 @@ class ModuleProductHasVariants extends React.Component {
             }
         }
     }
+
+    change(id) {
+        this.setState({
+            current_id: id
+        })
+    }
+    change_state(data) {
+        this.setState({ thumbnailArea: <ThumbnailHasVariant product={data} /> });
+    }
+
     todo_handleSelectSize(id) {
         this.setState({
             current_id: id
@@ -518,6 +558,7 @@ class ModuleProductHasVariants extends React.Component {
         this.props.dispatch(getcartlist());
         const { product } = this.props;
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
+
             for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
                 for (var j = 0; j < product.singleProduct.productChildren[i].sizes.length; j++) {
                     if (this.props.childern_ID == product.singleProduct.productChildren[i].sizes[j].id) {
@@ -527,9 +568,22 @@ class ModuleProductHasVariants extends React.Component {
                     }
                 }
             }
+        } else if (this.props.id != undefined && this.props.id != null && this.props.id != '') {
+            for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
+                for (var j = 0; j < product.singleProduct.productChildren[i].sizes.length; j++) {
+                    if (this.props.id == product.singleProduct.productChildren[i].sizes[j].id) {
+                        this.handleSelectColor(this.props.id);
+                        this.setState({ has_color_first: true });
+                        this.handleSelectSize(this.props.id);
+                    }
+                }
+            }
         } else {
             if (product.singleProduct && product.singleProduct.productChildren.length > 0) {
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
+                if (product.singleProduct.id == this.props.pid) {
+                    this.setState({ thumbnailArea: <ThumbnailHasVariant product={product.singleProduct.productChildren[0]} /> });
+                }
             }
         }
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true) {
@@ -619,22 +673,21 @@ class ModuleProductHasVariants extends React.Component {
         const { singleProduct } = this.props.product;
 
         let reflectoinItem1 = this.getReflectoinItem(),
-        reflectionOpt = {
-            type: 'donor',
-            position: {
-                left: '100%',
-                top: '10%'
-            },
-            size: {
-                height: 100,
-                width: 300
-            }
-
-        };
+            reflectionOpt = {
+                type: 'donor',
+                position: {
+                    left: '100%',
+                    top: '10%'
+                },
+                size: {
+                    height: 100,
+                    width: 300
+                }
+            };
 
 
         const { selectedVariant, selectedChild_z_f, selectedSize, sizeItems, colorItems } = this.state;
-        let variants, sizeSelectionArea, colorSelectionArea, priceArea, thumbnailArea, ModuleProductDetailSpecification;
+        let variants, sizeSelectionArea, colorSelectionArea, priceArea, ModuleProductDetailSpecification;
         if (selectedVariant !== null) {
             if (this.state.current_id) {
                 let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
@@ -662,10 +715,8 @@ class ModuleProductHasVariants extends React.Component {
                 );
             }
             else if (this.props.id) {
-
                 let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
                     item.id == this.props.id)
-
                 priceArea = (
                     <h4 className="ps-selectedVariant__price">
                         {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
@@ -715,7 +766,6 @@ class ModuleProductHasVariants extends React.Component {
                     </h4>
                 );
             }
-            thumbnailArea = <ThumbnailHasVariant product={selectedVariant} />;
         }
         else {
         }
@@ -992,11 +1042,10 @@ class ModuleProductHasVariants extends React.Component {
                 );
             }
         }
-
-
         return (
             <div className="ps-product__header" >
-                {thumbnailArea}
+                {this.state.thumbnailArea == null && singleProduct.id == this.props.pid && <ThumbnailHasVariant product={singleProduct.productChildren[0]} />}
+                {this.state.thumbnailArea}
                 < div className="ps-product__info" >
                     <h1>   {localStorage.getItem('lang') === "en" ?
                         singleProduct.name_en
@@ -1093,9 +1142,9 @@ class ModuleProductHasVariants extends React.Component {
                     {ModuleProductDetailSpecification}
                     <ModuleProductDetailSharing />
                 </ div>
-                
-                
-                
+
+
+
                 {/* <div>
                     <h2>Original use case:</h2>
                     <MagicZoom>
@@ -1104,7 +1153,7 @@ class ModuleProductHasVariants extends React.Component {
                         </span>
                     </MagicZoom>
                 </div> */}
-                
+
                 {/* <div >
                     <MagicZoom
                         reflection={reflectionOpt}
