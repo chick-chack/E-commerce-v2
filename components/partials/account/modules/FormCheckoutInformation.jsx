@@ -127,7 +127,7 @@ class FormCheckoutInformation extends Component {
 
     f_first_state = () => {
         console.log('gffffffffffffffffffffff')
-        this.setState({  show_load: true })
+        this.setState({ show_load: true })
         if (this.state.value == null) {
             modalWarning('warning');
             this.setState({
@@ -364,12 +364,10 @@ class FormCheckoutInformation extends Component {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             }
 
-                            {
-                                this.state.first_state && this.props.order.order_preview &&
+                            {this.state.first_state && this.props.order.order_preview &&
                                 <div className="col-xl-8 col-lg-8 col-sm-12  ps-block--checkout-order">
                                     <div className="ps-form__orders">
                                         <h3>{i18next.t('urorder')}</h3>
@@ -398,13 +396,12 @@ class FormCheckoutInformation extends Component {
                                                                             key={product['productChildId']}>
                                                                             <a>
                                                                                 <strong>
-                                                                                    {/* {this.state.lang === "ar" ?
-                                                                                    product['productChild.product.name_ar']
-                                                                                    : product['productChild.product.name_en']
+                                                                                    {this.state.lang === "ar" ?
+                                                                                        product['name_ar']
+                                                                                        : product['name_en']
 
-                                                                                } */}
-                                                                                Name
-                                                                                <span>  x {product.quantity}  </span>
+                                                                                    }
+                                                                                    <span>  x {product.quantity}  </span>
                                                                                 </strong>
                                                                                 <small>
                                                                                     $ {product.price}
@@ -443,10 +440,7 @@ class FormCheckoutInformation extends Component {
                                     </div>
                                 </div>
                             }
-
                         </div>
-
-
                         {this.state.second_state &&
                             <PayPalButton
                                 createOrder={(data, actions) => this.createOrder(data, actions)}
@@ -461,9 +455,7 @@ class FormCheckoutInformation extends Component {
                 }
             </div>
         );
-
     }
-
 }
 // export default FormCheckoutInformation;
 

@@ -22,7 +22,7 @@ class ProductDefaultPage extends React.Component {
         super(props);
         this.state = {
             childern: '',
-            lang:null
+            lang: null
         };
     }
 
@@ -32,9 +32,6 @@ class ProductDefaultPage extends React.Component {
     }
 
     componentDidMount() {
-
-        console.log("^%^%%^^^%%^%%^%^%%^^%^%^", this.props);
-
         this.setState({
             lang: localStorage.getItem('lang') || 'en'
         })
@@ -53,6 +50,7 @@ class ProductDefaultPage extends React.Component {
                 'shop-recommend-items',
                 'widget_same_brand',
             ];
+            console.log(pid)
             this.props.dispatch(getProductsById(pid));
             // this.props.dispatch(getProductsByIdForTesting(37));
             this.props.dispatch(getCollections(collectionsParams));
@@ -74,22 +72,22 @@ class ProductDefaultPage extends React.Component {
                 url: '/',
             },
             {
-                text:singleProduct && (this.state.lang==='ar'
-                        ? singleProduct.trader.mall.name_ar 
-                        : singleProduct.trader.mall.name_en),
-                url: singleProduct && ( this.state.lang==='en'
-                ? `/mall?mallname=${singleProduct.trader.mall.name_en }&mallid=${singleProduct.trader.mall.id}`
-                : `/mall?mallname=${singleProduct.trader.mall.name_ar }&mallid=${singleProduct.trader.mall.id}`),
+                text: singleProduct && (this.state.lang === 'ar'
+                    ? singleProduct.trader.mall.name_ar
+                    : singleProduct.trader.mall.name_en),
+                url: singleProduct && (this.state.lang === 'en'
+                    ? `/mall?mallname=${singleProduct.trader.mall.name_en}&mallid=${singleProduct.trader.mall.id}`
+                    : `/mall?mallname=${singleProduct.trader.mall.name_ar}&mallid=${singleProduct.trader.mall.id}`),
             },
             {
-                text: singleProduct &&( singleProduct.trader.storeName),
-                url: singleProduct && ( `/store/${singleProduct.traderId}`) ,
+                text: singleProduct && (singleProduct.trader.storeName),
+                url: singleProduct && (`/store/${singleProduct.traderId}`),
             },
             {
-                 text: singleProduct && (  this.state.lang==='en'?  singleProduct.name_en
-                 :  singleProduct.name_ar ),
+                text: singleProduct && (this.state.lang === 'en' ? singleProduct.name_en
+                    : singleProduct.name_ar),
                 //  dif:'text',
-                 url: singleProduct && ( `/product/${singleProduct.id}`) ,
+                url: singleProduct && (`/product/${singleProduct.id}`),
             },
         ];
 
@@ -99,19 +97,19 @@ class ProductDefaultPage extends React.Component {
                 ) : (
                         ''
                     )} */}
-                     <HeaderDefault />
+                <HeaderDefault />
 
 
-                    <HeaderMobile />
+                <HeaderMobile />
                 {/* <HeaderMobileProduct /> */}
                 <NavigationList />
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <div className="ps-page--product">
                     <div className="ps-container">
                         <div className="ps-page__container">
-                            
+
                             <div className="ps-page__left">
-                                <ProductDetailFullwidth childern_ID={this.state.childern} id={this.props.query.id} />
+                                <ProductDetailFullwidth childern_ID={this.state.childern} pid={this.props.query.pid} />
                             </div>
                             <div className="ps-page__right">
                                 <ProductWidgets collectionSlug="widget_same_brand" />
