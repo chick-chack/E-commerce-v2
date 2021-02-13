@@ -42,6 +42,23 @@ export const actionTypes = {
     GET_ALL_HOME_TOP_STORES_SUCCESS: 'GET_ALL_HOME_TOP_STORES_SUCCESS',
     GET_ALL_HOME_TOP_STORES_ERROR: 'GET_ALL_HOME_TOP_STORES_ERROR',
 
+    // get promotion
+    GET_HOME_PROMOTIONS:'GET_HOME_PROMOTIONS',
+    GET_HOME_PROMOTIONS_SUCCESS:'GET_HOME_PROMOTIONS_SUCCESS',
+    GET_HOME_PROMOTIONS_ERROR:'GET_HOME_PROMOTIONS_ERROR',
+
+
+    // get Banners
+    GET_HOME_BANNERS:'GET_HOME_BANNERS',
+    GET_HOME_BANNERS_SUCCESS:'GET_HOME_BANNERS_SUCCESS',
+    GET_HOME_BANNERS_ERROR:'GET_HOME_BANNERS_ERROR',
+
+    // GET PRODUCTS BY CATEGORY ID
+    GET_PRODUCTS_BY_CAT_ID:'GET_PRODUCTS_BY_CAT_ID',
+    GET_PRODUCTS_BY_CAT_ID_SUCCESS:'GET_PRODUCTS_BY_CAT_ID_SUCCESS',
+    GET_PRODUCTS_BY_CAT_ID_ERROR:'GET_PRODUCTS_BY_CAT_ID_ERROR',
+
+
 };
 
 // START API HOME
@@ -184,6 +201,78 @@ export function getAllHomeTopStoresSuccess(data) {
 export function getAllHomeTopStoresError(error) {
     return {
         type: actionTypes.GET_ALL_HOME_TOP_STORES_ERROR,
+        error,
+    };
+}
+
+
+
+// get  HOME PROMOTIONS
+export function getAllHomePromotions() {
+    console.log("promotions action")
+    return {
+        type: actionTypes.GET_HOME_PROMOTIONS,
+    };
+}
+
+export function getAllHomePromotionsSuccess(data) {
+    return {
+        type: actionTypes.GET_HOME_PROMOTIONS_SUCCESS,
+        data,
+    };
+}
+
+export function getAllHomePromotionsError(error) {
+    return {
+        type: actionTypes.GET_HOME_PROMOTIONS_ERROR,
+        error,
+    };
+}
+
+// get  HOME BANNER
+export function getAllHomeBanners() {
+    console.log("bannners action")
+    return {
+        type: actionTypes.GET_HOME_BANNERS,
+    };
+}
+
+export function getAllHomeBannersSuccess(data) {
+    return {
+        type: actionTypes.GET_HOME_BANNERS_SUCCESS,
+        data,
+    };
+}
+
+export function getAllHomeBannersError(error) {
+    return {
+        type: actionTypes.GET_HOME_BANNERS_ERROR,
+        error,
+    };
+}
+
+
+// get   all products by category id
+
+export function getProductByCategortyId(cat_id, limit, offset) {
+    return {
+        type: actionTypes.GET_PRODUCTS_BY_CAT_ID,
+        cat_id,
+        limit,
+        offset
+    };
+}
+
+export function getProductByCategortyIdSuccess(data) {
+    return {
+        type: actionTypes.GET_PRODUCTS_BY_CAT_ID_SUCCESS,
+        data,
+    };
+}
+
+export function getProductByCategortyIdError(error) {
+    return {
+        type: actionTypes.GET_PRODUCTS_BY_CAT_ID_ERROR,
         error,
     };
 }

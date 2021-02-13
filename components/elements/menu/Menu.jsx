@@ -33,15 +33,29 @@ class Menu extends Component {
                     } else {
                         return (
                             <li key={item.id}>
-                                 <Link
-                                    href={`/`}
+                                 {/* <Link
+                                    href={`category/[cid]`}
                                     //  href={`${item.url}/[pid]`}
-                                    //   as={`${item.url}/${item.endPoint}`}
+                                      as={`category/${item.id}`}
                                       >
                                         <a>
                                             {this.state.lang==='ar' ? item.name_ar :item.name_en  }
                                             </a>
+                                    </Link> */}
+
+                                    <Link  href={{
+                                                    pathname: '/category', query: {
+                                                    // categoryname: localStorage.getItem("lang") === "ar" ?  item.name_ar
+                                                    //         : item.name_en,
+                                                             cid: item.id
+                                                    }
+                                                }} >
+                                       <a>
+                                            {this.state.lang==='ar' ? item.name_ar :item.name_en  }
+                                            </a>
                                     </Link>
+
+
                             </li>
                         );
                     }

@@ -144,7 +144,7 @@ render() {
                 </div>
             </div> */}
    
-                    <div className="container-fluid">
+            <div className="container-fluid">
               <div className="ps-shopping" style={{marginTop:"20px"}}>
                 {/* <BestSaleItems collectionSlug="shop-best-seller-items" />
                 <RecommendItems collectionSlug="shop-recommend-items" />  */}
@@ -272,7 +272,7 @@ render() {
             
             
             
-      <Newletters />
+      {/* <Newletters /> */}
             <FooterDefault />
         </div>
     );

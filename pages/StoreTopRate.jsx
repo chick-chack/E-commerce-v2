@@ -38,7 +38,7 @@ class TopStoreRateHomePage extends React.Component {
 
         const { query } = this.props;
         if (query) {
-            this.props.dispatch(getAllHomeTopStores(2, 0))
+            this.props.dispatch(getAllHomeTopStores(8, 0))
         }
     }
 
@@ -50,32 +50,19 @@ class TopStoreRateHomePage extends React.Component {
     };
 
 
-    //  : offset,
-    // 
-
     handlePagination(page, pageSize) {
-        this.setState({
-            pageSize: pageSize,
-
-        })
+        this.setState({ pageSize: pageSize,})
 
         const params = {
             _start: page === 1 ? 0 : page * pageSize,
-            _limit: pageSize,
-        };
+            _limit: pageSize, };
+            
         localStorage.setItem("params", JSON.stringify(params));
-
-        //  this.props.dispatch(getStores(params));
-        // this.props.query.mallid
         this.props.dispatch(getAllHomeTopStores(8, 0));
     }
-
-
     FetchData(page) {
         this.props.dispatch(getAllHomeTopStores(this.state.pageSize, page))
     }
-
-
     handlePageSize(value) {
         this.setState({ pageSize: value })
         this.props.dispatch(getAllHomeTopStores(value, 0));
@@ -152,7 +139,7 @@ class TopStoreRateHomePage extends React.Component {
                                     {/* //   setpageSize(e.target.value)} */}
 
                                     <option value="8">8</option>
-                                    <option value="1">12</option>
+                                    <option value="12">12</option>
                                     <option value="16">16</option>
                                     <option value="20">20</option>
                                 </select>

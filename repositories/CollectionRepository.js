@@ -1351,6 +1351,50 @@ async getSubGategory() {
         return reponse;
     }
 
+
+    // api, GET HOME PROMOTIONS
+    async getHomePromotions(payload) {
+        const reponse = await Repository.get(`${baseUrl}/common/home-slider`)
+            .then(response => {
+                console.log("repo promotions", response.data)
+                return response.data;
+            })
+            .catch(error => ({ error: JSON.stringify(error) }));
+        return reponse;
+    }
+
+
+    
+    // api, GET HOME BANNERS
+    async getHomeBanners(payload) {
+        const reponse = await Repository.get(`${baseUrl}/common/banner`)
+            .then(response => {
+                console.log("repo bannres", response.data)
+                return response.data;
+            })
+            .catch(error => ({ error: JSON.stringify(error) }));
+        return reponse;
+    }
+
+
+    
+    // get products by category id
+
+    async getProductsByCatId( cat_id,  limit, offset){
+        console.log("repoooooooooo ",  cat_id,  limit, offset)
+      
+        const reponse = await Repository.get(`${baseUrl}/common/product/products-by-main-category?mainCategoryId=${cat_id}&limit=${limit}&offset=${offset}`)
+        .then(response => {
+            console.log("repoooooooooo  response", response.data)
+            return response.data;
+        })
+            .catch(error => ({ error: JSON.stringify(error) }));
+        return reponse;
+    
+        }
+
+
+
 }
 
 export default new CollectionRepository();

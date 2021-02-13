@@ -25,7 +25,7 @@ import { getCollections } from '../store/collection/action';
 import { getBannersBySlugs, getPromotionsBySlugs } from '../store/media/action';
 import SwicherDemo from '~/components/shared/switcher-demo/SwitcherDemo';
 import { switchDemoPanel } from '~/store/app/action';
-import { getMalls_Home, getProduct_Home } from '../store/collection/action';
+import { getMalls_Home, getProduct_Home,getAllHomePromotions, getAllHomeBanners } from '../store/collection/action';
 import { Helmet } from "react-helmet";
 import { getCollectionsfortest } from '../store/collection/action';
 import HomeDefault from '../components/partials/homepage/home-default/HomeDefault';
@@ -77,9 +77,8 @@ class Index extends Component {
             this.props.dispatch(switchDemoPanel(false));
             this.props.dispatch(getMalls_Home());
             this.props.dispatch(getCollectionsfortest());
-
-
         }
+
         setTimeout(() => {
             this.setState({ subscribe: false });
         }, 10000);

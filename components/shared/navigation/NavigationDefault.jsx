@@ -49,7 +49,6 @@ class NavigationDefault extends Component {
                                 <Menu
                                     // data={menuData.product_categories}
                                     data={data}
-
                                     className="menu--dropdown"
                                 />
                             </div>

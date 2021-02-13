@@ -12,9 +12,17 @@ import {
     getAllProductsSectionSuccess,
     getAllProductsSectionError,
     getAllHomeTopStoresSuccess,
-    getAllHomeTopStoresError
+    getAllHomeTopStoresError,
+    getAllHomePromotionsSuccess,
+    getAllHomePromotionsError,
+    getAllHomeBannersSuccess,
+    getAllHomeBannersError,
+    getProductByCategortyIdSuccess,
+    getProductByCategortyIdError
 } from './action';
+
 import CollectionRepository from '../../repositories/CollectionRepository';
+
 polyfill();
 
 // START HOME PAGE
@@ -115,6 +123,45 @@ function* getAllHometopstores({ limit, offset }) {
 }
 
 
+// get home promotions
+function* getHomePromotions({ }) {
+    console.log("saga promotions")
+    try {
+        const data = yield call(CollectionRepository.getHomePromotions);
+        yield put(getAllHomePromotionsSuccess(data));
+    } catch (err) {
+        yield put(getAllHomePromotionsError(err));
+    }
+}
+
+
+// get home Banners
+function* getHomeBanners({ }) {
+    console.log("saga banners")
+    try {
+        const data = yield call(CollectionRepository.getHomeBanners);
+        yield put(getAllHomeBannersSuccess(data));
+    } catch (err) {
+        yield put(getAllHomeBannersError(err));
+    }
+}
+
+
+// get  productsBY CATEGORY ID
+
+function* getProductByCategortyId({ cat_id, limit, offset}){
+    console.log('saga cat', cat_id, limit, offset)
+
+    try {
+        const data = yield call(CollectionRepository.getProductsByCatId, cat_id , limit, offset);
+        console.log("saaaaaaaga cat data", data)
+        yield put(getProductByCategortyIdSuccess(data));
+    } catch (err) {
+        yield put(getProductByCategortyIdError(err));
+    }
+}
+
+
 
 export default function* rootSaga() {
     yield all([takeEvery(actionTypes.GET_COLLECTIONS, getCollections)]);
@@ -129,4 +176,7 @@ export default function* rootSaga() {
     yield all([takeEvery(actionTypes.GET_MALLS_HOME, getMalls_Home)]);
     yield all([takeEvery(actionTypes.GET_PRODUCTS_HOME, getporducts_Home)]);
     // END HOME PAGE
+    yield all([takeEvery(actionTypes.GET_HOME_PROMOTIONS, getHomePromotions)]);
+    yield all([takeEvery(actionTypes.GET_HOME_BANNERS, getHomeBanners)]);
+    yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_CAT_ID, getProductByCategortyId)]);
 }
