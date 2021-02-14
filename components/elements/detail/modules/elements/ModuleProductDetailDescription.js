@@ -12,37 +12,26 @@ const ModuleProductDetailDescription = ({ product }) => (
                 </a>
             </Link>
         </p>
-        <ul className="ps-list--dot">
-            {/* {product.descriptionPoint_en.map(item => {
-                return (
-                    <li>{item}</li>
-                )
-            } )
-            
-            } */}
+        <ul   className="ps-list--dot">
+                             {localStorage.getItem('lang') === "en" ? 
+                                     product.descriptionPoint_en.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>
+                                     ) :
+                                     product.descriptionPoint_ar.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>) }
 
-
-            { localStorage.getItem('lang')==="en" ? 
-
-                    product.descriptionPoint_en.map(item => {
-                        return (
-                            <li>{item}</li>
-                        )
-                    } )
-            : product.descriptionPoint_ar.map(item => {
-                return (
-                    <li>{item}</li>
-                )
-            } )
-                    
-                }
-                    
-            {/* <li>{product.mainCategory.name_en}</li> */}
+                                        {/* <li>{product.mainCategory.name_en}</li> */}
             {/* <li >{product.subCategory.name_en}</li> */}
             {/* <li>{product.subSubCategory.name_en}</li> */}
             {/* <li>{product.descriptionPoint_en}</li> */}
             {/* <li>{product.subCategory.name_en}</li> */}
-        </ul>
+                            
+                        </ul>
+
     </div>
 );
 

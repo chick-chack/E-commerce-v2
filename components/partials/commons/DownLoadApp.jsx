@@ -35,7 +35,7 @@ const DownloadApp = () => (
                                     </div>
                                 </form>
                                 <p className="download-link">
-                                    <a href="#">
+                                    <a href="https://play.google.com/store/apps/details?id=com.ChickChack.ChickChackMall" target="_blank">
                                         <img src="/static/img/google-play.png" alt="chickchack" />
                                     </a>
                                     <a href="#">

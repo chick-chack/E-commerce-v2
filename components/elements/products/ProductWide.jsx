@@ -95,10 +95,23 @@ class ProductWide extends Component {
                                 <a>{product.vendor}</a>
                             </Link>
                         </p>
-                        <ul className="ps-product__desc">
+                        {/* <ul className="ps-product__desc">
                             {product.descriptionPoint_en.map(item => <li>
                                 {item}
                             </li>)}
+                        </ul> */}
+                         <ul  className="ps-product__desc">
+                             {localStorage.getItem('lang') === "en" ? 
+                                     product.descriptionPoint_en.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>
+                                     ) :
+                                     product.descriptionPoint_ar.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>) }
+                            
                         </ul>
                     </div>
                     <div className="ps-product__shopping">

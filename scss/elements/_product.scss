@@ -225,10 +225,15 @@
     &.ps-product--inner {
         // padding: 0;
         // border: none;
-        padding:20px 20px;
-        border: 1px solid transparent;
-
-
+        // padding:20px 20px;
+        // border: 1px solid silver;
+        // height: 100%;
+        padding: 20px 20px;
+        /* border: 1px solid silver; */
+        height: 97%;
+        margin-top: 3px;
+        // box-shadow: 0px 2px 8px 0px rgb(0 0 0 / 10%);
+        box-shadow: 0 2px 4px rgba(#ccc, 0.5);
         .ps-product__rating {
             margin-bottom: 0.5em;
         }

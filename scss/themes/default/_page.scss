@@ -81,6 +81,8 @@
         .slick-slide {
             > div {
                 margin: 0 8px;
+                height: 100%!important;
+                // background-color: red;
             }
         }
 
@@ -189,3 +191,10 @@
 
 
 }}
+
+.slick-slide{
+    height: auto!important;
+}
+.slick-track{
+    display: flex!important;
+}
