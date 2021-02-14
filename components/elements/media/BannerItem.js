@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { baseUrl } from '../../../repositories/Repository';
 import i18next from 'i18next';
 
-const BannerItem = ({ source , text_1, text_2}) => {
+const BannerItem = ({ source, text_1, text_2 }) => {
     if (source) {
         return (
             <Link href="https://join.chickchack.net/">
@@ -14,9 +14,9 @@ const BannerItem = ({ source , text_1, text_2}) => {
                     <p style={{color:"#ffffff", fontSize:"22px", fontWeight:"600"}}> {i18next.t(text_1)}</p>
                     <Link href="https://join.chickchack.net/">
                         <a  href="https://join.chickchack.net/" className="ps-btn">{i18next.t('joinus')}</a>
+
                         </Link>
                     </div>
-                   
                 </a>
             </Link>
         );

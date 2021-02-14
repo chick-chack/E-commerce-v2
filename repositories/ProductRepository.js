@@ -278,6 +278,9 @@ class ProductRepository {
                     'product': datee,
                     'review_orginal': response.data.reviews
                 }
+                console.log('--------------------------------------------/----------------------------------------------------------');
+                console.log(info)
+                console.log('--------------------------------------------/----------------------------------------------------------');
                 return info;
 
             })

@@ -7,8 +7,8 @@ const Promotion = ({ link, image }) => {
         return (
             <Link href={link}>
                 <a className="ps-collection">
-                    {/* <img src={`${baseUrl}${image.url}`} alt="chickchack" /> */}
-                    <img src="http://45.76.97.89:3000/uploads/promotion_1_d6deb591f0.jpeg" alt="chickchack" />
+                    <img src={image} alt="chickchack" />
+                    {/* <img src="http://45.76.97.89:3000/uploads/promotion_1_d6deb591f0.jpeg" alt="chickchack" /> */}
                 </a>
             </Link>
         );
@@ -16,8 +16,8 @@ const Promotion = ({ link, image }) => {
         return (
             <Link href={link ? link : '/shop'}>
                 <a className="ps-collection">
-                    {/* <img src="/static/img/not-found.jpg" alt="chickchack" /> */}
-                    <img src="http://45.76.97.89:3000/uploads/promotion_1_d6deb591f0.jpeg" alt="chickchack" />
+                    <img src="/static/img/not-found.jpg" alt="chickchack" />
+                    {/* <img src="http://45.76.97.89:3000/uploads/promotion_1_d6deb591f0.jpeg" alt="chickchack" /> */}
                 </a>
             </Link>
         );
