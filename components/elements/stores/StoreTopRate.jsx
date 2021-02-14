@@ -13,6 +13,7 @@ import { isStaticData } from '../../../utilities/app-settings';
 import LazyLoad from 'react-lazyload';
 import i18next from 'i18next';
 import Rater from 'react-rater';
+import default_img from '../../../public/static/img/bbb75430607f4d43ad26e4467ebdc524.png'
 
 class StoreTopRate extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class StoreTopRate extends Component {
                         <a>
                             <LazyLoad>
                                 {/* <img src={thumbnail} alt="chickchack" /> */}
-                                <img src={store.image ? store.image : "http://45.76.97.89:3000/uploads/bbb75430607f4d43ad26e4467ebdc524.png"} />
+                                <img src={store.image ? store.image : default_img} />
                             </LazyLoad>
                         </a>
                     </Link>
