@@ -13,7 +13,7 @@ class NavigationDefault extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lang:null
+            lang: null
         };
     }
 
@@ -25,15 +25,15 @@ class NavigationDefault extends Component {
             duration: 500,
         });
     }
-    
-  
+
     componentDidMount() {
         this.props.dispatch(all_category());
-        this.setState({lang: localStorage.getItem('lang')|| 'en' })
+        this.setState({ lang: localStorage.getItem('lang') || 'en' })
     }
 
+
     render() {
-        const data= this.props.product.list_category;
+        const data = this.props.product.list_category;
         return (
             <nav className="navigation">
                 <div className="ps-container">
@@ -41,7 +41,7 @@ class NavigationDefault extends Component {
                         <div className="menu--product-categories">
                             <div className="menu__toggle">
                                 <i className="icon-menu"></i>
-                                <span> 
+                                <span>
                                     {i18next.t("shopByCategory")}
                                 </span>
                             </div>
@@ -55,7 +55,7 @@ class NavigationDefault extends Component {
                         </div>
                     </div>
                     <div className="navigation__right">
-                    <ul className="navigation__extra">
+                        <ul className="navigation__extra">
                             <li>
                                 <Link href="/">
                                     <a> {i18next.t('home')}</a>
@@ -77,25 +77,7 @@ class NavigationDefault extends Component {
                                 </Link>
                             </li>
                         </ul>
-                        {/* <Menu
-                        
-                            data={menuData.menuPrimary.menu_1}
-                            className="menu"
-                        /> */}
                         <ul className="navigation__extra">
-                            {/* <li>
-                                <Link href="/vendor/become-a-vendor">
-                                    <a>Sell on chickchack</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/account/order-tracking">
-                                    <a>Tract your order</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <CurrencyDropdown />
-                            </li> */}
                             <li>
                                 <LanguageSwicher />
                             </li>
@@ -107,4 +89,4 @@ class NavigationDefault extends Component {
     }
 }
 
-export default connect(state => state) (NavigationDefault);
+export default connect(state => state)(NavigationDefault);

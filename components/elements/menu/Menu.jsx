@@ -1,70 +1,62 @@
 
 import Link from 'next/link';
-
 import MegaMenu from './MegaMenu';
 import MenuDropdown from './MenuDropdown';
-
-//const Menu = ({ data, className }) => (
-
+import { getProductByCategortyId } from '../../../store/collection/action';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 class Menu extends Component {
     constructor(props) {
         super(props);
     }
-    state={
-        lang:null
+    state = {
+        lang: null
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setState({
             lang: localStorage.getItem('lang')
         })
     }
-    render(){
+
+    get_new_prodct(cid) {
+        console.log('-------------------------------------------------------------------------------------------------------------------------------------------')
+        console.log(cid)
+        this.props.dispatch(getProductByCategortyId(cid, 8, 0));
+    }
+
+    render() {
         const { data, className } = this.props;
-        return(
+        return (
             <ul className={className}>
-            {data &&
-                data.map(item => {
-                    if (item.subMenu) {
-                        return <MenuDropdown menuData={item} key={item.text} />;
-                    } else if (item.megaContent) {
-                        return <MegaMenu menuData={item} key={item.text} />;
-                    } else {
-                        return (
-                            <li key={item.id}>
-                                 {/* <Link
-                                    href={`category/[cid]`}
-                                    //  href={`${item.url}/[pid]`}
-                                      as={`category/${item.id}`}
-                                      >
-                                        <a>
-                                            {this.state.lang==='ar' ? item.name_ar :item.name_en  }
+                {data &&
+                    data.map(item => {
+                        console.log(item)
+                        if (item.subMenu) {
+                            return <MenuDropdown menuData={item} key={item.text} />;
+                        } else if (item.megaContent) {
+                            return <MegaMenu menuData={item} key={item.text} />;
+                        } else {
+                            return (
+                                <li key={item.id}>
+                                    <div >
+                                        <Link href={{ pathname: '/category', query: { cid: item.id } }} >
+                                            <a onClick={() => this.get_new_prodct(item.id)}>
+                                                {this.state.lang === 'ar' ? item.name_ar : item.name_en}
                                             </a>
-                                    </Link> */}
-
-                                    <Link  href={{
-                                                    pathname: '/category', query: {
-                                                    // categoryname: localStorage.getItem("lang") === "ar" ?  item.name_ar
-                                                    //         : item.name_en,
-                                                             cid: item.id
-                                                    }
-                                                }} >
-                                       <a>
-                                            {this.state.lang==='ar' ? item.name_ar :item.name_en  }
-                                            </a>
-                                    </Link>
-
-
-                            </li>
-                        );
-                    }
-                })}
-         
-        </ul>
+                                        </Link>
+                                    </div>
+                                </li>
+                            );
+                        }
+                    })}
+            </ul>
         )
-    }}
-export default Menu;
+    }
+}
+export default connect(state => state)(Menu);
+// export default ;
 
 
 
