@@ -21,8 +21,6 @@ class Menu extends Component {
     }
 
     get_new_prodct(cid) {
-        console.log('-------------------------------------------------------------------------------------------------------------------------------------------')
-        console.log(cid)
         this.props.dispatch(getProductByCategortyId(cid, 8, 0));
     }
 
@@ -32,7 +30,6 @@ class Menu extends Component {
             <ul className={className}>
                 {data &&
                     data.map(item => {
-                        console.log(item)
                         if (item.subMenu) {
                             return <MenuDropdown menuData={item} key={item.text} />;
                         } else if (item.megaContent) {

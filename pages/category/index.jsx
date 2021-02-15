@@ -28,7 +28,6 @@ class CategoryDefaultPage extends React.Component {
 
 
     componentDidMount() {
-        console.log('fffffffffff')
         this.setState({
             lang: localStorage.getItem('lang') || 'en'
         })
@@ -170,7 +169,7 @@ class CategoryDefaultPage extends React.Component {
                                     <ReactPaginate
                                         pageCount={Math.ceil(total / this.state.pageSize)}
                                         pageRangeDisplayed={2}
-                                        marginPagesDisplayed={1}
+                                        marginPagesDisplayed={0}
                                         previousLabel={"←"}
                                         nextLabel={"→"}
                                         onPageChange={(data) => (console.log("data selected", data.selected), this.FetchData(data.selected))}
