@@ -9,9 +9,9 @@ const FooterWidgets = () => (
             <h4 className="widget-title">{i18next.t('contactus')}</h4>
             <div className="widget_content">
                 <p>{i18next.t('callus')}</p>
-                <h3>00971 45 76 25 49</h3>
+                <h3><a href="tel:+97145762549">+971 45 76 25 49</a></h3>
                 <p>
-                {i18next.t('address')} <br />
+                    {i18next.t('address')} <br />
                     <a href="mailto:contact@chickchack.co">info@chickchack.com</a>
                 </p>
                 <ul className="ps-list--social">

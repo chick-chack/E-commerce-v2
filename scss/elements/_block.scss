@@ -91,6 +91,37 @@
     }
 }
 
+
+.ps-block--mall-view {
+    margin-bottom: 30px;
+    padding: 20px 10px;
+    text-align: center;
+    transition: all 0.4s ease;
+    // border: 1px solid #bfbfbf;
+
+    a {
+        @include max-area();
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    &:hover {
+        border-color: 1px solid #bfbfbf
+
+        p {
+            color: #09c;
+        }
+    }
+
+    @include media('<xs') {
+        padding: 20px 10px;
+    }
+}
+
 .ps-block--category-vertical {
     h4 {
         font-weight: 400;
