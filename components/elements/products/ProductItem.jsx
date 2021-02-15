@@ -103,15 +103,31 @@ class ProductItem extends Component {
                                     {formatCurrency(product.productChildren[0]['price'])}
                                 </p>
                             )}
-                        <Link
-                            href="/product/[pid]" as={`/product/${product.id}`}
+                       
+                        <ul   className="ps-product__desc">
+                             {localStorage.getItem('lang') === "en" ? 
+                                     product.descriptionPoint_en.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>
+                                     ) :
+                                     product.descriptionPoint_ar.map( ( item, index)=>
+                                     <li className="ps-product__title" key={index}>
+                                        {  JSON.parse(item).value}
+                                     </li>) }
                             
-                            >
+                        </ul>
+                       
+                        {/* <Link
+                            href="/product/[pid]" as={`/product/${product.id}`} >
                             <a className="ps-product__title">
+
+                              
                                 {localStorage.getItem('lang') === "en" ?
                                     product.descriptionPoint_en[0]
-                                    : product.descriptionPoint_ar[0]}</a>
-                        </Link>
+                                    : product.descriptionPoint_ar[0]} </a>
+                                   
+                        </Link> */}
 
                         <div className="ps-product__rating">
                    <span className="rating_num">

@@ -16,22 +16,22 @@ const FooterWidgets = () => (
                 </p>
                 <ul className="ps-list--social">
                     <li>
-                        <a className="facebook" href="#">
+                        <a className="facebook" href="https://www.facebook.com/ChickChackMall/" target="_blank">
                             <i className="fa fa-facebook"></i>
                         </a>
                     </li>
-                    <li>
+                    {/* <li>
                         <a className="twitter" href="#">
                             <i className="fa fa-twitter"></i>
                         </a>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                         <a className="google-plus" href="#">
                             <i className="fa fa-google-plus"></i>
                         </a>
-                    </li>
+                    </li> */}
                     <li>
-                        <a className="instagram" href="#">
+                        <a className="instagram" href="https://www.instagram.com/chickchack2/?hl=en" target="_blank">
                             <i className="fa fa-instagram"></i>
                         </a>
                     </li>

@@ -7,13 +7,14 @@ const BannerItem = ({ source, text_1, text_2 }) => {
     if (source) {
         return (
             <Link href="https://join.chickchack.net/">
-                <a style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <a style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                     {/* <img src={`${baseUrl}${source.image.url}`} alt="chickchack" /> */}
                     <img src={source} alt="chickchack" />
-                    <div style={{ position: "absolute", display: "flex", alignItems: "center", justifyContent: "center", flexFlow: "column" }}>
-                        <p style={{ color: "#ffffff", fontSize: "22px", fontWeight: "600" }}> {i18next.t(text_1)}</p>
-                        <Link href="https://join.chickchack.net/">
-                            <a href="https://join.chickchack.net/" className="ps-btn">{i18next.t('joinus')}</a>
+                    <div  style={{ position:"absolute", display:"flex", alignItems:"center", justifyContent:"center", flexFlow:"column"}}> 
+                    <p style={{color:"#ffffff", fontSize:"22px", fontWeight:"600"}}> {i18next.t(text_1)}</p>
+                    <Link href="https://join.chickchack.net/">
+                        <a  href="https://join.chickchack.net/" className="ps-btn">{i18next.t('joinus')}</a>
+
                         </Link>
                     </div>
                 </a>

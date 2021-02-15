@@ -81,6 +81,8 @@
         .slick-slide {
             > div {
                 margin: 0 8px;
+                height: 100%!important;
+                // background-color: red;
             }
         }
 
@@ -89,15 +91,16 @@
                 color: #690;
                 font-size: 18px;
                 font-weight: 600;
+                justify-content: space-evenly;
 
                 del {
                     margin-left: 10px;
                     font-size: 14px;
-                    margin-right: 10px;
+                    // margin-right: 10px;
                 }
 
                 small {
-                    margin-left: 10px;
+                    // margin-left: 10px;
                     color: red;
                 }
             }
@@ -105,7 +108,7 @@
     }
 
     .ps-top-categories {
-        padding: 80px 0 50px;
+        padding:15px 0;
 
         h3 {
             text-transform: capitalize;
@@ -189,3 +192,10 @@
 
 
 }}
+
+.ps-deal-of-day .slick-slide{
+    height: auto!important;
+}
+.ps-deal-of-day .slick-track{
+    display: flex!important;
+}

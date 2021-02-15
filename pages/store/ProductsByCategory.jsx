@@ -227,7 +227,7 @@ render() {
                                 {listProduct 
                                     ? listProduct.rows.map((item) => (
                                           <div
-                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-6"
+                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-12"
                                               key={item.id}>
                                               {/* <Store store={item} /> */}
                                               <ProductDealOfDay_edit
@@ -258,7 +258,7 @@ render() {
                         <ReactPaginate
                             pageCount={Math.ceil(total /this.state.pageSize)}
                             pageRangeDisplayed={2}
-                            marginPagesDisplayed={1}
+                            marginPagesDisplayed={0}
                             previousLabel={"←"}
                             nextLabel={"→"}
                             onPageChange={(data) => this.FetchData(data.selected )}

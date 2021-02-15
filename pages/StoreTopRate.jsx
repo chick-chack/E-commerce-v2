@@ -15,8 +15,6 @@ import i18next from 'i18next';
 import ReactPaginate from "react-paginate";
 import _ from "lodash";
 
-
-
 class TopStoreRateHomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -25,17 +23,17 @@ class TopStoreRateHomePage extends React.Component {
     state = {
         listView: true,
         pageSize: 8,
+        lang:null,
     };
-
 
     static async getInitialProps(ctx) {
         return { query: ctx.query };
     }
 
-
     componentDidMount() {
-
-
+        this.setState({
+            lang: localStorage.getItem('lang') || 'en'
+        })
         const { query } = this.props;
         if (query) {
             this.props.dispatch(getAllHomeTopStores(8, 0))
@@ -75,13 +73,14 @@ class TopStoreRateHomePage extends React.Component {
 
         const breadCrumb = [
             {
-                text: 'Home',
+                text: i18next.t('home'),
                 url: '/',
             },
 
             {
 
-                text: "Top Stores Rate"
+                text: i18next.t('topstorerate'),
+                url:'/StoreTopRate'
             },
         ];
 
@@ -94,50 +93,16 @@ class TopStoreRateHomePage extends React.Component {
                 <HeaderDefault />
                 <HeaderMobile />
                 <NavigationList />
-
-                {/* </div>
-        <div className="layout--product">
-            {/* {singleProduct ? (
-                <HeaderProduct productData={singleProduct} />
-            ) : (
-                    ''
-                )} */}
-
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-                {/*   <div className="ps-page--product">
-                <div className="ps-container">
-                    <div className="ps-page__container">
-                        <div className="ps-page__left">
-                            <ProductDetailFullwidth />
-                        </div>
-                        <div className="ps-page__right">
-                            <ProductWidgets collectionSlug="widget_same_brand" />
-                        </div>
-                    </div>
-                    <CustomerBought
-                        layout="fullwidth"
-                        collectionSlug="customer_bought"
-                    />
-                    <RelatedProduct
-                        layout="fullwidth"
-                        collectionSlug="shop-recommend-items"
-                    />
-                </div>
-            </div> */}
-
                 <div className="container-fluid">
                     <div className="ps-shopping" style={{ marginTop: "20px" }}>
                         <div className="ps-shopping__header">
-                            <p> <strong className="mr-2">{total}</strong> Stores found   </p>
+                            <p> <strong className="mr-2">{total}</strong> {i18next.t('storesfound')}   </p>
                             <div className="ps-shopping__actions">
                                 <select name="language" className="ps-select form-control"
                                     onChange={(e) =>
                                         this.handlePageSize(e.target.value)
-                                        // this.setState({ pageSize:e.target.value })
                                     }>
-
-                                    {/* //   setpageSize(e.target.value)} */}
-
                                     <option value="8">8</option>
                                     <option value="12">12</option>
                                     <option value="16">16</option>
@@ -159,7 +124,7 @@ class TopStoreRateHomePage extends React.Component {
                                         {all_home_top_stores.rows && all_home_top_stores.rows.length > 0
                                             ? all_home_top_stores.rows.map((item) => (
                                                 <div
-                                                    className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-6"
+                                                    className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-12"
                                                     key={item.traderId}>
                                                     <Store store={item} />
 
@@ -194,7 +159,7 @@ class TopStoreRateHomePage extends React.Component {
                                     <ReactPaginate
                                         pageCount={Math.ceil(total / this.state.pageSize)}
                                         pageRangeDisplayed={2}
-                                        marginPagesDisplayed={1}
+                                        marginPagesDisplayed={0}
                                         previousLabel={"←"}
                                         nextLabel={"→"}
                                         onPageChange={(data) => this.FetchData(data.selected)}

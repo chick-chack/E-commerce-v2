@@ -86,7 +86,6 @@ class ProductDefaultPage extends React.Component {
             {
                 text: singleProduct && (this.state.lang === 'en' ? singleProduct.name_en
                     : singleProduct.name_ar),
-                //  dif:'text',
                 url: singleProduct && (`/product/${singleProduct.id}`),
             },
         ];

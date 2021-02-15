@@ -16,7 +16,6 @@ import ReactPaginate from "react-paginate";
 import _ from "lodash";
 
 
-
 class ProductsSectionHomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -25,164 +24,96 @@ class ProductsSectionHomePage extends React.Component {
     state = {
         listView: true,
         pageSize:8,
+        lang:null,
     };
 
-    
     static async getInitialProps(ctx) {
-        console.log("sectiiiiiiiiiiiion",ctx.query)
         return { query: ctx.query };
     }
-
-
-    
+  
 componentDidMount() {
+    this.setState({
+        lang: localStorage.getItem('lang') || 'en'
+    })
    
-
     const { query } = this.props;
     console.log("fffffffffffffffffffffffff", query)
     if (query) {
-        this.props.dispatch(getAllProductsSection(query.SectionName,2,0))
+        this.props.dispatch(getAllProductsSection(query.SectionName,8,0))
     }
 }
-
 
 handleChangeViewMode = (event) => {
     event.preventDefault();
     this.setState({ listView: !this.state.listView });
 };
 
-
 handlePagination(page, pageSize) {
     this.setState({
-        pageSize:pageSize,
-       
-    })
+        pageSize:pageSize, })
  
     const params = {
         _start: page === 1 ? 0 : page * pageSize,
         _limit: pageSize,
     };
     localStorage.setItem("params",JSON.stringify(params));
-
-  //  this.props.dispatch(getStores(params));
-  // this.props.query.mallid
   this.props.dispatch(getAllProductsSection(this.props.query.mallid, this.props.query.SectionName,8,0));
 }
-
 
 FetchData( page){
     this.props.dispatch( getAllProductsSection(this.props.query.SectionName, this.state.pageSize,page))
 }
-
 
  handlePageSize(value){
     this.setState({ pageSize:value })
     this.props.dispatch(getAllProductsSection(this.props.query.SectionName ,value,0));  
 }
 
-
 render() {
-
     const { specific_home_section_products } = this.props;
     const listProduct= specific_home_section_products.data
-   // console.log( listProduct.count);
-    console.log( "jjjjjjjjjjjjjjjjjj", specific_home_section_products );
-
-
         const breadCrumb = [
             {
-                text: 'Home',
+                text: i18next.t('home'),
                 url: '/',
             },
         
             {
-   
-                text: specific_home_section_products.title_ar
+                text: specific_home_section_products && (this.state.lang === 'en' ? specific_home_section_products.title_en
+                : specific_home_section_products.title_ar),
+            url: specific_home_section_products && ( this.state.lang === 'en' ? `/ProductsSection?SectionName=${specific_home_section_products.title_en}`
+                                                                                : `/ProductsSection?SectionName=${specific_home_section_products.title_ar}`),
             },
         ];
     
       const total = listProduct ? listProduct.count  : "no data";
-      //  console.log("total stores via mall id", total);
      const viewMode = this.state.listView;
-        console.log("layout viewmode", viewMode);
-
-
     return (
         <div className="site-content">
         <HeaderDefault />
         <HeaderMobile />
         <NavigationList />
-
-
-        {/* </div>
-        <div className="layout--product">
-            {/* {singleProduct ? (
-                <HeaderProduct productData={singleProduct} />
-            ) : (
-                    ''
-                )} */}
-     
            <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-           {/*   <div className="ps-page--product">
-                <div className="ps-container">
-                    <div className="ps-page__container">
-                        <div className="ps-page__left">
-                            <ProductDetailFullwidth />
-                        </div>
-                        <div className="ps-page__right">
-                            <ProductWidgets collectionSlug="widget_same_brand" />
-                        </div>
-                    </div>
-                    <CustomerBought
-                        layout="fullwidth"
-                        collectionSlug="customer_bought"
-                    />
-                    <RelatedProduct
-                        layout="fullwidth"
-                        collectionSlug="shop-recommend-items"
-                    />
-                </div>
-            </div> */}
-   
             <div className="container-fluid">
               <div className="ps-shopping" style={{marginTop:"20px"}}>
-                {/* <BestSaleItems collectionSlug="shop-best-seller-items" />
-                <RecommendItems collectionSlug="shop-recommend-items" />  */}
                  <div className="ps-shopping__header">
-                    {/* <p>
+                    <p>
                         <strong className="mr-2">{total}</strong>
-                        Stores found
-                    </p> */}
-                        <p>
-                        <strong className="mr-2">{total}</strong>
-                        Product found
+                        {i18next.t('productsfound')}
                     </p>
                     <div className="ps-shopping__actions" >
-
                         <select name="language" className="ps-select form-control"
-                  onChange={(e)=>
-                    this.handlePageSize(e.target.value)
-                    // this.setState({ pageSize:e.target.value })
-                    }>
-                  
-                {/* //   setpageSize(e.target.value)} */}
-     
-              <option value="8">8</option>
-              <option value="1">12</option>
-              <option value="16">16</option>
-              <option value="20">20</option>
-          </select>
-                        {/* <div className="col-md-3 display-flex  align-items-center">
-         
-          </div> */}
-
+                            onChange={(e)=>  this.handlePageSize(e.target.value)  }>
+                                <option value="8">8</option>
+                                <option value="12">12</option>
+                                <option value="16">16</option>
+                                <option value="20">20</option>
+                        </select> 
+          
                         <div className="ps-shopping__view">
                             <p>View</p>
                             <ul className="ps-tab-list">
-                                <li
-                                    className={
-                                        viewMode === true ? 'active' : ''
-                                    }>
+                                <li className={ viewMode === true ? 'active' : '' }>
                                     <a
                                         href="#"
                                         onClick={this.handleChangeViewMode}>
@@ -212,15 +143,11 @@ render() {
                                 {listProduct 
                                     ? listProduct.rows.map((item) => (
                                           <div
-                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-6"
+                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-12"
                                               key={item.id}>
-                                              {/* <Store store={item} /> */}
                                               <ProductDealOfDay_edit
                                                 product={item}
-                                       
                                             />
-                                            
-                                          
                                           </div>
                                       ))
                                     : ''}
@@ -234,24 +161,16 @@ render() {
                                           product={item}
                                           key={item.id}
                                       />
-                          
                                   ))
                                 : ''}
                         </div>
                     )}
                     <div className="ps-shopping__footer text-center pt-40">
-                        {/* <Pagination
-                            total={total - 1}
-                            pageSize={this.state.pageSize}
-                            responsive={true}
-                            defaultCurrent={1}
-                            onChange={this.handlePagination.bind(this)}
-                        /> */}
                         {!_.isEmpty(listProduct) && (
                         <ReactPaginate
                             pageCount={Math.ceil(total /this.state.pageSize)}
                             pageRangeDisplayed={2}
-                            marginPagesDisplayed={1}
+                            marginPagesDisplayed={0}
                             previousLabel={"←"}
                             nextLabel={"→"}
                             onPageChange={(data) => this.FetchData(data.selected )}
@@ -268,10 +187,7 @@ render() {
             </div>
             
             
-              </div>
-            
-            
-            
+              </div>          
       {/* <Newletters /> */}
             <FooterDefault />
         </div>

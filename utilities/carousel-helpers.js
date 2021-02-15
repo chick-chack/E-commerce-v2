@@ -89,6 +89,15 @@ export const carouselFullwidth = {
     responsive: [
         
         {
+            breakpoint: 4000,
+            settings: {
+                slidesToShow: 6,
+                slidesToScroll: 3,
+                dots: true,
+                arrows: false,
+            },
+        },
+        {
             breakpoint: 2000,
             settings: {
                 slidesToShow: 6,
@@ -139,7 +148,7 @@ export const carouselFullwidth = {
             },
         },
         {
-            breakpoint: 768,
+            breakpoint: 895,
             settings: {
                 slidesToShow: 3,
                 slidesToScroll: 2,
