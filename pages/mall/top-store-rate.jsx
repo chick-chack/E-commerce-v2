@@ -26,13 +26,10 @@ class TopStoreRatePage extends React.Component {
         pageSize:8,
     };
 
-
     static async getInitialProps(ctx) {
-        console.log("sectiiiiiiiiiiiion",ctx.query)
         return { query: ctx.query };
     }
-
-    
+  
 componentDidMount() {
 
     const { query } = this.props;
@@ -211,7 +208,7 @@ render() {
                                 {all_top_stores.rows && all_top_stores.rows.length > 0
                                     ? all_top_stores.rows.map((item) => (
                                           <div
-                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-6"
+                                              className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-12"
                                               key={item.traderId}>
                                               <Store store={item} />
                                             
@@ -246,7 +243,7 @@ render() {
                         <ReactPaginate
                             pageCount={Math.ceil(total /this.state.pageSize)}
                             pageRangeDisplayed={2}
-                            marginPagesDisplayed={1}
+                            marginPagesDisplayed={0}
                             previousLabel={"←"}
                             nextLabel={"→"}
                             onPageChange={(data) => this.FetchData(data.selected )}

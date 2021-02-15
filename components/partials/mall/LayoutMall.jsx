@@ -269,7 +269,7 @@ class LayoutMall extends Component {
                         <ReactPaginate
                             pageCount={Math.ceil(total /this.state.pageSize)}
                             pageRangeDisplayed={2}
-                            marginPagesDisplayed={1}
+                            marginPagesDisplayed={0}
                             previousLabel={"←"}
                             nextLabel={"→"}
                             onPageChange={(data) => this.FetchData(data.selected )}

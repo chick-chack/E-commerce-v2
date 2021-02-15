@@ -4,7 +4,7 @@ import i18next from 'i18next';
 const DownloadApp = () => (
     <section className="ps-download-app">
         <div className="ps-container">
-            <div className="ps-block--download-app" style={{ padding:"60px 0"}}>
+            <div className="ps-block--download-app" style={{ padding:"30px 0"}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
@@ -30,7 +30,7 @@ const DownloadApp = () => (
                                             placeholder={i18next.t('emailaddress')}
                                         />
                                         <button className="ps-btn">
-                                            {/* {i18next.t('subcribe')} */}
+                                            {i18next.t('subcribe')}
                                             </button>
                                     </div>
                                 </form>

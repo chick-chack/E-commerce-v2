@@ -1,11 +1,14 @@
 .ps-footer {
-    padding-top: 70px;
+    // padding-top: 70px;
+    padding:0;
 
     &__widgets {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-between;
-        padding-bottom: 35px;
+        // justify-content: space-between;
+        justify-content: space-around;
+        padding-bottom: 10px;
+        padding-top: 20px;
     }
 
     &__links {
@@ -61,7 +64,7 @@
     }
 
     &__copyright {
-        padding: 35px 0;
+        padding: 10px 0;
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-between;

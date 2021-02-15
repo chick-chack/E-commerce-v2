@@ -21,7 +21,9 @@ const Newsletters = ({ layout }) => (
                                     type="email"
                                     placeholder="Email address"
                                 />
-                                <button className="ps-btn">{i18next.t('subcribe')}</button>
+                                <button className="ps-btn" >
+                                    {i18next.t('subcribe')}
+                                    </button>
                             </div>
                         </div>
                     </div>
