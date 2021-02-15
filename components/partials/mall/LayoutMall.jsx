@@ -258,13 +258,6 @@ class LayoutMall extends Component {
                         </div>
                     )}
                     <div className="ps-shopping__footer text-center pt-40">
-                        {/* <Pagination
-                            total={total - 1}
-                            pageSize={this.state.pageSize}
-                            responsive={true}
-                            defaultCurrent={1}
-                            onChange={this.handlePagination.bind(this)}
-                        /> */}
                         {!_.isEmpty(all_stores.rows) && (
                         <ReactPaginate
                             pageCount={Math.ceil(total /this.state.pageSize)}

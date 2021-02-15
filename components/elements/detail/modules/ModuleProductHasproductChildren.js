@@ -806,9 +806,9 @@ class ModuleProductHasVariants extends React.Component {
 
                     <p className="tags">
                         <strong> {i18next.t('tags')}</strong>
-                        {singleProduct.tags.map(item => {
+                        {singleProduct.tags.map((item, index) => {
                             return (
-                                <Link href="#">
+                                <Link  key={index} href="#" >
                                     <a>{item}</a>
                                 </Link>
                             )
