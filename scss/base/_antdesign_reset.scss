@@ -91,3 +91,11 @@
     margin: 10px 0;
 }}
 
+.rtlpage .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra{
+    float: left!important;
+}
+.ant-collapse-header, .ant-collapse-extra{
+
+    font-size: 18px!important;
+    font-weight: bold!important;
+}

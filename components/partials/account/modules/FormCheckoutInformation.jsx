@@ -13,7 +13,6 @@ import i18next from 'i18next';
 import { PayPalButton } from "react-paypal-button-v2";
 import BounceLoader from "react-spinners/BounceLoader";
 
-
 const { Panel } = Collapse;
 const modalSuccess = type => {
     notification[type]({
@@ -64,7 +63,7 @@ class FormCheckoutInformation extends Component {
                     : obj['productChild.price'])), 0)
                 .toFixed(2) : "nooooooooooooooooooo"
     }
-
+    
     createOrder(data, actions) {
         return actions.order.create({
 
@@ -178,11 +177,11 @@ class FormCheckoutInformation extends Component {
                         className="ps-form--checkout"
                     >
 
-                        {!this.state.second_state && !this.state.first_state && <div className="ps-section__header">
-                            <h1>{i18next.t('checkoutInfo')}</h1>
+                        {!this.state.second_state && !this.state.first_state && <div className="ps-section__header" style={{paddingBottom:"40px"}}> 
+                            <h2>{i18next.t('checkoutInfo')}</h2>
                         </div>}
                         <div className="row">
-                            {!this.state.second_state && !this.state.first_state && <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                            {!this.state.second_state && !this.state.first_state && <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div className="ps-form__billing-info">
 
                                     <div className="address-list list_add" style={{ marginBottom: "25px" }}>
@@ -211,7 +210,7 @@ class FormCheckoutInformation extends Component {
                                         style={{ marginBottom: "25px" }}
                                         onFinish={this.handleLoginSubmit} >
                                         <div className="ps-form__billing-info">
-                                            <h3 className="ps-form__heading">
+                                            <h3 className="ps-form__heading" style={{paddingBottom:"20px"}}>
                                                 {i18next.t('addnewaddress')}
                                             </h3>
 
@@ -368,7 +367,7 @@ class FormCheckoutInformation extends Component {
                             }
 
                             {this.state.first_state && this.props.order.order_preview &&
-                                <div className="col-xl-8 col-lg-8 col-sm-12  ps-block--checkout-order">
+                                <div className="col-xl-12 col-lg-12 col-sm-12 col-12 ps-block--checkout-order">
                                     <div className="ps-form__orders">
                                         <h3>{i18next.t('urorder')}</h3>
                                         <div className="ps-block--checkout-order">
@@ -383,16 +382,51 @@ class FormCheckoutInformation extends Component {
                                                 <figure className="ps-block__items">
                                                     {this.props.order.order_preview.addedGroupData &&
                                                         this.props.order.order_preview.addedGroupData.map((item, index) => (
-                                                            <Collapse >
-                                                                <Panel header={item.groupName} key={index} extra={item.price} >
+                                                            <Collapse   key={index}  >
+                                                                <Panel header={item.groupName}
+                                                                //  key={index} 
+                                                                 extra={`$${item.price+item.deliveryPrice}`}
+                                                                
+                                                                 >
+                                                                    <figcaption>
+                                                                        <strong>{i18next.t('price')}</strong>
+                                                                        <strong> {i18next.t('delivery')} </strong>
+                                                                    </figcaption>
+                                                                    <div style={{display:"flex", justifyContent:"space-between"}}>
+                                                                    <strong>
+                                                                                   $ { item.price}
+                                                                                 
+                                                                                </strong>
+                                                                                <strong>
+                                                                                    $ {item.deliveryPrice}
 
+                                                                                </strong>
+                                                                    </div>
+                                                                    
+                                                                  
+                                                                        {/* <Link
+                                                                            href="/"
+                                                                         >
+                                                                            <a>
+                                                                                <strong>
+                                                                                   $ { item.price}
+                                                                                 
+                                                                                </strong>
+                                                                                <strong>
+                                                                                    $ {item.deliveryPrice}
+
+                                                                                </strong>
+                                                                            </a>
+                                                                        </Link> */}
+                                                                        <hr/>
+                                                                 
                                                                     <figcaption>
                                                                         <strong>{i18next.t('product')}</strong>
                                                                         <strong> {i18next.t('price')} </strong>
                                                                     </figcaption>
                                                                     {item.details.map(product => (
                                                                         <Link
-                                                                            href="/"
+                                                                            href={`/product/${product['productId']}?id=${product['productChildId']}`}
                                                                             key={product['productChildId']}>
                                                                             <a>
                                                                                 <strong>
@@ -403,10 +437,10 @@ class FormCheckoutInformation extends Component {
                                                                                     }
                                                                                     <span>  x {product.quantity}  </span>
                                                                                 </strong>
-                                                                                <small>
+                                                                                <strong>
                                                                                     $ {product.price}
 
-                                                                                </small>
+                                                                                </strong>
                                                                             </a>
                                                                         </Link>
                                                                     ))}
@@ -417,16 +451,30 @@ class FormCheckoutInformation extends Component {
                                                 </figure>
                                                 <figure>
                                                     <figcaption>
-                                                        <strong>{i18next.t('subtotal')}</strong>
-                                                        <small>
-                                                            $ {this.props.order.order_preview.totalPrice}
-                                                        </small>
+                                                        <strong style={{fontSize:"20px"}}>{i18next.t('price')}</strong>
+                                                        <strong style={{fontSize:"20px"}}>
+                                                            $ {this.props.order.order_preview.totalPrice }
+                                                        </strong>
+                                                    </figcaption>
+                                                    <figcaption>
+                                                        <strong style={{fontSize:"20px"}}>{i18next.t('delivery')}</strong>
+                                                        <strong style={{fontSize:"20px"}}>
+                                                            $ {this.props.order.order_preview.totalDeliveryPrice}
+                                                        </strong>
                                                     </figcaption>
                                                 </figure>
-                                                <figure className="ps-block__shipping">
+                                                <figure>
+                                                    <figcaption>
+                                                        <strong style={{fontSize:"20px"}}>{i18next.t('total')}</strong>
+                                                        <strong style={{fontSize:"20px"}}>
+                                                            $ {this.props.order.order_preview.totalPrice + this.props.order.order_preview.totalDeliveryPrice}
+                                                        </strong>
+                                                    </figcaption>
+                                                </figure>
+                                                {/* <figure className="ps-block__shipping">
                                                     <h3>{i18next.t('shipping')}</h3>
                                                     <p>{i18next.t('calculatedatnextstep')}</p>
-                                                </figure>
+                                                </figure> */}
 
                                                 <div className="ps-form__submit">
                                                     <div className="ps-block__footer">
@@ -457,7 +505,6 @@ class FormCheckoutInformation extends Component {
         );
     }
 }
-// export default FormCheckoutInformation;
 
 const mapStateToProps = state => {
     return state;

@@ -550,6 +550,7 @@ class ModuleProductHasVariants extends React.Component {
 
     }
     componentDidMount() {
+        console.log('product info', this.props)
         if (this.props.id) {
             this.setState({
                 current_id: this.props.id
@@ -711,7 +712,11 @@ class ModuleProductHasVariants extends React.Component {
                                     {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
                                 </p>
                             )}
+                            <p className="p_weight">
+                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                            </p>
                     </h4>
+                    
                 );
             }
             else if (this.props.id) {
@@ -736,6 +741,9 @@ class ModuleProductHasVariants extends React.Component {
                                     {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
                                 </p>
                             )}
+                             <p className="p_weight">
+                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                            </p>
                     </h4>
                 );
 
@@ -763,6 +771,9 @@ class ModuleProductHasVariants extends React.Component {
                                     {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
                                 </p>
                             )}
+                              <p className="p_weight">
+                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                            </p>
                     </h4>
                 );
             }
@@ -821,7 +832,7 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_zise_first) {
                 colorSelectionArea = colorItems.colors.map(item => {
                     return (
-                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link     key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             < div
                                 className={`ps-variant ps-variant--image ${selectedChild_z_f &&
                                     selectedChild_z_f.id === item.id
@@ -830,9 +841,7 @@ class ModuleProductHasVariants extends React.Component {
                                     }`
 
                                 }
-
-
-                                key={item.id}
+                                // key={item.id}
                                 onClick={e => this.todo_handleSelectColor(item.id)}
                             >
                                 < div>
@@ -856,14 +865,14 @@ class ModuleProductHasVariants extends React.Component {
             } else {
                 colorSelectionArea = singleProduct.productChildren.map(item => {
                     return (
-                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link   key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--image ${selectedVariant &&
                                     selectedVariant.id === item.id
                                     ? 'active'
                                     : ''
                                     }`}
-                                key={item.id}
+                                // key={item.id}
                                 onClick={e => this.todo_handleSelectColor(item.id)}
                             >
                                 < div>
@@ -891,13 +900,13 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_color_first) {
                 sizeSelectionArea = sizeItems.map(item => {
                     return (
-                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link  key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
                                     ? 'active'
                                     : ''
                                     }`}
-                                key={item.id}
+                                // key={item.id}
                                 onClick={e => this.todo_handleSelectSize(item.id)}
                             >
                                 < div>
@@ -915,13 +924,13 @@ class ModuleProductHasVariants extends React.Component {
             } else {
                 sizeSelectionArea = singleProduct.productChildren_size.map(item => {
                     return (
-                        <Link scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link  key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
                                     ? 'active'
                                     : ''
                                     }`}
-                                key={item.id}
+                                // key={item.id}
                                 onClick={e => this.todo_handleSelectSize(item.id)}
                             >
                                 < div>

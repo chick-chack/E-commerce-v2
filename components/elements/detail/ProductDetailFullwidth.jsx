@@ -33,6 +33,16 @@ class ProductDetailFullwidth extends Component {
                         return (
                             <div className="ps-product--detail ps-product--fullwidth">
                                 <div className="ps-product__header">
+                                    {/* <div className="row">
+                                        <div className="col-md-6 col-12">
+                                        <ThumbnailDefault product={singleProduct} />
+
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                        <InformationDefault product={singleProduct} />
+
+                                        </div>
+                                    </div> */}
                                     <ThumbnailDefault product={singleProduct} />
                                     <InformationDefault product={singleProduct} />
                                 </div>

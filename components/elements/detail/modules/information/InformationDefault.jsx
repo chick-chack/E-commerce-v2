@@ -139,53 +139,6 @@ class InformationDefault extends Component {
     }
     };
 
-    // handleAddItemToCart = e => {
-    //     // e.preventDefault();
-    //     const { cartlist } = this.props.cart;
-    //     this.setState({
-    //         test: cartlist
-    //     })
-
-    //     let existItem = this.props.cart.cartlist.find(
-    //         (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
-
-    //     if (existItem) {
-    //         // existItem.quantity += this.state.quantity
-    //         existItem.quantity = this.state.quantity;
-    //     }
-    //     else {
-    //         const newProduct = {
-    //             "productChild.colorCode": null,
-    //             "productChild.colorName_ar": null,
-    //             "productChild.colorName_en": null,
-    //             "productChild.id": this.props.product.singleProduct.productChildren[0].id,
-    //             "productChild.productId":this.props.product.singleProduct.productChildren[0].productId,
-    //             "productChild.image": this.props.product.singleProduct.productChildren[0].image,
-    //             " productChild.isOffer": this.props.product.singleProduct.productChildren[0].isOffer,
-    //             "productChild.offerRatio": this.props.product.singleProduct.productChildren[0].offerRatio,
-    //             "productChild.price": this.props.product.singleProduct.productChildren[0].price,
-    //             "productChild.product.name_ar": this.props.product.singleProduct.name_ar,
-    //             "productChild.product.name_en": this.props.product.singleProduct.name_en,
-    //             " productChild.size": this.props.product.singleProduct.productChildren[0].size,
-    //             " productChildId": this.props.product.singleProduct.productChildren[0].id,
-                
-    //             "quantity": this.state.quantity
-    //         }
-    //         this.props.cart.cartlist.push(newProduct)
-    //     } 
-    //     let QTY;
-    //     if(this.state.final_QTY===1 ){
-
-    //          QTY= this.state.quantity-1
-    //     }
-    //     else{
-    //          QTY= this.state.quantity - this.state.final_QTY;
-    //     } 
-        
-    //     this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
-    //     modalSuccess('success');
-    //     Router.push('/account/shopping-cart')
-    // };
 
     handleAddItemToCompare = e => {
         e.preventDefault();    
@@ -207,36 +160,7 @@ class InformationDefault extends Component {
 
         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
         Router.push('/account/wishlist')
-        // const { product } = this.props;
-        // const productSelected = product.productChildren[0];
-
-        // this.props.dispatch(addItemToWishlist(product, productSelected));
     };
-
-    // handleAddItemToWishlist = e => {
-    //     e.preventDefault();
-    //     if (this.props.childern_ID) {  
-    //         let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
-    //             (item) => item.id == this.props.childern_ID);
-    //         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
-    //     }
-    //     else{
-    //         modalAsking('warning');
-    //     }
-    // };
- 
-        
-
-    // handleIncreaseItemQty = e => {
-    //     e.preventDefault();
-    //     if (this.props.product.singleProduct.quantity > this.state.quantity) {
-    //         this.setState({ quantity: this.state.quantity + 1 });
-    //     } else {
-    //         modalWarning('warning', this.props.product.singleProduct.quantity);
-    //     }
-
-
-    // };
 
     
     handleIncreaseItemQty = e => {
@@ -324,30 +248,6 @@ class InformationDefault extends Component {
         }
         
 
-
-        // if (this.props.childern_ID) {
-        //     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",this.props)
-        //     if (this.props.cart.cartlist) {
-        //         if (this.props.cart.cartlist.length > 0) {
-        //             let existItem = this.props.cart.cartlist.find(
-        //                 item => item['productChild.id'] == this.props.childern_ID
-        //             )
-        //             console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", existItem)
-        //             if (existItem) {
-        //                 this.setState({
-        //                     quantity: existItem.quantity,
-        //                     final_QTY:existItem.quantity
-        //                 })
-        //                 // existItem.quantity += this.state.quantity
-                     
-        //             }
-                 
-        //         } 
-
-        //     }
-         
-        // }
-
     }
 
     render() {
@@ -369,6 +269,7 @@ class InformationDefault extends Component {
                         </del>
                         {currency ? currency.symbol : '$'}
                         {selectedVariant.price}
+                       
                     </h4>
                 );
             } else {
@@ -393,6 +294,9 @@ class InformationDefault extends Component {
                                     {formatCurrency(selectedVariant.price)}
                                 </p>
                             )}
+                             <p className="p_weight">
+                                g {selectedVariant.weight}
+                            </p>
                     </h4>
                 );
             }
@@ -528,7 +432,7 @@ class InformationDefault extends Component {
                             </del>
                             {currency ? currency.symbol : '$'}
                             {singleProduct.price}
-                            800
+                            {/* 800 */}
                         </h4>
                     );
                 } else {
@@ -553,6 +457,9 @@ class InformationDefault extends Component {
                                         {formatCurrency(singleProduct.price)}
                                     </p>
                                 )}
+                                 <p className="p_weight">
+                                g {singleProduct.weight}
+                            </p>
 
                         </h4>
                     );

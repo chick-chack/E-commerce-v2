@@ -4,6 +4,7 @@ import { sameBrands } from '../../../public/static/data/product';
 import Product from '../../../components/elements/products/Product';
 import { connect } from 'react-redux';
 import { getColletionBySlug } from '../../../utilities/product-helper';
+import i18next from 'i18next';
 class ProductWidgets extends Component{
 
     render() {
@@ -13,26 +14,23 @@ class ProductWidgets extends Component{
             <section>
                 <aside className="widget widget_product widget_features">
                     <p>
-                        <i className="icon-network"></i> Shipping worldwide
+                        <i className="icon-network"></i> {i18next.t('shippingworldwide')}
                     </p>
                     <p>
-                        <i className="icon-3d-rotate"></i> Free 7-day return if
-                        eligible, so easy
+                        <i className="icon-3d-rotate"></i> {i18next.t('free7-day')}
                     </p>
                     <p>
-                        <i className="icon-receipt"></i> Supplier give bills for this
-                        product.
+                        <i className="icon-receipt"></i> {i18next.t('givebills')}
                     </p>
                     <p>
-                        <i className="icon-credit-card"></i> Pay online or when
-                        receiving goods
+                        <i className="icon-credit-card"></i> {i18next.t('payonline')}
                     </p>
                 </aside>
                 <aside className="widget widget_sell-on-site">
                     <p>
-                        <i className="icon-store"></i> Sell on chickchack?
+                        <i className="icon-store"></i> {i18next.t('sellon')}
                         <Link href="/account/register">
-                            <a> Register Now !</a>
+                            <a> {i18next.t('regnow')}</a>
                         </Link>
                     </p>
                 </aside>
@@ -43,7 +41,7 @@ class ProductWidgets extends Component{
                         </a>
                     </Link>
                 </aside>
-                <aside className="widget widget_same-brand">
+                {/* <aside className="widget widget_same-brand">
                     <h3>Same Brand</h3>
                     <div className="widget__content">
                         {products &&
@@ -51,7 +49,7 @@ class ProductWidgets extends Component{
                             <Product product={product} key={product.id} />
                         ))}
                     </div>
-                </aside>
+                </aside> */}
             </section>
         );
     }
