@@ -163,6 +163,15 @@
     "payonline":"Pay online or when receiving goods",
     "sellon":"Sell on chickchack?",
     "regnow":"Register Now !",
+    "orderdetails":"Order Details",
+    "storename":"Store Name :",
+    "storetype":"Store Type :",
+    "mallname":"Mall Name :",
+    "floors":"Number of the floor:",
+    "floor":"floor",
+    "chooseoption":"Choose an option",
+
+
 
 
 
@@ -208,7 +217,7 @@
     "totalorice":"Total Price",
     "myorders":"My Orders",
     "choosetheaddress":"Choose The Address",
-    "addnewaddress":"Add New Address:",
+    "addnewaddress":"Add New Address",
     "choosepaymentpay":"Choose Paymentpay Way",
     "addaddress":"Add Address",
     "noaddress":"No Address, Yet",

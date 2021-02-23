@@ -7,6 +7,15 @@ import { getColletionBySlug } from '../../../utilities/product-helper';
 import i18next from 'i18next';
 class ProductWidgets extends Component{
 
+    state={
+        lang:null
+    }
+
+    componentDidMount(){
+        this.setState({ lang: localStorage.getItem('lang') || 'en' })
+
+    }
+
     render() {
         const { collections, collectionSlug } = this.props;
         const products = getColletionBySlug(collections, collectionSlug);

@@ -63,20 +63,8 @@ class ProductRepository {
         return reponse;
     }
 
-    // async getProductsById(payload) {
-    //     const reponse = await Repository.get(`${baseUrl}/products/${payload}`
-    //     //, { headers: { Cookie: 'cGAccessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY3VzdG9tZXItd2ViIiwiaWQiOjM3LCJmaXJzdE5hbWUiOiJhbWluIiwibGFzdE5hbWUiOiJraW5nIiwiZW1haWwiOiJhbWlua2luZzE0MEBnbWFpbC5jb20iLCJjb3VudHJ5IjoiUGFsZXN0aW5lLCBTdGF0ZSBvZiIsIm1vYmlsZSI6IjAwOTcwNTk1MTQwMzM0IiwidmVyaWZ5RW1haWwiOiJmYWxzZSIsInZlcmlmeU1vYmlsZSI6ZmFsc2UsImlhdCI6MTYwMzk3NDg2Mn0.0Yd9RKd1YLPFenKopnHOSJkfcC7aN--0NBVdUW4CyzU' } }
-    //     )
-    //         .then(response => {
-    //             return response.data;
-    //         })
-    //         .catch(error => ({ error: JSON.stringify(error) }));
-    //     return reponse;
-    // }
     async getProductsById(payload) {
-        const reponse = await Repository.get(`${baseUrl}/common/product/product-info/${payload}`
-            //, { headers: { Cookie: 'cGAccessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY3VzdG9tZXItd2ViIiwiaWQiOjM3LCJmaXJzdE5hbWUiOiJhbWluIiwibGFzdE5hbWUiOiJraW5nIiwiZW1haWwiOiJhbWlua2luZzE0MEBnbWFpbC5jb20iLCJjb3VudHJ5IjoiUGFsZXN0aW5lLCBTdGF0ZSBvZiIsIm1vYmlsZSI6IjAwOTcwNTk1MTQwMzM0IiwidmVyaWZ5RW1haWwiOiJmYWxzZSIsInZlcmlmeU1vYmlsZSI6ZmFsc2UsImlhdCI6MTYwMzk3NDg2Mn0.0Yd9RKd1YLPFenKopnHOSJkfcC7aN--0NBVdUW4CyzU' } }
-        )
+        const reponse = await Repository.get(`${baseUrl}/common/product/product-info/${payload}`)
             .then(response => {
                 var product_attributes_color = [];
                 var product_attributes_size = [];
@@ -92,9 +80,8 @@ class ProductRepository {
                 var review_1 = {};
                 let products = response.data;
                 if (products.data.productChildren.length == 1) {
-                    product_attributes_color.push(response.data.data.productChildren[0])
-
-                } else {
+                    product_attributes_color.push(response.data.data.productChildren[0])}
+                        else {
                     for (let i = 0; i < products.data.productChildren.length; i++) {
                         var size = [];
                         var images = [];
@@ -278,9 +265,9 @@ class ProductRepository {
                     'product': datee,
                     'review_orginal': response.data.reviews
                 }
-                console.log('--------------------------------------------/----------------------------------------------------------');
-                console.log(info)
-                console.log('--------------------------------------------/----------------------------------------------------------');
+                // console.log('--------------------------------------------/----------------------------------------------------------');
+                // console.log(info)
+                // console.log('--------------------------------------------/----------------------------------------------------------');
                 return info;
 
             })

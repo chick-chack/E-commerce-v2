@@ -175,6 +175,15 @@ export const carouselFullwidth = {
                 arrows: false,
             },
         },
+        {
+            breakpoint: 392,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true,
+                arrows: false,
+            },
+        },
     ],
 };
 

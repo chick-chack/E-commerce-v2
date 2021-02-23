@@ -94,19 +94,83 @@ class StoreDefaultPage extends React.Component {
                 <StoreNavigationList />
                 <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                 <div className="ps-page--store">
-                    <div className="ps-container">
-                        <div className="ps-page__container">
+                    <div className="ps-container" >
+                    <div className="row store_content"  
+                    //   style={{ backgroundImage: "url(" + "/static/img/joinus-bg.png" + ")",
+                    //     backgroundPosition: 'center',
+                    //     backgroundSize: 'cover',
+                    //     backgroundRepeat: 'no-repeat'}}
+                        >
+                    <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-2 ">
+                           
+                                {this.props.storeinfo && this.props.storeinfo.image != null
+                                ? <div className="store_img">
+                                <img 
+                                style={{display:"flex", alignItems:"center", width:"70%" , margin:"auto"}}
+                                src={this.props.storeinfo.image} alt={this.props.storeinfo.mall.name_en}  />
+                            </div>
+                            :
+                            <div className="store_img">
+                            <img 
+                            style={{display:"flex", alignItems:"center", width:"70%", margin:"auto"}}
+                            src="/static/img/store-gray.png"
+                            //  src="/static/img/chickchackmall-logo.svg"
+                            // src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg"
+                             alt="Snow"  />
+                            </div>
+                            }
+
+                            
+
+                        </div>
+                        <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-10 ">
+                            {storeinfo ?
+                            <div className="store_content_">
+                                <p> Welcome to <span>{storeinfo['trader.storeName']} </span> , Trader Type: <span>  {this.state.lang==="en" ? storeinfo['storeType.name_en'] :storeinfo['storeType.name_ar'] }</span>
+                                </p>
+                                <p>
+                                We are pleased for your visit! we hope you will enjoy shopping in our store.
+                                </p>
+                                <p>
+                                We provide you with what you need from household appliances and furnishings to suit all tastes.
+                                </p>
+                                <p>
+                                And because we care about you and because your trust is important to us, we provide you with the ability to view our products in a 3D way in addition to the ability to try them using Augmented Reality technologies, just click on the following link:
+                                </p>
+                                {/* <h3>{storeinfo['trader.storeName']}</h3> */}
+                                {/* <h3>{i18next.t('storetype')} : {this.state.lang==="en" ? storeinfo['storeType.name_en'] :storeinfo['storeType.name_ar'] }</h3> */}
+                                {/* <h3> {i18next.t('mall')} :  {this.state.lang==="en" ? storeinfo['mall.name_en'] :storeinfo['mall.name_ar']  }</h3> */}
+                            </div>
+                            :''
+                            
+                        }
+                            
+                        </div>
+                
+                      
+                    </div>
+                        {/* <div className="ps-page__container" 
+                        
+                        style={{ backgroundImage: "url(" + "/static/img/joinus-bg.png" + ")",
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat'}
+                    
+                    }
+                        
+                        >
                             <div className="ps-page__right store_mall">
                                 <StoreView />
-                                {/* <ProductWidgets collectionSlug="widget_same_brand" /> */}
+             
                             </div>
                             <div className="ps-page__left">
                                 <StoreWidgets />
                             </div>
-                        </div>
-                        <Section_product />
+                        </div> */}
+                     
                     </div>
                 </div>
+                <Section_product />
                 {/* <Newletters /> */}
                 <FooterDefault />
             </div>

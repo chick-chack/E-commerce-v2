@@ -14,8 +14,6 @@ import i18next from 'i18next';
 import ReactPaginate from "react-paginate";
 import _ from "lodash";
 
-
-
 class ProductsCategory extends React.Component {
     constructor(props) {
         super(props);
@@ -28,20 +26,11 @@ class ProductsCategory extends React.Component {
 
     
     static async getInitialProps(ctx) {
-        console.log("sectiiiiiiiiiiiion",ctx.query)
         return { query: ctx.query };
     }
-
-
-    
-componentDidMount() {
    
+componentDidMount() {
 
-    // const { query } = this.props;
-     console.log("fffffffffffffffffffffffff", this.props)
-    // if (query) {
-    //     this.props.dispatch(getAllProductsSection(query.SectionName,2,0))
-    // }
 }
 
 
@@ -62,9 +51,6 @@ handlePagination(page, pageSize) {
         _limit: pageSize,
     };
     localStorage.setItem("params",JSON.stringify(params));
-
-  //  this.props.dispatch(getStores(params));
-  // this.props.query.mallid
   this.props.dispatch(getAllProductsSection(this.props.query.mallid, this.props.query.SectionName,8,0));
 }
 
@@ -83,11 +69,6 @@ FetchData( page){
 render() {
 
     const { specific_home_section_products } = this.props;
- //   const listProduct= specific_home_section_products.data
-   // console.log( listProduct.count);
-   // console.log( this.props.query );
-
-
         const breadCrumb = [
             {
                 text: 'Home',
@@ -100,28 +81,12 @@ render() {
             },
         ];
     
-     // const total = listProduct ? listProduct.count  : "no data";
-      //  console.log("total stores via mall id", total);
-   //  const viewMode = this.state.listView;
-      //  console.log("layout viewmode", viewMode);
-
-
     return (
         <div className="site-content">
         <HeaderDefault />
         <HeaderMobile />
         <NavigationList />
-
-
-        {/* </div>
-        <div className="layout--product">
-            {/* {singleProduct ? (
-                <HeaderProduct productData={singleProduct} />
-            ) : (
-                    ''
-                )} */}
-     
-           <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
+        <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
            {/*   <div className="ps-page--product">
                 <div className="ps-container">
                     <div className="ps-page__container">
@@ -145,8 +110,6 @@ render() {
    
                     <div className="container-fluid">
               <div className="ps-shopping" style={{marginTop:"20px"}}>
-                {/* <BestSaleItems collectionSlug="shop-best-seller-items" />
-                <RecommendItems collectionSlug="shop-recommend-items" />  */}
                  <div className="ps-shopping__header">
                     {/* <p>
                         <strong className="mr-2">{total}</strong>
@@ -167,7 +130,7 @@ render() {
                 {/* //   setpageSize(e.target.value)} */}
      
               <option value="8">8</option>
-              <option value="1">12</option>
+              <option value="12">12</option>
               <option value="16">16</option>
               <option value="20">20</option>
           </select>
@@ -263,7 +226,7 @@ render() {
               </div></div>
             
             </div>
-            <Newletters />
+            {/* <Newletters /> */}
             <FooterDefault />
         </div>
       

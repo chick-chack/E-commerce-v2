@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import i18next from 'i18next';
+import { Form, Input, notification } from 'antd';
+import { connect } from 'react-redux';
+import {subscription} from '../../../store/collection/action';
 
-const DownloadApp = () => (
+
+
+
+class DownloadApp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            lang: null,
+        };
+    }
+
+    subscriptionByUser = e => {
+        e.preventDefault();
+       this.props.dispatch(subscription(e.target.email.value));
+        
+    };
+    componentDidMount() {
+        this.setState({ lang: localStorage.getItem('lang') || 'en' })
+        i18next.changeLanguage(this.state.lang);
+    }
+
+    render() {
+        return (
     <section className="ps-download-app">
         <div className="ps-container">
             <div className="ps-block--download-app" style={{ padding:"30px 0"}}>
@@ -21,15 +46,19 @@ const DownloadApp = () => (
                                 </p>
                                 <form
                                     className="ps-form--download-app"
-                                    action="do_action"
-                                    method="post">
+                                    onSubmit={this.subscriptionByUser.bind(this)}
+                                    //  action="/"
+                                    // method="post"
+                                    >
                                     <div className="form-group--nest">
                                         <input
                                             className="form-control"
                                             type="Email"
                                             placeholder={i18next.t('emailaddress')}
+                                            required
+                                            name="email"
                                         />
-                                        <button className="ps-btn">
+                                        <button type="submit" className="ps-btn">
                                             {i18next.t('subcribe')}
                                             </button>
                                     </div>
@@ -50,5 +79,10 @@ const DownloadApp = () => (
         </div>
     </section>
 );
+                                    }}
 
-export default DownloadApp;
+const mapStateToProps = state => {
+    return state.collection;
+};
+
+export default connect(mapStateToProps)(DownloadApp);

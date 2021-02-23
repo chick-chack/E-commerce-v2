@@ -73,7 +73,7 @@ class Index extends Component {
             const promotionSlugs = ['home_fullwidth_promotions'];
             this.props.dispatch(getBannersBySlugs(bannerSlugs));
             this.props.dispatch(getPromotionsBySlugs(promotionSlugs));
-            this.props.dispatch(getCollections(collectionsSlug));
+            // this.props.dispatch(getCollections(collectionsSlug));
             this.props.dispatch(switchDemoPanel(false));
             this.props.dispatch(getMalls_Home());
             this.props.dispatch(getCollectionsfortest());

@@ -161,6 +161,13 @@
     "payonline":"ادفع عبر الإنترنت أو عند استلام البضائع",
     "sellon":"هل تشتري عبر تشيك تشاك ؟",
     "regnow":"سجّل الآن !",
+    "orderdetails":"تفاصيل طلبك",
+    "storename":"اسم المتجر :",
+    "storetype":"نوع التجارة :",
+    "mallname":"اسم المول :",
+    "floors":"عدد الطوابق :",
+    "floor":"طابق",
+    "chooseoption":"اختر خيار",
 
 
 
@@ -204,7 +211,7 @@
     "totalorice":"السعر الكلي",
     "myorders":"طلباتي ",
     "choosetheaddress":"اختر عنوانك",
-    "addnewaddress":"إضافة عنوان جديد :",
+    "addnewaddress":"إضافة عنوان جديد ",
     "choosepaymentpay":"اختر طريقة الدفع",
     "addaddress":"إضافة عنوان",
     "noaddress":"لا يوجد عنوان",

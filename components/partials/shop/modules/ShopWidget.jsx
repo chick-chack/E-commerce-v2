@@ -24,17 +24,6 @@ class ShopWidget extends Component {
             })
         };
     }
-    /*
-        this.props:
-        allProducts: [{43 items}]
-        brands:[{17 items}]
-        categories: [{14 items}]
-        dispatch: f()
-        error: false
-        productLoading: true
-        productsLoading : false
-        searchResults: null
-        totalProducts: 43 */
 
     handleChangeRange(value) {
         this.setState({

@@ -72,23 +72,14 @@ class StoreSearchHeader extends Component {
 
     change(e) {
         e.preventDefault();
-        console.log("e change", e.target.value)
         this.setState({ category: e.target.value, searchPanel: false });
     }
 
 
 
     render() {
-
-        // const { searchPanel } = this.state;
-        // const {StoreSearchResult} = this.props;
-        console.log("ioioioioioioioioioioioio", this.props.store.storeinfo.traderId)
         const { searchPanel } = this.state;
         const {  StoreSearchResult, sub_list_category } = this.props.product;
-      //  const { StoreSearchResult, sub_list_category } = this.props.product;
-        console.log("dddddddddddddddddddd", StoreSearchResult);
-    //
-
         return (
             <form
             className="ps-form--quick-search"
@@ -104,7 +95,6 @@ class StoreSearchHeader extends Component {
                     </option>
                     {sub_list_category.map(item => (
                         <option value={item.id} key={item.id}>
-                            {/* {item['subCategory.name_en']} */}
                             {this.state.lang=== "ar" ?   item['subCategory.name_ar']  :  item['subCategory.name_en']}
                            
                         </option>
@@ -154,5 +144,4 @@ class StoreSearchHeader extends Component {
     }
 }
 
-// export default connect(state=> state.product)(SearchHeader);
 export default connect(state => state)(StoreSearchHeader);

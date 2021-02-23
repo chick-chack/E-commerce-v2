@@ -14,6 +14,8 @@ export const initialState = {
     banners:[],
     promotions:[],
     productListByCategory:[],
+    isSubscribed: false,
+    isSended:false,
 };
 
 function reducer(state = initialState, action) {
@@ -145,7 +147,19 @@ function reducer(state = initialState, action) {
                         ...state,
                         ...{ error: action.error },
                     };
-        
+
+        // subscribtion api
+        case actionTypes.SUBSCRIPTION_SUCCESS:
+            return {
+                    ...state,
+                    ...{ isSubscribed: true },
+                        };
+        // subscribtion api
+        case actionTypes.SUBSCRIPTION_SUCCESS:
+            return {
+                ...state,
+                ...{ isSended: true },
+                                };
 
 
         default:

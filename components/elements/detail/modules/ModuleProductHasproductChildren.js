@@ -5,19 +5,16 @@ import Link from 'next/link';
 import ModuleProductDetailSharing from '~/components/elements/detail/modules/elements/ModuleProductDetailSharing';
 import ModuleProductDetailDescription from '~/components/elements/detail/modules/elements/ModuleProductDetailDescription';
 import ImageFromApi from '~/components/elements/detail/modules/elements/ImageFromApi';
-import Rating from '~/components/elements/Rating';
 import ThumbnailHasVariant from '~/components/elements/detail/modules/thumbnail/ThumbnailHasVariant';
 import { addItem, add_to_cart, getcartlist, add_to_local_cart, updateCartSuccess } from '~/store/cart/action';
 import { addItemToCompare } from '~/store/compare/action';
 import { addItemToWishlist } from '~/store/wishlist/action';
 import { formatCurrency } from '../../../../utilities/product-helper';
-import MagicZoom from '../../magiczoom/reactMagicZoom';
 import Router from 'next/router';
 import Rater from 'react-rater';
 import { notification } from 'antd';
 import i18next from 'i18next';
-import ReactMagicZoom from 'react-magic-zoom';
-import im from '../../../../public/static/img/support.jpg';
+
 
 const modalWarning = (type, item) => {
     notification[type]({
@@ -57,27 +54,12 @@ class ModuleProductHasVariants extends React.Component {
             final_QTY: 1,
             childern_IDD: null,
             current_id: null,
-            reflectoinItem: null,
-            reflectionChanged: null, thumbnailArea: null
-
+            reflectoinItem: null
         };
-        this.handleRefreshReflection = this.handleRefreshReflection.bind(this);
     }
-
 
     static async getInitialProps(ctx) {
         return { query: ctx.query };
-    }
-
-    handleRefreshReflection(item) {
-        this.setState({
-            reflectoinItem: item,
-            reflectionChanged: new Date(),
-        });
-    };
-
-    getReflectoinItem() {
-        return this.refs.id && this.refs.id.getReflection();
     }
 
 
@@ -92,6 +74,7 @@ class ModuleProductHasVariants extends React.Component {
                         )
                         if (existItem) {
                             existItem.quantity = this.state.quantity;
+
                         }
                         else {
                             let index = this.props.product.singleProduct.productChildren_orginal.findIndex(
@@ -308,17 +291,26 @@ class ModuleProductHasVariants extends React.Component {
 
     // select color 
     handleSelectColor(colorId) {
+        // here when select detected color
+        console.log("select some thing", colorId)
+        /* 51  */
         const { singleProduct } = this.props.product;
         this.setState({ has_color: true })
         if (this.state.has_zise_first) {
+            console.log("has size")
+            /* if he selected size already, find the selected product size id,this.state.selectedSize.id  */
             if (singleProduct && singleProduct.productChildren_size.length > 0) {
+
+                console.log("productChildren_size", productChildren_size)
                 const selectedChild_z_f = singleProduct.productChildren_size.find(
                     item => item.id === this.state.selectedSize.id
                 );
+                console.log("selectedChild_z_f", selectedChild_z_f)
                 const selectedVariant = selectedChild_z_f.colors.find(
                     item => item.id === colorId
                 );
-
+                console.log("selectedChild_z_f.colors", selectedChild_z_f.colors)
+                console.log("selectedVariant", selectedVariant)
                 if (selectedVariant) {
                     const sizeItems = selectedVariant.sizes;
                     this.setState({ sizeItems: sizeItems });
@@ -330,12 +322,27 @@ class ModuleProductHasVariants extends React.Component {
                 }
             }
         } else {
+
+            /* so, he didn't select size yet, it means : has color first */
             this.setState({ has_color_first: true });
             var selectedVariant;
             if (singleProduct && singleProduct.productChildren.length > 0) {
+                console.log('product children array:', singleProduct.productChildren)
+                /*
+                product children array: contain the available colors,
+                    0: {id: 51, colorName_ar: "زهري", colorName_en: "Pink", colorCode: "#f78da7", price: 1200, …}
+                    1: {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …}
+                */
+                /* we find out the item has the selected color id */
                 const selectedVariantt = singleProduct.productChildren.find(item => item.id == colorId);
+                console.log('selectedVariantt : ', selectedVariantt)
+                /* selectedVariantt : 
+                    {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …}
+                */
 
                 if (selectedVariantt == undefined) {
+                    console.log('selectedVariantt un defined: ', selectedVariantt)
+
                     for (var i = 0; i < singleProduct.productChildren.length; i++) {
                         for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
                             if (colorId == singleProduct.productChildren[i].sizes[j].id) {
@@ -346,23 +353,48 @@ class ModuleProductHasVariants extends React.Component {
                         }
                     }
                 } else {
+
                     selectedVariant = singleProduct.productChildren.find(item => item.id == colorId);
+                    console.log('selectedVariant : ', selectedVariant)
+                    /* selectedVariant : 
+                        {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …}
+                    */
+
+
+
                     for (var i = 0; i < singleProduct.productChildren.length; i++) {
                         for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
                             if (colorId == singleProduct.productChildren[i].sizes[j].id) {
                                 this.setState({ selectedSize: singleProduct.productChildren[i].sizes[j] });
+                                console.log('selectedSize : ', singleProduct.productChildren[i].sizes[j])
+                                /* selectedSize :  {price: 1500, size: "L", quantity: 198, id: 52} */
                             }
                         }
                     }
+
+
                 }
 
                 if (selectedVariant) {
+                    console.log('selectedVariant', selectedVariant)
+                    /* selectedVariant {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …} */
                     const sizeItems = selectedVariant.sizes;
+                    console.log(' selectedVariant.sizes', selectedVariant.sizes)
+                    /*
+                     selectedVariant.sizes  :
+                     0: {price: 1500, size: "L", quantity: 198, id: 52} */
                     this.setState({ sizeItems: sizeItems });
                 }
+                console.log('selectedVariant out the condition', selectedVariant)
+                /*
+                selectedVariant out the condition {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …} */
                 this.setState({ selectedVariant: selectedVariant });
 
                 if (singleProduct.id == this.props.pid) {
+                    console.log("testing", selectedVariant)
+                    /*
+                    {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …}
+                    */
                     this.setState({ thumbnailArea: <ThumbnailHasVariant product={selectedVariant} /> });
                 }
             }
@@ -371,15 +403,23 @@ class ModuleProductHasVariants extends React.Component {
 
     // select size 
     handleSelectSize(sizeId) {
+        console.log('size selected', sizeId)
         const { singleProduct } = this.props.product;
+        console.log('this.props.childern_ID ', this.props.childern_ID)
         if (this.props.childern_ID != undefined && this.props.childern_ID != '') {
+            /* here means he selected detected size */
             this.setState({ has_zise: true })
+            /* now we find out the color  has the same id */
+
             let item = singleProduct.productChildren.find(item => item.id == sizeId)
+            console.log('item', item)
+
             if (item == undefined) {
                 for (var i = 0; i < singleProduct.productChildren.length; i++) {
                     for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
                         if (sizeId == singleProduct.productChildren[i].sizes[j].id) {
                             const selectedVariant = singleProduct.productChildren[i].sizes[j];
+                            console.log('selectedVariant un:', selectedVariant)
                             this.setState({ selectedSize: singleProduct.productChildren[i].sizes[j] });
                             this.setState({ selectedChild_z_f: singleProduct.productChildren[i].sizes[j] });
 
@@ -388,6 +428,7 @@ class ModuleProductHasVariants extends React.Component {
                 }
             } else {
                 const selectedVariant = item.sizes;
+                console.log('selectedVariant  sssssssssssssssssss', selectedVariant)
                 if (selectedVariant.length > 0) {
                     const selectedSizeItem = selectedVariant.find(item => item.id === sizeId);
                     if (selectedSizeItem) {
@@ -398,8 +439,11 @@ class ModuleProductHasVariants extends React.Component {
             }
 
         } else if (this.props.id != undefined && this.props.id != '') {
+            console.log('this.props.id   sssssssssssssssssss', this.props.id);
+
             this.setState({ has_zise: true })
             let item = singleProduct.productChildren.find(item => item.id == sizeId)
+            console.log('item   sssssssssssssssssss', item)
             if (item == undefined) {
                 for (var i = 0; i < singleProduct.productChildren.length; i++) {
                     for (var j = 0; j < singleProduct.productChildren[i].sizes.length; j++) {
@@ -436,9 +480,13 @@ class ModuleProductHasVariants extends React.Component {
             this.setState({ colorItems: this.props.product.singleProduct.productChildren_size.find(item => item.id === sizeId) });
             this.setState({ has_zise_first: true, selectedChild_z_f: undefined });
             const selectedVariant = this.props.product.singleProduct.productChildren_size;
+            console.log('selectedVariant from size', selectedVariant)
             if (selectedVariant.length > 0) {
                 const selectedSizeItem = selectedVariant.find(item => item.id === sizeId);
                 if (selectedSizeItem) {
+                    console.log('selectedSizeItem', selectedSizeItem)
+                    /*  added new */
+                    this.setState({ thumbnailArea: <ThumbnailHasVariant product={selectedSizeItem} /> });
                     this.setState({ selectedSize: selectedSizeItem });
                     this.setState({ selectedChild_z_f: selectedSizeItem });
                 }
@@ -493,13 +541,26 @@ class ModuleProductHasVariants extends React.Component {
     }
 
     change(id) {
+        console.log("chaaaaaaange", id)
         this.setState({
             current_id: id
         })
     }
     change_state(data) {
+        console.log("change data", data)
+
         this.setState({ thumbnailArea: <ThumbnailHasVariant product={data} /> });
     }
+
+    changeImage(id) {
+        console.log("change image", id);
+        let index = this.props.product.singleProduct.productChildren.findIndex(item =>
+            item.id == this.props.childern_ID);
+        console.log("change image index", index);
+        console.log("change image", this.props.product.singleProduct.productChildren[index]);
+        // this.setState({ thumbnailArea: <ThumbnailHasVariant product={this.props.product.singleProduct.productChildren[index]} /> })
+    }
+
 
     todo_handleSelectSize(id) {
         this.setState({
@@ -550,14 +611,49 @@ class ModuleProductHasVariants extends React.Component {
 
     }
     componentDidMount() {
-        console.log('product info', this.props)
+        console.log('----------------------------------------------------------------------------------------------------')
+        console.log( this.props)
+        console.log('----------------------------------------------------------------------------------------------------')
+        /* this.props.id : undefined, when render the page */
         if (this.props.id) {
             this.setState({
                 current_id: this.props.id
             })
         }
+        console.log('this.props.childern_ID', this.props.childern_ID);
+        /* no thing */
         this.props.dispatch(getcartlist());
         const { product } = this.props;
+
+        console.log('this.props.product', this.props.product);
+        console.log('this.props.product------------', this.props);
+        /* this.props.product:
+        StoreSearchResult: null
+        add_review: false
+        allProducts: null
+        brands: []
+        categories: null
+        error: false
+        list_category: []
+        productLoading: false
+        productsLoading: true
+        reviewProduct: {review_5: {…}, review_4: {…}, review_3: {…}, review_2: {…}, review_1: {…}}
+        review_orginal: (4) [{…}, {…}, {…}, {…}]
+        searchResults: null
+        singleProduct: {id: 43, name_ar: "ابل اي فون الشبكية 6S بالإضافة إلى 32GB", name_en: "Apple iPhone Retina 6s Plus 32GB", description_ar: "<h2>This is a Heading<br>this is a paragraph.</h2>", description_en: "<p>This is a Heading<br>this is a paragraph.</p>", …}
+        sub_list_category: []
+        totalProducts: 0
+        */
+        console.log('product.singleProduct.productChildren.length', product.singleProduct.productChildren.length);
+        /* product children : arrau of available colors */
+        console.log('product.singleProduct.productChildren', product.singleProduct.productChildren);
+        /*
+        product.singleProduct.productChildren
+        0: {id: 51, colorName_ar: "زهري", colorName_en: "Pink", colorCode: "#f78da7", price: 1200, …}
+        1: {id: 52, colorName_ar: "احمر", colorName_en: "red", colorCode: "#eb144c", price: 1500, …} */
+        console.log('this.props.pid', this.props.pid);
+        console.log('this.props.childern_ID', this.props.childern_ID);
+        console.log('this.props.id', this.props.id);
         if (this.props.childern_ID != undefined && this.props.childern_ID != null && this.props.childern_ID != '') {
 
             for (var i = 0; i < product.singleProduct.productChildren.length; i++) {
@@ -580,9 +676,14 @@ class ModuleProductHasVariants extends React.Component {
                 }
             }
         } else {
+            /* here the parrent  pid: 43, we take the first color */
             if (product.singleProduct && product.singleProduct.productChildren.length > 0) {
                 this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
+                console.log(' product.singleProduct.productChildren[0]', product.singleProduct.productChildren[0]);
+                // console.log('this.props.id',this.props.id);
+
                 if (product.singleProduct.id == this.props.pid) {
+                    /* send the images for first child  */
                     this.setState({ thumbnailArea: <ThumbnailHasVariant product={product.singleProduct.productChildren[0]} /> });
                 }
             }
@@ -667,119 +768,138 @@ class ModuleProductHasVariants extends React.Component {
             }
         }
     }
+    componentDidUpdate(prevPops) {
+        
+        console.log('----------------------------------------------------------------------------------------------------')
+        console.log( this.props)
+        console.log('----------------------------------------------------------------------------------------------------')
+        //   this.setState({
+        //     selectedVariant:{'id':this.props.childern_ID},
+        //     selectedChild_z_f:{'id':this.props.childern_ID}
+
+        //   })
+        // console.log('updateeeeeeeeeeed: selectedVariant', this.state.selectedVariant, "selectedChild_z_f", this.state.selectedChild_z_f, "selectedSize:", this.setState.selectedSize, "pre", prevProps);
+        // this.handleSelectColor(this.props.childern_ID)
+        // this.todo_handleSelectColor(this.props.childern_ID)
+
+    }
 
     render() {
 
         const { currency } = this.props.setting;
         const { singleProduct } = this.props.product;
-
-        let reflectoinItem1 = this.getReflectoinItem(),
-            reflectionOpt = {
-                type: 'donor',
-                position: {
-                    left: '100%',
-                    top: '10%'
-                },
-                size: {
-                    height: 100,
-                    width: 300
-                }
-            };
-
-
+        const testing = this.props.childern_ID
+        console.log('cccccccccccccc0', testing)
         const { selectedVariant, selectedChild_z_f, selectedSize, sizeItems, colorItems } = this.state;
+        console.log('******************************************','selectedVariant', selectedVariant, 'selectedChild_z_f ',selectedChild_z_f,'selectedSize', selectedSize,'sizeItems',  sizeItems,'colorItems', colorItems
+        )
         let variants, sizeSelectionArea, colorSelectionArea, priceArea, ModuleProductDetailSpecification;
+
         if (selectedVariant !== null) {
-            if (this.state.current_id) {
-                let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                    item.id == this.state.current_id)
-                priceArea = (
-                    <h4 className="ps-selectedVariant__price">
-                        {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
-                            <p className="ps-product__price sale" style={{ display: "flex" }}>
+
+        /* replaced  this.state.current_id with this.props.childern_ID*/
+        if (this.props.childern_ID) {
+
+            console.log('cccccccccccccc0 second time', this.props.childern_ID)
+            let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
+                item.id == this.props.childern_ID)
+            priceArea = (
+                <h4 className="ps-selectedVariant__price">
+                    {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
+                        <p className="ps-product__price sale" style={{ display: "flex" }}>
+                            {currency ? currency.symbol : '$'}
+                            {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
+                            <del className="ml-2">
                                 {currency ? currency.symbol : '$'}
-                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
-                                <del className="ml-2">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </del>
-                                <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                            </del>
+                            <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
 
-                            </p>
-                        ) : (
-                                <p className="ps-product__price">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </p>
-                            )}
-                            <p className="p_weight">
-                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
-                            </p>
-                    </h4>
-                    
-                );
-            }
-            else if (this.props.id) {
-                let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                    item.id == this.props.id)
-                priceArea = (
-                    <h4 className="ps-selectedVariant__price">
-                        {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
-                            <p className="ps-product__price sale" style={{ display: "flex" }}>
+                        </p>
+                    ) : (
+                            <p className="ps-product__price">
                                 {currency ? currency.symbol : '$'}
-                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
-                                <del className="ml-2">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </del>
-                                <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
-
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
                             </p>
-                        ) : (
-                                <p className="ps-product__price">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </p>
-                            )}
-                             <p className="p_weight">
-                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
-                            </p>
-                    </h4>
-                );
+                        )}
+                    <p className="p_weight">
+                        g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                    </p>
+                </h4>
 
+            );
+            {
+                // this.changeImage(this.props.childern_ID)
+                // this.handleSelectColor(51)
             }
-            else {
-                let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
-                    item.colorCode == null)
 
-                priceArea = (
-                    <h4 className="ps-selectedVariant__price">
-                        {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
-                            <p className="ps-product__price sale" style={{ display: "flex" }}>
-                                {currency ? currency.symbol : '$'}
-                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
-                                <del className="ml-2">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </del>
-                                <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
-
-                            </p>
-                        ) : (
-                                <p className="ps-product__price">
-                                    {currency ? currency.symbol : '$'}
-                                    {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
-                                </p>
-                            )}
-                              <p className="p_weight">
-                                g {this.props.product.singleProduct.productChildren_orginal[index].weight}
-                            </p>
-                    </h4>
-                );
-            }
         }
+        else if (this.props.id) {
+            console.log("else", this.props.id)
+            let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
+                item.id == this.props.id)
+            priceArea = (
+                <h4 className="ps-selectedVariant__price">
+                    {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
+                        <p className="ps-product__price sale" style={{ display: "flex" }}>
+                            {currency ? currency.symbol : '$'}
+                            {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
+                            <del className="ml-2">
+                                {currency ? currency.symbol : '$'}
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                            </del>
+                            <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
+
+                        </p>
+                    ) : (
+                            <p className="ps-product__price">
+                                {currency ? currency.symbol : '$'}
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                            </p>
+                        )}
+                         <p className="p_weight">
+                            g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                        </p>
+                </h4>
+            );
+
+        }
+
+
         else {
+            /* the parent */
+            let index = this.props.product.singleProduct.productChildren_orginal.findIndex(item =>
+                item.colorCode == null)
+
+            priceArea = (
+                <h4 className="ps-selectedVariant__price">
+                    {this.props.product.singleProduct.productChildren_orginal[index].isOffer === true ? (
+                        <p className="ps-product__price sale" style={{ display: "flex" }}>
+                            {currency ? currency.symbol : '$'}
+                            {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price - ((this.props.product.singleProduct.productChildren_orginal[index].price * this.props.product.singleProduct.productChildren_orginal[index].offerRatio) / 100))}
+                            <del className="ml-2">
+                                {currency ? currency.symbol : '$'}
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                            </del>
+                            <small>{this.props.product.singleProduct.productChildren_orginal[index].offerRatio}% off</small>
+
+                        </p>
+                    ) : (
+                            <p className="ps-product__price">
+                                {currency ? currency.symbol : '$'}
+                                {formatCurrency(this.props.product.singleProduct.productChildren_orginal[index].price)}
+                            </p>
+                        )}
+                    <p className="p_weight">
+                        g {this.props.product.singleProduct.productChildren_orginal[index].weight}
+                    </p>
+                </h4>
+            );
         }
+        }
+
+        /*************************           if (singleProduct) {         */
+
 
         if (singleProduct) {
             ModuleProductDetailSpecification = (
@@ -819,7 +939,7 @@ class ModuleProductHasVariants extends React.Component {
                         <strong> {i18next.t('tags')}</strong>
                         {singleProduct.tags.map((item, index) => {
                             return (
-                                <Link  key={index} href="#" >
+                                <Link key={index} href="#" >
                                     <a>{item}</a>
                                 </Link>
                             )
@@ -832,7 +952,7 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_zise_first) {
                 colorSelectionArea = colorItems.colors.map(item => {
                     return (
-                        <Link     key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             < div
                                 className={`ps-variant ps-variant--image ${selectedChild_z_f &&
                                     selectedChild_z_f.id === item.id
@@ -865,7 +985,7 @@ class ModuleProductHasVariants extends React.Component {
             } else {
                 colorSelectionArea = singleProduct.productChildren.map(item => {
                     return (
-                        <Link   key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                        <Link key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
                             <div
                                 className={`ps-variant ps-variant--image ${selectedVariant &&
                                     selectedVariant.id === item.id
@@ -900,51 +1020,63 @@ class ModuleProductHasVariants extends React.Component {
             if (this.state.has_color_first) {
                 sizeSelectionArea = sizeItems.map(item => {
                     return (
-                        <Link  key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
-                            <div
-                                className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
-                                    ? 'active'
-                                    : ''
-                                    }`}
-                                // key={item.id}
-                                onClick={e => this.todo_handleSelectSize(item.id)}
-                            >
-                                < div>
-                                    <span className="ps-variant__tooltip">
-                                        {item.size}
-                                    </span>
-                                    <span className="ps-variant__size">
-                                        {item.size}
-                                    </span>
-                                </div>
-                            </div >
-                        </Link>
+                        item.size != 'undefined' ?
+                            <Link key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                <div
+                                    className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
+                                        ? 'active'
+                                        : ''
+                                        }`}
+                                    // key={item.id}
+                                    onClick={e => this.todo_handleSelectSize(item.id)}
+                                >
+                                    < div>
+                                        <span className="ps-variant__tooltip">
+                                            {item.size}
+                                        </span>
+                                        <span className="ps-variant__size">
+                                            {item.size}
+                                        </span>
+                                    </div>
+                                </div >
+                            </Link> : ''
                     );
                 });
             } else {
                 sizeSelectionArea = singleProduct.productChildren_size.map(item => {
                     return (
-                        <Link  key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
-                            <div
-                                className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
-                                    ? 'active'
-                                    : ''
-                                    }`}
-                                // key={item.id}
-                                onClick={e => this.todo_handleSelectSize(item.id)}
-                            >
-                                < div>
-                                    <span className="ps-variant__tooltip">
-                                        {item.size}
-                                    </span>
-                                    <span className="ps-variant__size">
-                                        {item.size}
-                                    </span>
+                        item.size != "undefined" ?
+                            <Link key={item.id} scroll={false} href={'/product/' + singleProduct.id + '?id=' + item.id}>
+                                <div
+                                    className={`ps-variant ps-variant--size ${selectedSize && selectedSize.id === item.id
+                                        ? 'active'
+                                        : ''
+                                        }`}
+                                    // key={item.id}
+                                    onClick={e => this.todo_handleSelectSize(item.id)}
+                                >
+                                    < div>
+                                        <span className="ps-variant__tooltip">
+                                            {item.size}
+                                        </span>
+                                        <span className="ps-variant__size">
+                                            {item.size}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                            :
+                            ''
                     );
                 });
+            }
+
+            if(this.props.id ){
+                const index= this.props.product.singleProduct.productChildren_orginal.find(item =>
+                    item.id==this.props.id
+                )
+
+                console.log('+++++++++++++++++++++++++++++++++++++++++++++',index)
             }
 
             if (this.state.has_zise_first) {
@@ -973,7 +1105,11 @@ class ModuleProductHasVariants extends React.Component {
                             <figcaption>
                                 {i18next.t('size')}:
                                 <strong className="pl-1">
-                                    {localStorage.getItem('lang') === "en" ?
+
+                                    {selectedSize != null ?
+                                        selectedSize.size != "undefined" ? selectedSize.size : '' : i18next.t('chooseoption')
+                                    }
+                                    {/* {localStorage.getItem('lang') === "en" ?
                                         selectedSize !== null
                                             ? ' ' + selectedSize.size
                                             : ' Choose an option'
@@ -981,7 +1117,7 @@ class ModuleProductHasVariants extends React.Component {
                                         : selectedSize !== null
                                             ? ' ' + selectedSize.size
                                             : 'اختر خيار'
-                                    }
+                                    } */}
 
                                 </strong>
                             </figcaption>
@@ -1014,14 +1150,18 @@ class ModuleProductHasVariants extends React.Component {
                             <figcaption>
                                 {i18next.t('size')}:
                             <strong className="pl-1">
-                                    {localStorage.getItem('lang') === "en" ?
+                                    {selectedSize != null ?
+                                        selectedSize.size != "undefined" ?
+                                            selectedSize.size : '' : i18next.t('chooseoption')
+                                    }
+                                    {/* {localStorage.getItem('lang') === "en" ?
                                         selectedSize !== null
                                             ? ' ' + selectedSize.size
                                             : ' Choose an option'
 
                                         : selectedSize !== null
                                             ? ' ' + selectedSize.size
-                                            : 'اختر خيار'}
+                                            : 'اختر خيار'} */}
 
                                 </strong>
                             </figcaption>
@@ -1030,7 +1170,8 @@ class ModuleProductHasVariants extends React.Component {
                     </div>
                 );
             }
-        } else {
+        }
+        else {
             if (singleProduct.is_sale) {
                 priceArea = (
                     <h4 className="ps-product__price sale">
@@ -1151,34 +1292,10 @@ class ModuleProductHasVariants extends React.Component {
                     {ModuleProductDetailSpecification}
                     <ModuleProductDetailSharing />
                 </ div>
-
-
-
-                {/* <div>
-                    <h2>Original use case:</h2>
-                    <MagicZoom>
-                        <span>
-                            <img src={'http://lorempixel.com/520/400/sports/1'} />
-                        </span>
-                    </MagicZoom>
-                </div> */}
-
-                {/* <div >
-                    <MagicZoom
-                        reflection={reflectionOpt}
-                        subscribeOnReflection={this.handleRefreshReflection}
-                    >
-                        <span>
-                            <img src={'http://lorempixel.com/520/400/sports/2'} />
-                        </span>
-                    </MagicZoom>
-
-                    <div>
-                        {reflectoinItem1}
-                    </div>
-                </div> */}
             </div >
         );
+
+
     }
 }
 

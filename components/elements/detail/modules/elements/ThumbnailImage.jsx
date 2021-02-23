@@ -40,10 +40,12 @@ render(){
     let reflectoinItem1 = this.getReflectoinItem(),
     reflectionOpt = {
         type: 'donor',
-        position: {
-            left: '50%',
-            top: '10%'
-        },
+        // position: {
+        //     // left: '50%',
+        //     // top: '10%'
+        //     left
+        // },
+        position:'left',
         scale: 2,
         size: {
             height: 100,

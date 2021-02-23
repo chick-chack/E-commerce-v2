@@ -61,7 +61,7 @@ class ShoppingCartPage extends React.Component {
                     <BreadCrumb breacrumb={breadCrumb} />
                     <ShoppingCart />
                 </div>
-                <Newsletters layout="container" />
+                {/* <Newsletters layout="container" /> */}
                 <FooterDefault />
             </div>
         );

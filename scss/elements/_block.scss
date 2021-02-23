@@ -458,7 +458,8 @@
     .ps-block__left {
         h3 {
             margin-bottom: 0;
-            font-size: 24px;
+            // font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 400;
             margin-right: 70px;
         }
@@ -2167,7 +2168,8 @@
 }
 
 .ps-block--shopping-total {
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
+    margin-bottom: 0;
     padding: 30px 35px;
     background-color: #f1f1f1;
     border: 1px solid #bfbfbf;
@@ -3363,11 +3365,15 @@
     }
 }
 
+
 .ps-block--checkout-order {
     figure {
-        margin-bottom: 25px;
-        padding-bottom: 25px;
-        border-bottom: 1px solid #eaeaea;
+        // margin-bottom: 25px;
+        margin-bottom: 10px;
+        // padding-bottom: 25px;
+        padding-bottom: 15px;
+        // border-bottom: 1px solid #eaeaea;
+        border-bottom: 1px solid $color-heading;
 
         figcaption {
             display: flex;
@@ -3375,14 +3381,16 @@
             font-weight: 400;
 
             strong {
-                font-size: 14px;
+                font-size: 16px;
                 color: $color-heading;
                 font-weight: 600;
                 text-transform: uppercase;
             }
 
             small {
-                font-size: 16px;
+                font-size: 1.7rem;
+                font-weight: bold;
+                color :#666666;
             }
         }
     }
@@ -3393,6 +3401,13 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            border-bottom: 1px solid #e1e1e1;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #666666;
+            &:last-child{
+                border-bottom: 1px solid transparent;
+            }
 
             strong {
                 font-weight: 600;
@@ -3404,7 +3419,8 @@
             }
 
             small {
-                font-size: 14px;
+                font-size: 1.5rem;
+                font-weight: bold;
                 color: $color-heading;
             }
         }
@@ -3413,6 +3429,7 @@
     .ps-block__shipping {
         padding-bottom: 10px;
         margin-bottom: 10px;
+        border-bottom: 1px solid transparent;
     }
 
     .ps-block__total {
@@ -3462,6 +3479,15 @@
     .ps-block__footer {
         button {
             height: 60px;
+        }
+    }
+
+    .ps-form__orders{
+        max-width: 85%;
+        margin: 0 auto;
+        @include media('<md') {
+            width: 100%;
+            max-width: 100%;
         }
     }
 }

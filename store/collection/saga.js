@@ -1,5 +1,6 @@
 import { all, put, call, takeEvery } from 'redux-saga/effects';
 import { polyfill } from 'es6-promise';
+import { notification } from 'antd';
 import {
     actionTypes,
     getCategoriesSuccess,
@@ -18,13 +19,50 @@ import {
     getAllHomeBannersSuccess,
     getAllHomeBannersError,
     getProductByCategortyIdSuccess,
-    getProductByCategortyIdError
+    getProductByCategortyIdError,
+    subscriptionSuccess,
+    sendMessageSuccess,
 } from './action';
 
 import CollectionRepository from '../../repositories/CollectionRepository';
 
 polyfill();
 
+
+const modalSuccess = type => {
+    notification[type]({
+        message: 'Wellcome',
+        description: 'Thank you for your subscribed !',
+        duration: 500,
+    });
+};
+
+
+
+const modalError = type => {
+    notification[type]({
+        message: 'failed',
+        description: 'You have already subscribed!',
+        duration: 500,
+    });
+};
+
+const messageSuccess = type => {
+    notification[type]({
+        message: 'Wellcome',
+        description: 'Thank you for your Message !',
+        duration: 500,
+    });
+};
+
+
+const messageError = type => {
+    notification[type]({
+        message: 'failed',
+        description: 'Something Wrong! please retry send your message!',
+        duration: 500,
+    });
+};
 // START HOME PAGE
 function* getMalls_Home({ payload }) {
     try {
@@ -161,6 +199,39 @@ function* getProductByCategortyId({ cat_id, limit, offset}){
     }
 }
 
+// subscription api
+function* subscription(payload) {
+    console.log("sub saga", payload)
+    try {
+        const data = yield call(CollectionRepository.postSubscription, payload);
+        if (data.status == 200) {
+            yield put(subscriptionSuccess(data.data));
+            modalSuccess('success');
+        } else {
+            modalError('error');
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// subscription api
+function* sendmessage(payload) {
+    try {
+        const data = yield call(CollectionRepository.sendMessage, payload);
+        if (data.status == 200) {
+            yield put(subscriptionSuccess(data.data));
+            messageSuccess('success');
+        } else {
+            messageError('error');
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 
 
 export default function* rootSaga() {
@@ -179,4 +250,8 @@ export default function* rootSaga() {
     yield all([takeEvery(actionTypes.GET_HOME_PROMOTIONS, getHomePromotions)]);
     yield all([takeEvery(actionTypes.GET_HOME_BANNERS, getHomeBanners)]);
     yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_CAT_ID, getProductByCategortyId)]);
+    // subscription api
+    yield all([takeEvery(actionTypes.SUBSCRIPTION, subscription)]);
+    // send message api
+    yield all([takeEvery(actionTypes.SEND_MESSAGE, sendmessage)]);
 }

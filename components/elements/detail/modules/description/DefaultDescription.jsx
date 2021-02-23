@@ -14,7 +14,7 @@ import PartialOffer from './PartialOffer';
 class DefaultDescription extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
+        // console.log(props)
     }
 
     

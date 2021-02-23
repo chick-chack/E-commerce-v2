@@ -22,7 +22,7 @@ class HomeDefaultDealOfDay extends Component {
     return (
          <div>
                 {   products_test ? products_test.map( ( product, index)=>(
-                       <div>
+                       <div key={index}>
                        
                        {product.data.length>0 ?
                         <div className="ps-deal-of-day">

@@ -82,7 +82,7 @@
             > div {
                 margin: 0 8px;
                 height: 100%!important;
-                // background-color: red;
+                display: flex!important;
             }
         }
 
@@ -195,7 +195,21 @@
 
 .ps-deal-of-day .slick-slide{
     height: auto!important;
+    display: flex!important;
+
 }
 .ps-deal-of-day .slick-track{
     display: flex!important;
+}
+
+.store_content{
+    margin-bottom: 50px;
+    p{
+        font-size: 1.8rem;
+    }
+    span{
+        color: $color-heading;
+        display: inline-block;
+        margin: 0;
+    }
 }
