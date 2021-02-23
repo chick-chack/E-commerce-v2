@@ -1072,11 +1072,10 @@ class ModuleProductHasVariants extends React.Component {
             }
 
             if(this.props.id ){
-                const index= this.props.product.singleProduct.productChildren_orginal.find(item =>
+                const index= this.props.product.singleProduct.productChildren_orginal.find(item =>{
                     item.id==this.props.id
-                )
-
-                console.log('+++++++++++++++++++++++++++++++++++++++++++++',index)
+                })
+                
             }
 
             if (this.state.has_zise_first) {
