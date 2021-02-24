@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ThumbnailDefault from './modules/thumbnail/ThumbnailDefault';
 import InformationDefault from './modules/information/InformationDefault';
 import DefaultDescription from './modules/description/DefaultDescription';
+import ThumbnailImage from './modules/elements/ThumbnailImage';
 import ModuleProductHasproductChildren from '~/components/elements/detail/modules/ModuleProductHasproductChildren';
 import BounceLoader from "react-spinners/BounceLoader";
 class ProductDetailFullwidth extends Component {
@@ -43,7 +44,8 @@ class ProductDetailFullwidth extends Component {
 
                                         </div>
                                     </div> */}
-                                    <ThumbnailDefault product={singleProduct} />
+                                    <ThumbnailImage product={singleProduct} />
+                                    {/* <ThumbnailDefault product={singleProduct} /> */}
                                     <InformationDefault product={singleProduct} />
                                 </div>
                                 <DefaultDescription />
