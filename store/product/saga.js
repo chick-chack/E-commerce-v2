@@ -192,9 +192,10 @@ function* all_category({ payload }) {
 /* ==============================================
 |||||||||||| Sub Category |||||||||||||||||||||||
 ===============================================*/
-function* all_sub_category({ payload }) {
+function* all_sub_category({ id }) {
+    console.log('+++++++++++++++', id)
     try {
-        const data = yield call(CollectionRepository.getSubGategory, payload);
+        const data = yield call(CollectionRepository.getSubGategory, id);
         yield put(all_sub_categorySuccess(data));
     } catch (err) {
         console.log(err);

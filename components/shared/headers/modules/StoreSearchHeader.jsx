@@ -40,7 +40,8 @@ class StoreSearchHeader extends Component {
     };
 
     componentDidMount() {
-        this.props.dispatch(all_sub_category());
+        console.log('cate', this.props.store.storeinfo.traderId)
+        this.props.dispatch(all_sub_category(this.props.store.storeinfo.traderId));
         this.setState({lang: localStorage.getItem('lang')|| 'en' })      
     }
 

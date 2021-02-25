@@ -39,13 +39,15 @@ class StorePanelCategories extends Component {
         this.setState({
             lang: localStorage.getItem('lang')
         })
-            this.props.dispatch(all_sub_category())    
+            this.props.dispatch(all_sub_category(this.props.store.storeinfo.traderId))    
             
     }
 
 
     render() {
         const data= this.props.product.sub_list_category;
+        const {storeinfo}=this.props.store;
+        console.log('cat panel', this.props)
         return (
             <Menu
                 mode="inline"
@@ -63,7 +65,6 @@ class StorePanelCategories extends Component {
     }
 }
 
-//export default PanelCategories;
 export default connect(state => state) (StorePanelCategories);
 
 

@@ -61,12 +61,17 @@
     }
 }
 
+
+  
 .ps-block--category {
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column;
     padding: 20px 10px;
     text-align: center;
     transition: all 0.4s ease;
     border: 1px solid #bfbfbf;
+    height: 100%;
 
     a {
         @include max-area();
@@ -79,7 +84,7 @@
     }
 
     &:hover {
-        border-color: 1px solid #bfbfbf
+        border-color: $color-span;
 
         p {
             color: #09c;
@@ -110,7 +115,7 @@
     }
 
     &:hover {
-        border-color: 1px solid #bfbfbf
+        border-color: #bfbfbf
 
         p {
             color: #09c;

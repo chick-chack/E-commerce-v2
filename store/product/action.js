@@ -184,9 +184,10 @@ export function getProductsByPrice(payload) {
 }
 
 // start SUB_category
-export function all_sub_category() {
+export function all_sub_category(id) {
+    console.log('-------------------------------',id)
 
-    return { type: actionTypes.GET_SUB_CATEGORY };
+    return { type: actionTypes.GET_SUB_CATEGORY, id};
 }
 
 export function all_sub_categorySuccess(payload) {

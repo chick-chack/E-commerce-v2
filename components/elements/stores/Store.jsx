@@ -46,7 +46,7 @@ class Store extends Component {
                         <li style={{ maxWidth: "none", width: "100%", marginRight: "0" }} >
                             <a
                                 // href="#"
-                                href="/store/[sid]" as={`/store/${store['traderId']}`}
+                                href={`/store/${store['traderId']}`}
                                 title={i18next.t('showstore')}
                                 style={{ borderRadius: "0", width: "100%" }}
                             >
@@ -56,10 +56,7 @@ class Store extends Component {
                     </ul>
                 </div>
                 <div className="ps-product__container">
-                    {/* <Link href="/shop"> */}
                     <Link
-                        // href="/shop"
-                        // href="/store/[sid]" as={`/store/${StoreTopRate}`}
                         href="/store/[sid]" as={`/store/${store['traderId']}`}
                     >
 

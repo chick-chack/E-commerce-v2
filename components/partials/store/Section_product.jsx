@@ -10,8 +10,10 @@ class StoreDefault extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         const { sections_product_store,storeinfo , list_category_store} = this.props;
+        console.log('store section', list_category_store)
         return (
             <div>
                 {
@@ -30,7 +32,9 @@ class StoreDefault extends Component {
                                             pathname: '/store/ProductsByCategory', query: { 
                                                 mallid: storeinfo['mall.id'],
                                                 mallname:storeinfo['mall.name_en'],
-                                                SectionId:product.id},}  
+                                                storeid:storeinfo['traderId'],
+                                                SectionId:product.id},
+                                            }  
                                         }
                                         >
                                     <a>{i18next.t('viewall')} </a>

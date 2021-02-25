@@ -1327,8 +1327,8 @@ class CollectionRepository {
 
 // api view all sub gategory getSubGategory
 
-async getSubGategory() {
-    const reponse = await Repository.get(`${baseUrl}/common/store/1/get-subCategory`)
+async getSubGategory(id) {
+    const reponse = await Repository.get(`${baseUrl}/common/store/${id}/get-subCategory`)
         .then(response => {
             return response.data.data;
         })
