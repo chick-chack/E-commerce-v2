@@ -13,7 +13,8 @@ import { isStaticData } from '../../../utilities/app-settings';
 import LazyLoad from 'react-lazyload';
 import i18next from 'i18next';
 import Rater from 'react-rater';
-import default_img from '../../../public/static/img/bbb75430607f4d43ad26e4467ebdc524.png'
+// import default_img from '../../../public/static/img/bbb75430607f4d43ad26e4467ebdc524.png'
+import default_img from '../../../public/static/img/store-gray.png'
 
 class StoreTopRate extends Component {
     constructor(props) {

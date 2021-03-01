@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { login } from '../../../store/auth/action';
-
 import { Form, Input, notification } from 'antd';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
@@ -13,22 +12,18 @@ class Login extends Component {
         super(props);
         this.state = {
             lang: null,
-
         };
     }
-
-    static getDerivedStateFromProps(props) {
-        if (props.isLoggedIn === true) {
-            console.log(props.isLoggedIn)
-            console.log("looooooooooooooooooooooooooooooooooooo", props.userinfo.wCAccessToken);
+static getDerivedStateFromProps(props) {
+    if (props.isLoggedIn === true) {
             localStorage.setItem("currentCookie", props.userinfo.wCAccessToken)
             Router.push('/');
         }
         return false;
     }
 
-    handleFeatureWillUpdate(e) {
-        e.preventDefault();
+handleFeatureWillUpdate(e) {
+    e.preventDefault();
         notification.open({
             message: 'Opp! Something went wrong.',
             description: 'This feature has been updated later!',
@@ -42,10 +37,8 @@ class Login extends Component {
     };
 
     componentDidMount() {
-
         this.setState({ lang: localStorage.getItem('lang') || 'en' })
         i18next.changeLanguage(this.state.lang);
-
     }
     render() {
         return (
@@ -53,10 +46,7 @@ class Login extends Component {
                 <div className="container">
                     <Form
                         className="ps-form--account"
-                        onFinish={this.handleLoginSubmit.bind(this)}
-
-
-                    >
+                        onFinish={this.handleLoginSubmit.bind(this)} >
                         <ul className="ps-tab-list">
                             <li className="active">
                                 <Link href="/account/login">
@@ -142,55 +132,10 @@ class Login extends Component {
                                     </button>
                                 </div>
                             </div>
-                            {/* <div className="ps-form__footer">
-                                <p>Connect with:</p>
-                                <ul className="ps-list--social">
-                                    <li>
-                                        <a
-                                            className="facebook"
-                                            href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
-                                            <i className="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="google"
-                                            href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
-                                            <i className="fa fa-google-plus"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="twitter"
-                                            href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
-                                            <i className="fa fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="instagram"
-                                            href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
-                                            <i className="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        
-                         */}
                         </div>
                     </Form>
+                
+                
                 </div>
             </div >
         );
@@ -199,5 +144,6 @@ class Login extends Component {
 const mapStateToProps = state => {
     return state.auth;
 };
+
 export default connect(mapStateToProps)(Login);
 

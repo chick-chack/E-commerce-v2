@@ -85,11 +85,6 @@ class Wishlist extends Component {
 
                     }
                     else {
-                        console.log("this.props.product ", this.props.wishlist.wishlistItems)
-                        // let index = this.props.wishlist.wishlistItems.findIndex(
-                        //     (item) => item.product.productSelected.id == this.props.childern_ID
-                        // );
-                        // console.log("child id index ", index)
                         const newProduct = {
                             "productChild.colorCode": product.productSelected.colorCode,
                             "productChild.colorName_ar":  product.productSelected.colorName_ar,
@@ -112,24 +107,12 @@ class Wishlist extends Component {
                         this.props.cart.cartItems.push(newProduct)
                         this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
                         this.props.dispatch(updateCartSuccess(this.props.cart.cartItems))
-                        // let QTY;
-                        // if(this.state.final_QTY===1 ){
-            
-                        //      QTY= this.state.quantity-1
-                        // }
-                        // else{
-                        //      QTY= this.state.quantity - this.state.final_QTY;
-                        // } 
-                        
-                        //  this.props.dispatch(add_to_local_cart(newProduct,  QTY))
                          Router.push('/account/shopping-cart')
                         console.log("------------------------", this.props.cart.cartItems)
                     }
                 }
     
             }
-            // this.props.dispatch(add_to_cart(product.productSelected.id, 1))
-            // this.props.dispatch(removeWishlistItem(product.product, product.productSelected));
     
             modalSuccess('success');
             Router.push('/account/shopping-cart')}
@@ -145,7 +128,6 @@ class Wishlist extends Component {
 
     render() {
         const { wishlistItems } = this.props.wishlist;
-        console.log("wishlist", this.props)
         return (
             <div className="ps-section--shopping ps-whishlist">
                 <div className="container">

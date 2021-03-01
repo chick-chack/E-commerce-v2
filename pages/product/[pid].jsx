@@ -36,6 +36,7 @@ class ProductDefaultPage extends React.Component {
             lang: localStorage.getItem('lang') || 'en'
         })
         if (this.props.query.id) {
+            console.log('hiiiiiiiiiii',this.props.query.id  )
             this.setState({ childern: this.props.query.id })
         }
         const { pid } = this.props.query;
@@ -53,7 +54,7 @@ class ProductDefaultPage extends React.Component {
             console.log(pid)
             this.props.dispatch(getProductsById(pid));
             // this.props.dispatch(getProductsByIdForTesting(37));
-            this.props.dispatch(getCollections(collectionsParams));
+            // this.props.dispatch(getCollections(collectionsParams));
         }
         Router.events.on('routeChangeStart', url => {
             const nextPid = url.split('/').pop();
@@ -66,6 +67,8 @@ class ProductDefaultPage extends React.Component {
     render() {
         const { singleProductTest } = this.props;
         const { singleProduct } = this.props;
+        console.log("id query render",this.props.query.id )
+        const render_id=this.props.query.id;
         const breadCrumb = [
             {
                 text: i18next.t('home'),
@@ -108,7 +111,13 @@ class ProductDefaultPage extends React.Component {
                         <div className="ps-page__container">
 
                             <div className="ps-page__left">
-                                <ProductDetailFullwidth childern_ID={this.state.childern} pid={this.props.query.pid} />
+                                <ProductDetailFullwidth
+                                //  childern_ID={this.state.childern}
+                                childern_ID={render_id}
+                                  pid={this.props.query.pid}
+                                  id={render_id}
+                                  
+                                  />
                             </div>
                             <div className="ps-page__right">
                                 <ProductWidgets collectionSlug="widget_same_brand" />

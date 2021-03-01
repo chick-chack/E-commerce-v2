@@ -8,37 +8,58 @@ class StoreView extends Component {
     }
 
     render() {
-        console.log(this.props.storeinfo)
-        // const malls = this.props.malls_home.malls;
-
         return (
             <div className="ps-deal-of-day">
-                <div className="ps-container">
-                    {/* <div className="ps-section__header" style={{ marginTop: "10px", justifyContent: "center" }}>
-                    </div> */}
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                            <div className="store_img">
+                                {this.props.storeinfo && this.props.storeinfo.image != null
+                                ? <div className="store_img">
+                                <img 
+                                style={{display:"flex", alignItems:"center", width:"70%" , margin:"auto"}}
+                                src={this.props.storeinfo.image} alt={this.props.storeinfo.mall.name_en}  />
+                            </div>
+                            :
+                            <div className="store_img">
+                            <img 
+                            style={{display:"flex", alignItems:"center", width:"70%", margin:"auto"}}
+                             src="/static/img/chickchackmall-logo.svg"
+                            // src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg"
+                             alt="Snow"  />
+                            </div>
+                            }
+
+                            </div>
+
+                        </div>
+                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                            <div className="store_content">
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                {/* <div className="ps-container">
                     <div className="ps-section__content">
                         <div className="store_view">
                             <div className="store_view" >
-                                {/* <div className="mall_link" style={{ marginBottom: "20px" }}>
-                                    <Link
-                                        href={{
-                                            pathname: '/mall', query: {
-                                                mallname: localStorage.getItem("lang") === "ar" ? mall.name_ar
-                                                    : mall.name_en, mallid: mall.id
-                                            }
-                                        }} >
-                                        {localStorage.getItem("lang") === "ar" ? mall.name_ar
-                                            : mall.name_en}
-                                    </Link>
-                                </div> */}
+
                                 {this.props.storeinfo && this.props.storeinfo.image != null &&
                                     <div className="store_img">
-                                        <img src={this.props.storeinfo.image} alt={this.props.storeinfo.mall.name_en} style={{ width: "100%" }} />
+                                        <img 
+                                        style={{display:"flex", alignItems:"center", width:"70%" , margin:"auto"}}
+                                        src={this.props.storeinfo.image} alt={this.props.storeinfo.mall.name_en}  />
                                     </div>
                                 }
                                 {this.props.storeinfo && this.props.storeinfo.image === null &&
                                     <div className="store_img">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg" alt="Snow" style={{ width: "100%" }} />
+                                        <img 
+                                        style={{display:"flex", alignItems:"center", width:"70%", margin:"auto"}}
+                                         src="/static/img/chickchackmall-logo.svg"
+                                        // src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg"
+                                         alt="Snow"  />
                                     </div>
                                 }
                             </div>
@@ -47,7 +68,7 @@ class StoreView extends Component {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }

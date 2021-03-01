@@ -4,7 +4,19 @@ import { sameBrands } from '../../../public/static/data/product';
 import Product from '../../../components/elements/products/Product';
 import { connect } from 'react-redux';
 import { getColletionBySlug } from '../../../utilities/product-helper';
+import i18next from 'i18next';
 class ProductWidgets extends Component {
+
+    state={
+        lang:null
+    }
+
+    componentDidMount() {
+        this.setState({
+            lang: localStorage.getItem('lang') || 'en'
+        })
+
+    }
 
     render() {
         const { collections, collectionSlug, storeinfo } = this.props;
@@ -17,7 +29,7 @@ class ProductWidgets extends Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                       <p>Store Name : </p>               
+                                       <p>{i18next.t('storename')} </p>               
                                     </td>
                                                  
                                     <td>
@@ -28,24 +40,26 @@ class ProductWidgets extends Component {
                                 </tr>
                                 <tr>
                                     <td>
-                                       <p>Store Type : </p>               
+                                       <p>{i18next.t('storetype')} </p>               
                                     </td>
                                                  
                                     <td>
                                     <p>
-                                    {storeinfo['storeType.name_en']}
+                                    {this.state.lang==="en" ? storeinfo['storeType.name_en'] :storeinfo['storeType.name_ar']  }
+                   
                                     </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                       <p>Mall  : </p>               
+                                       <p>{i18next.t('mall')}: </p>               
                                     </td>
                                                  
                                     <td>
                                     <p>
                                     <p>
-                        {storeinfo['mall.name_en']}
+                                        {this.state.lang==="en" ? storeinfo['mall.name_en'] :storeinfo['mall.name_ar']  }
+                  
                     </p>
                                     </p>
                                     </td>
@@ -68,7 +82,9 @@ class ProductWidgets extends Component {
                     </p> */}
                 </aside>}
             </section>
-        );
+       
+       
+       );
     }
 
 }

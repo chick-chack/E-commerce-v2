@@ -5,10 +5,11 @@
     &__widgets {
         display: flex;
         flex-flow: row nowrap;
-        // justify-content: space-between;
-        justify-content: space-around;
+        justify-content: space-between;
         padding-bottom: 10px;
         padding-top: 20px;
+
+        
     }
 
     &__links {
@@ -231,3 +232,9 @@
         }
     }
 }
+
+@media (max-width: 480px){
+.ps-footer__widgets {
+    /* flex-flow: row wrap; */
+    flex-flow: column;
+}}

@@ -163,6 +163,20 @@
     "payonline":"Pay online or when receiving goods",
     "sellon":"Sell on chickchack?",
     "regnow":"Register Now !",
+    "orderdetails":"Order Details",
+    "storename":"Store Name :",
+    "storetype":"Store Type :",
+    "mallname":"Mall Name :",
+    "floors":"Number of the floor:",
+    "floor":"floor",
+    "chooseoption":"Choose an option",
+    "welcome":"Welcome to",
+    "tradetype":"Trader Type:",
+    "store_desc":"We are pleased for your visit! we hope you will enjoy shopping in our store.",
+    "store_desc_2":" We provide you with all the latest electronic devices that suit your passion.",
+    "categories_":"Categories :",
+
+
 
 
 
@@ -208,7 +222,7 @@
     "totalorice":"Total Price",
     "myorders":"My Orders",
     "choosetheaddress":"Choose The Address",
-    "addnewaddress":"Add New Address:",
+    "addnewaddress":"Add New Address",
     "choosepaymentpay":"Choose Paymentpay Way",
     "addaddress":"Add Address",
     "noaddress":"No Address, Yet",

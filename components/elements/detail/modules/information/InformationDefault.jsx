@@ -7,7 +7,6 @@ import { addItem, add_to_cart, getcartlist } from '../../../../../store/cart/act
 import { addItemToCompare } from '../../../../../store/compare/action';
 import { addItemToWishlist } from '../../../../../store/wishlist/action';
 import Router from 'next/router';
-// import ModuleProductDetailSpecification from '~/components/elements/detail/modules/elements/ModuleProductDetailSpecification';
 import ModuleProductDetailDescription from '~/components/elements/detail/modules/elements/ModuleProductDetailDescription';
 import { imageSwatcher } from '~/public/static/data/product-detail.json';
 import ImageFromApi from '~/components/elements/detail/modules/elements/ImageFromApi';
@@ -34,7 +33,6 @@ const modalSuccess = (type) => {
 
 
 class InformationDefault extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -48,9 +46,7 @@ class InformationDefault extends Component {
 
         };
     }
-
     handleAddItemToCart = e => {
-        // e.preventDefault();
         const { cartlist } = this.props.cart;
         this.setState({
             test: cartlist
@@ -61,7 +57,6 @@ class InformationDefault extends Component {
             (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
 
         if (existItem) {
-            // existItem.quantity += this.state.quantity
             existItem.quantity = this.state.quantity;
         }
         else {
@@ -87,12 +82,12 @@ class InformationDefault extends Component {
         let QTY;
         if(this.state.final_QTY===1 ){
 
-             QTY= this.state.quantity-1
+
+             QTY= this.state.quantity
         }
         else{
              QTY= this.state.quantity - this.state.final_QTY;
-        } 
-        
+        }    
         this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
         modalSuccess('success');
         Router.push('/account/shopping-cart')
@@ -102,7 +97,6 @@ class InformationDefault extends Component {
             (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
 
         if (existItem) {
-            // existItem.quantity += this.state.quantity
             existItem.quantity = this.state.quantity;
         }
         else {
@@ -132,14 +126,10 @@ class InformationDefault extends Component {
         else{
              QTY= this.state.quantity - this.state.final_QTY;
         } 
-        
-        // this.props.dispatch(add_to_cart(this.props.product.singleProduct.productChildren[0].id, QTY))
         modalSuccess('success');
         Router.push('/account/shopping-cart')
     }
     };
-
-
     handleAddItemToCompare = e => {
         e.preventDefault();    
         console.log("nn",this.props.product.singleProduct)    
@@ -147,38 +137,28 @@ class InformationDefault extends Component {
                 (item) => item.colorCode == null);
             this.props.dispatch(addItemToCompare(this.props.product.singleProduct,childProduct ));   
             Router.push('/account/compare')
-        // const { product } = this.props;
-        // this.props.dispatch(addItemToCompare(product));
     };
 
     handleAddItemToWishlist = e => {
         e.preventDefault();
         console.log("nn",this.props.product.singleProduct)
-
         let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
             (item) => item.colorCode == null);
-
         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
         Router.push('/account/wishlist')
     };
-
-    
     handleIncreaseItemQty = e => {
         e.preventDefault();
-
             let test = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.id == this.props.product.singleProduct.productChildren[0].id);
-
              if(test){
                 if (test.quantity > this.state.quantity) {
                     this.setState({ quantity: this.state.quantity + 1 });
                 } else {
                     modalWarning('warning', this.state.quantity);
                 }
-             }   
-       
+             }     
     };
-
 
     handleDecreaseItemQty = e => {
         e.preventDefault();
@@ -189,21 +169,17 @@ class InformationDefault extends Component {
 
     handleSelectColor(colorId) {
         const { product } = this.props;
-
         if (product && product.productChildren.length > 0) {
             const selectedVariant = product.productChildren.find(
                 item => item.id === colorId
             );
-
             if (selectedVariant) {
                 const sizeItems = selectedVariant.sizes;
                 this.setState({ sizeItems: sizeItems });
             }
-
             this.setState({ selectedVariant: selectedVariant });
         }
     }
-
     handleSelectSize(sizeId) {
         const { sizeItems } = this.state;
         if (sizeItems && sizeItems) {
@@ -215,6 +191,7 @@ class InformationDefault extends Component {
     }
     componentDidMount() {
         const { product } = this.props;
+        console.log('parent', this.props)
         this.props.dispatch(getcartlist());
         if (product && product.singleProduct.productChildren.length > 0) {
             this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
@@ -223,14 +200,11 @@ class InformationDefault extends Component {
         if (this.props.auth.isLoggedIn && Boolean(this.props.auth.isLoggedIn) === true ){
         let existItem = this.props.cart.cartlist.find(
             (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
-
         if (existItem) {
-            // existItem.quantity += this.state.quantity
             this.setState({
                 quantity: existItem.quantity,
                 final_QTY:existItem.quantity
             })
-
         }
     }
         else{
@@ -238,7 +212,6 @@ class InformationDefault extends Component {
                 (item) => item['productChild.id'] == this.props.product.singleProduct.productChildren[0].id)
     
             if (existItem) {
-                // existItem.quantity += this.state.quantity
                 this.setState({
                     quantity: existItem.quantity,
                     final_QTY:existItem.quantity
@@ -246,15 +219,9 @@ class InformationDefault extends Component {
     
             }
         }
-        
-
     }
-
     render() {
-
-
         const { singleProduct } = this.props.product;
-
         const { cartlist } = this.props.cart;
         const { selectedVariant, selectedSize, sizeItems } = this.state;
         const { currency } = this.props.setting;
@@ -275,8 +242,6 @@ class InformationDefault extends Component {
             } else {
                 priceArea = (
                     <h4 className="ps-selectedVariant__price">
-                        {/* {currency ? currency.symbol : '$'}
-                        {selectedVariant.price} */}
                         {selectedVariant.isOffer === true ? (
                             <p className="ps-product__price sale" style={{ display: "flex" }}>
                                 {currency ? currency.symbol : '$'}
@@ -286,7 +251,6 @@ class InformationDefault extends Component {
                                     {formatCurrency(selectedVariant.price)}
                                 </del>
                                 <small>{selectedVariant.offerRatio}% off</small>
-
                             </p>
                         ) : (
                                 <p className="ps-product__price">
@@ -301,14 +265,12 @@ class InformationDefault extends Component {
                 );
             }
         }
-
         if (singleProduct) {
             ModuleProductDetailSpecification = (
                 <div className="ps-product__specification">
                     <Link href="/page/blank">
                         <a className="report">{i18next.t('report')}</a>
                     </Link>
-         
                     {localStorage.getItem('lang') === 'en'
                         ?
                         <p className="categories">
@@ -366,7 +328,6 @@ class InformationDefault extends Component {
                             {item.thumbnail !== null ? (
                                 <ImageFromApi
                                     url={item.image}
-                                // alt={item.thumbnail.name}
                                 />
                             ) : (
                                     ''
@@ -432,14 +393,11 @@ class InformationDefault extends Component {
                             </del>
                             {currency ? currency.symbol : '$'}
                             {singleProduct.price}
-                            {/* 800 */}
                         </h4>
                     );
                 } else {
                     priceArea = (
                         <h4 className="ps-product__price">
-                            {/* {currency ? currency.symbol : '$'}
-                            {singleProduct.price} */}
                             {singleProduct.isOffer === true ? (
                                 <p className="ps-product__price sale" style={{ display: "flex" }}>
                                     {currency ? currency.symbol : '$'}
@@ -496,10 +454,6 @@ class InformationDefault extends Component {
                             </a>
                         </Link>
                     </p>
-                    {/* <div className="ps-product__rating">
-                        <Rating />
-                        <span>{singleProduct.numberOfRates}</span>
-                    </div> */}
                     <div className="ps-product__rating">
                         <span className="rating_num">
                             <Rater rating={singleProduct.rate ? singleProduct.rate : 0} total={5} interactive={false} />
@@ -508,7 +462,6 @@ class InformationDefault extends Component {
                 </div>
                 {priceArea}
                 <ModuleProductDetailDescription product={singleProduct} />
-                {/* {variants} */}
                 {singleProduct.quantity == 1 && <figcaption>
                     <strong className="pl-1"> Only 1 left in stock - order soon.</strong>
                 </figcaption>}
@@ -543,12 +496,6 @@ class InformationDefault extends Component {
                         onClick={this.handleAddItemToCart.bind(this)}>
                         {i18next.t('addtocart')}
                     </a>
-                    {/* <a
-                        className="ps-btn"
-                        href="#"
-                        onClick={this.handleAddItemToCart.bind(this)}>
-                        {i18next.t('buynow')}
-                    </a> */}
                     <div className="ps-product__actions">
                         <a
                             href="/account/wishlist"
@@ -564,25 +511,8 @@ class InformationDefault extends Component {
                 </div>
                 {ModuleProductDetailSpecification}
                 <ModuleProductDetailSharing />
-                <div className="ps-product__actions-mobile">
-                    <a
-                        className="ps-btn ps-btn--black"
-                        href="#"
-                        onClick={this.handleAddItemToCart.bind(this)}>
-                        {i18next.t('addtocart')}
-                    </a>
-                    <a
-                        className="ps-btn"
-                        href="#"
-                        onClick={this.handleAddItemToCart.bind(this)}>
-                        {i18next.t('buynow')}
-                    </a>
-                </div>
+
             </div>
-
-
-
-
         );
     }
 }

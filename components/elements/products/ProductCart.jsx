@@ -8,9 +8,6 @@ const ProductCart = ({ product }) => {
         <div className="ps-product--cart">
             <div className="ps-product__thumbnail">
                 <Link    
-                
-                // href="/product/[pid]"
-                //  as={`/product/${product['productChild.productId']}?id=${product['productChild.id']}`}
                  href={{
                     pathname:`/product/${product['productChild.productId']}`,
                     query: 

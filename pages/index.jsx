@@ -54,26 +54,10 @@ class Index extends Component {
 
         if (query) {
 
-            const collectionsSlug = [
-                'deal-of-the-day',
-                'consumer-electronics',
-                'clothings',
-                'garden-and-kitchen',
-                'new-arrivals-products',
-                'fullwidth-consumer-electronic-best-seller',
-                'fullwidth-consumer-electronic-most-popular',
-                'fullwidth-clothing-best-sellers',
-                'fullwidth-clothing-most-popular',
-                'fullwidth-kitchen-most-popular',
-                'fullwidth-kitchen-best-sellers',
-                'best-offers',
-            ];
-
             const bannerSlugs = ['banner-home-fullwidth'];
             const promotionSlugs = ['home_fullwidth_promotions'];
             this.props.dispatch(getBannersBySlugs(bannerSlugs));
             this.props.dispatch(getPromotionsBySlugs(promotionSlugs));
-            this.props.dispatch(getCollections(collectionsSlug));
             this.props.dispatch(switchDemoPanel(false));
             this.props.dispatch(getMalls_Home());
             this.props.dispatch(getCollectionsfortest());
@@ -95,6 +79,7 @@ class Index extends Component {
                 <main id="homepage-1">
                     <HomeBanner />
                     <MallsView />
+                    <HomeDefaultTopCategories />
                     <StoreView />
                     <HomeDefault />
                     <DownLoadApp />

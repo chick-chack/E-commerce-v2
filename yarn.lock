@@ -6286,6 +6286,11 @@ react-view-pager@^0.6.0:
     resize-observer-polyfill "1.5.0"
     tabbable "1.1.2"
 
+react-zoom-slider@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-zoom-slider/-/react-zoom-slider-0.1.0.tgz#21e7d13067b963120eb099786620a1f436043afa"
+  integrity sha512-tgZquNXoH5EZa6+6odqh6GOCKmQbl+OsGA6goUyPx8WbkDr2DrvVlBumsEpEupSBPgUi5e4VL/OEAlE+tIIXqw==
+
 react@^0.14.8:
   version "0.14.10"
   resolved "https://registry.yarnpkg.com/react/-/react-0.14.10.tgz#c10d7750f1c5b34eee2a123915ac4c14c01c1081"

@@ -58,6 +58,14 @@ export const actionTypes = {
     GET_PRODUCTS_BY_CAT_ID_SUCCESS:'GET_PRODUCTS_BY_CAT_ID_SUCCESS',
     GET_PRODUCTS_BY_CAT_ID_ERROR:'GET_PRODUCTS_BY_CAT_ID_ERROR',
 
+    // SUBSCRIPTION api
+    SUBSCRIPTION:'SUBSCRIPTION',
+    SUBSCRIPTION_SUCCESS:'SUBSCRIPTION_SUCCESS',
+
+    //SEND MESSAGE
+    SEND_MESSAGE:"SEND_MESSAGE",
+    SEND_MESSAGE_SUCCESS:"SEND_MESSAGE_SUCCESS"
+
 
 };
 
@@ -275,4 +283,24 @@ export function getProductByCategortyIdError(error) {
         type: actionTypes.GET_PRODUCTS_BY_CAT_ID_ERROR,
         error,
     };
+}
+
+// Subscription  api
+
+export function subscription(sub_email) {
+    return { type: actionTypes.SUBSCRIPTION, sub_email };
+}
+
+export function subscriptionSuccess(info) {
+    return { type: actionTypes.SUBSCRIPTION_SUCCESS, info };
+}
+
+// send message  api
+
+export function sendMessage(  fullname,email,message) {
+    return { type: actionTypes.SEND_MESSAGE, fullname,email,message};
+}
+
+export function sendMessageSuccess(info) {
+    return { type: actionTypes.SEND_MESSAGE_SUCCESS, info };
 }

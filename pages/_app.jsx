@@ -50,7 +50,6 @@ class MyApp extends App {
         }, 100);
 
         this.setState({ open: true });
-        //console.log("loaded", document.getElementById('__next') )
     }
     render() {
         i18next.changeLanguage(this.state.lang);

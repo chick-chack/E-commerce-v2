@@ -38,15 +38,9 @@ class CategoryDefaultPage extends React.Component {
         }
         if (query) {
             this.props.dispatch(getProductByCategortyId(cid, 8, 0));
-            //  this.props.dispatch(all_category(sid));
+
         }
 
-        // Router.events.on('routeChangeStart', url => {
-        //     const nextPid = url.split('/').pop();
-        //     if (nextPid !== '' && isNaN(parseInt(nextPid)) === false) {
-        //         this.props.dispatch(getProductsById(nextPid));
-        //     }
-        // });
     }
 
 
@@ -65,13 +59,14 @@ class CategoryDefaultPage extends React.Component {
         };
 
         localStorage.setItem("params", JSON.stringify(params));
-        this.props.dispatch(getProductByCategortyId(this.props.query.cid, 8, 0));
+        this.props.dispatch(getProductByCategortyId(this.props.query.cid,  this.state.pageSize, 0));
     }
     FetchData(page) {
         this.props.dispatch(getProductByCategortyId(this.props.query.cid, this.state.pageSize, page))
     }
 
     handlePageSize(value) {
+        console.log("vaaaaaaaaaaaaaa", value)
         this.setState({ pageSize: value })
         this.props.dispatch(getProductByCategortyId(this.props.query.cid, value, 0));
     }
@@ -92,7 +87,7 @@ class CategoryDefaultPage extends React.Component {
 
                             <p>
                                 <strong className="mr-2">{total}</strong>
-                        Product found
+                    {i18next.t('productsfound')}
                     </p>
                             <div className="ps-shopping__actions" >
 
@@ -106,7 +101,7 @@ class CategoryDefaultPage extends React.Component {
                                     <option value="20">20</option>
                                 </select>
                                 <div className="ps-shopping__view">
-                                    <p>View</p>
+                                    <p>{i18next.t('view')}</p>
                                     <ul className="ps-tab-list">
                                         <li
                                             className={
@@ -141,7 +136,7 @@ class CategoryDefaultPage extends React.Component {
                                         {productListByCategory.rows
                                             ? productListByCategory.rows.map((item) => (
                                                 <div
-                                                    className="col-xl-2 col-lg-2 col-md-2 col-sm-3 xs-4 col-6"
+                                                    className="col-xl-2 col-lg-4 col-md-4 col-sm-6 xs-6 col-12"
                                                     key={item.id}>
                                                     <ProductDealOfDay_edit
                                                         product={item}

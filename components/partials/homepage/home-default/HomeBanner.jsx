@@ -78,7 +78,6 @@ class HomeBanner extends Component {
                         <Slider
                             {...carouselSetting}
                             className="ps-carousel">
-
                             <BannerItem source={mall} key={1} text_1={'areyoutrader'} />
                             <BannerItem source={mall} key={2} text_1={'3dvirtual'} text_2={'3dvirtual'} />
                             <BannerItem source={support} key={3} text_1={'supportmanypayment'} />

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-
 import CountDownSimple from '../../elements/CountDownSimple';
- import Link from 'next/link';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import ProductDealOfDay from '../../elements/products/ProductDealOfDay';
 import StoreTopRate from '../../elements/stores/StoreTopRate';
@@ -17,55 +15,71 @@ class MallDetails extends Component {
     constructor(props) {
         super(props);
     }
- 
-    componentDidMount(){
-    
-
-    }
-
 
     render() {
-
         const mall = this.props.mallInfo;
-        console.log("mallllllllllllllll info details", this.props)
-
         return (
+            <div className="ps-container" style={{ padding: "30px 0" }}>
+                {
+                    mall ?
+                        <div className="row">
+                            <div className="col-md-6 col-12">
+                                <div className="mall-image">
+                                    <img src={mall.image} alt="mall" />
+                                </div>
+                            </div>
+                            <div className="col-md-6 col-12">
+                                <section className="store_widgets">
+                                    <aside className="widget widget_product widget_features_store">
+                                        <div className="table-responsive">
+                                            <table className="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>{i18next.t('mallname')} </p>
+                                                        </td>
 
-                <div className="ps-container">
-                   {
-                       mall ?
-                       <div className="row">
-                       <div className="col-md-6 col-12">
-                           <div className="mall-image">
-                               <img src={mall.image} alt="mall"/>
-                           </div>
+                                                        <td>
+                                                            <p>
+                                                                {localStorage.getItem("lang") === "ar" ? mall.name_ar :
+                                                                    mall.name_en}
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>   {i18next.t('floors')}
 
-                       </div>
-                       <div className="col-md-6 col-12">
-                           <h2> {localStorage.getItem("lang")==="ar"?  mall.name_ar :
-                             mall.name_en } </h2>
+                                                            </p>
+                                                        </td>
 
-                           <h3>
-                           {localStorage.getItem("lang")==="ar"?  "عدد الطوابق :" :
-                              "Number of the floor:"}
-                             {mall.numberOfFloors} floors </h3>
-                           <h3></h3>
-                           
-                           </div>
-                   </div>
-                   :<h1> no </h1>
-                   }
-               
-                </div>
+                                                        <td>
+                                                            <p>
+                                                                {mall.numberOfFloors} {i18next.t('floor')}
 
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
 
 
+                                    </aside>
+                                </section>
+
+                            </div>
+                        </div>
+                        : <h1> no </h1>
+                }
+
+            </div>
 
         )
     }
 
 }
-
 
 export default connect(state => state.mall)(MallDetails);
 

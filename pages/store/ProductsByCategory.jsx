@@ -10,12 +10,10 @@ import HeaderDefault from '../../components/shared/headers/HeaderDefault';
 import BreadCrumb from '../../components/elements/BreadCrumb';
 import ProductDealOfDay_edit from '../../components/elements/products/ProductItem';
 import ProductWide from '../../components/elements/products/ProductWide'
-import {  getAllProductsByCategory} from '../../store/store/action';
+import {  getAllProductsByCategory,getStoresById} from '../../store/store/action';
 import i18next from 'i18next';
 import ReactPaginate from "react-paginate";
 import _ from "lodash";
-
-
 
 class ProductsByCategory extends React.Component {
     constructor(props) {
@@ -25,101 +23,75 @@ class ProductsByCategory extends React.Component {
     state = {
         listView: true,
         pageSize:8,
+        lang:null
     };
 
-
-
-
     static async getInitialProps(ctx) {
-        console.log("sectiiiiiiiiiiiion",ctx.query)
         return { query: ctx.query };
     }
-
-
-    
+  
 componentDidMount() {
-
+    this.setState({
+        lang: localStorage.getItem('lang') || 'en'
+    })
     const { query } = this.props;
-    console.log( "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",query)
-    
-    
     if (query) {
-       
-        //     this.props.dispatch(getAllProductsByCategory(this.props.query.storeId, this.props.query.categoryId,2,0))
-        this.props.dispatch(getAllProductsByCategory(1, 2,1,0))
+        this.props.dispatch(getStoresById(this.props.query.storeid));
+        this.props.dispatch(getAllProductsByCategory(this.props.query.storeid, this.props.query.SectionId,8,0))
     }
 }
-
 
 handleChangeViewMode = (event) => {
     event.preventDefault();
     this.setState({ listView: !this.state.listView });
 };
 
-
-//  : offset,
-// 
-
-handlePagination(page, pageSize) {
-    
+handlePagination(page, pageSize) {   
     this.setState({
-        pageSize:pageSize,
-       
-    })
- 
+        pageSize:pageSize, })
     const params = {
         _start: page === 1 ? 0 : page * pageSize,
         _limit: pageSize,
     };
     localStorage.setItem("params",JSON.stringify(params));
-
-  //  this.props.dispatch(getStores(params));
-  // this.props.query.mallid
-  this.props.dispatch(getAllProductsByCategory(this.props.query.mallid, this.props.query.SectionId,8,0));
+  this.props.dispatch(getAllProductsByCategory(this.props.query.storeid, this.props.query.SectionId,8,0));
 }
-
-
 FetchData( page){
-    this.props.dispatch( getAllProductsByCategory(this.props.query.mallid,this.props.query.SectionId, this.state.pageSize,page))
+    this.props.dispatch( getAllProductsByCategory(this.props.query.storeid, this.props.query.SectionId, this.state.pageSize,page))
 }
-
-
  handlePageSize(value){
     this.setState({ pageSize:value })
-    this.props.dispatch(getAllProductsByCategory(this.props.query.mallid,this.props.query.SectionId ,value,0));  
+    this.props.dispatch(getAllProductsByCategory(this.props.query.storeid, this.props.query.SectionId ,value,0));  
 }
-
-
 render() {
-
-    const { category_products } = this.props;
+    const { category_products,storeinfo } = this.props;
     const listProduct= category_products.data
-
-   // console.log( listProduct.count);
-   // console.log( this.props.query );
-
-
         const breadCrumb = [
             {
-                text: 'Home',
+                text: i18next.t('home'),
                 url: '/',
             },
             {
-                text: 'Dubai',
-                url:`/mall?mallname=${this.props.query.mallname}&mallid=${this.props.query.mallid}`
-                
+                text:  storeinfo && (this.state.lang === 'ar'
+                    ? storeinfo['mall.name_ar']
+                    :storeinfo['mall.name_en']),
+                url: storeinfo && (this.state.lang === 'en'
+                    ? `/mall?mallname=${storeinfo['mall.name_en']}&mallid=${storeinfo['mall.id']}`
+                    : `/mall?mallname=${storeinfo['mall.name_ar']}&mallid=${storeinfo['mall.id']}`),
+            },
+
+            {
+                text: storeinfo && (storeinfo['trader.storeName']),
+                url: storeinfo && (`/store/${storeinfo.traderId}`),
             },
             {
-
-                // text: singleProduct ? singleProduct.title : '',
-                text: category_products.title_ar
+                text: storeinfo && (storeinfo['trader.storeName']),
+                url: storeinfo && (`/store/${storeinfo.traderId}`),
             },
         ];
     
       const total = listProduct ? listProduct.count  : "no data";
-      //  console.log("total stores via mall id", total);
      const viewMode = this.state.listView;
-        console.log("layout viewmode", viewMode);
 
 
     return (
@@ -127,72 +99,24 @@ render() {
         <HeaderDefault />
         <HeaderMobile />
         <NavigationList />
-
-
-        {/* </div>
-        <div className="layout--product">
-            {/* {singleProduct ? (
-                <HeaderProduct productData={singleProduct} />
-            ) : (
-                    ''
-                )} */}
-     
-           <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-           {/*   <div className="ps-page--product">
-                <div className="ps-container">
-                    <div className="ps-page__container">
-                        <div className="ps-page__left">
-                            <ProductDetailFullwidth />
-                        </div>
-                        <div className="ps-page__right">
-                            <ProductWidgets collectionSlug="widget_same_brand" />
-                        </div>
-                    </div>
-                    <CustomerBought
-                        layout="fullwidth"
-                        collectionSlug="customer_bought"
-                    />
-                    <RelatedProduct
-                        layout="fullwidth"
-                        collectionSlug="shop-recommend-items"
-                    />
-                </div>
-            </div> */}
-   
-                    <div className="container-fluid">
+        <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
+            <div className="container-fluid">
               <div className="ps-shopping" style={{marginTop:"20px"}}>
-                {/* <BestSaleItems collectionSlug="shop-best-seller-items" />
-                <RecommendItems collectionSlug="shop-recommend-items" />  */}
                  <div className="ps-shopping__header">
-                    {/* <p>
-                        <strong className="mr-2">{total}</strong>
-                        Stores found
-                    </p> */}
-                        <p>
-                        <strong className="mr-2">{total}</strong>
-                        Product found
+                    <p>
+                        <strong className="mr-2 ml-2">{total}</strong>
+                        {i18next.t('productsfound')}
                     </p>
                     <div className="ps-shopping__actions" >
-
                         <select name="language" className="ps-select form-control"
-                  onChange={(e)=>
-                    this.handlePageSize(e.target.value)
-                    // this.setState({ pageSize:e.target.value })
-                    }>
-                  
-                {/* //   setpageSize(e.target.value)} */}
-     
-              <option value="8">8</option>
-              <option value="1">12</option>
-              <option value="16">16</option>
-              <option value="20">20</option>
-          </select>
-                        {/* <div className="col-md-3 display-flex  align-items-center">
-         
-          </div> */}
-
+                            onChange={(e)=> this.handlePageSize(e.target.value) }>
+                            <option value="8">8</option>
+                            <option value="12">12</option>
+                            <option value="16">16</option>
+                            <option value="20">20</option>
+                        </select>
                         <div className="ps-shopping__view">
-                            <p>View</p>
+                            <p>{i18next.t('view')}</p>
                             <ul className="ps-tab-list">
                                 <li
                                     className={

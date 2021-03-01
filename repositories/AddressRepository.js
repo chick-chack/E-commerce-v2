@@ -22,13 +22,14 @@ class AddressRepository {
             "name": data1.name,
             "country": countryVal.label,
             "countryCode": countryVal.value,
-            "state":  data1.neighborhood,
+            "state":  data1.state,
             "city":data1.city,
-            "restAddress": data1.street,
+            "restAddress": data1.restAddress,
             "postCode":  data1.postCode,
         };
         try {
             const response = await Repository.post(`${baseUrl}/address/add`, info)
+            console.log("repo add res", response)
             return response.data;
         } catch (error) {
             console.log(error)

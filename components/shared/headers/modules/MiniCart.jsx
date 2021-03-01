@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import Link from 'next/link';
 import { getCart, removeItem, getcartlist, deletecartitem,updateCartSuccess } from '../../../../store/cart/action';
 import { isStaticData } from '../../../../utilities/app-settings';
@@ -87,6 +88,7 @@ handleRemoveLocalCartItem = product => {
                                               className="ps-product--cart-mobile"
                                               key={product['productChild.id']}>
                                               <div className="ps-product__thumbnail">
+                                                  {/* {console.log('product from cart', product)} */}
                                                   <Link 
                                                 //   href="/product/[pid]" 
                                                 //   as={`/product/${product['productChild.productId']}?id=${product['productChild.id']}`}
@@ -111,7 +113,7 @@ handleRemoveLocalCartItem = product => {
                                                           this,
                                                           product
                                                       )}>
-                                                      <i className="icon-cross"></i>
+                                                      <i style={{fontSize:"1.8rem", fontWeight:"bold", color:"#666"}} className="icon-cross"></i>
                                                   </a>
                                                   <Link 
                                                     href={{
@@ -120,17 +122,14 @@ handleRemoveLocalCartItem = product => {
                                                         {
                                                             id: product['productChild.id'],
                                                         }
-                                                    }}
-                                                //    href="/product/[pid]" as={`/product/${product['productChild.productId']}?id=${product['productChild.id']}`}
-                                                   
-                                                   >
+                                                    }}>
                                                       <a className="ps-product__title">
                                                       { localStorage.getItem('lang')==="en" ? 
                                                             product['productChild.product.name_en'] : product['productChild.product.name_ar'] }
                                                       </a>
                                                   </Link>
                                                   <small>
-                                                      {product.quantity} x $
+                                                       QTY: {product.quantity} x $
                                                       {/* {product['productChild.price']} */}
                                                      
                                                       {product['productChild.isOffer'] 
@@ -261,7 +260,7 @@ handleRemoveLocalCartItem = product => {
                                     <Link href="/account/shopping-cart">
                                         <a className="ps-btn">{i18next.t('viewcart')}</a>
                                     </Link>
-                                    <Link href="/">
+                                    <Link href="/account/login">
                                         <a className="ps-btn">{i18next.t('checkout')}</a>
                                     </Link>
                                 </figure>

@@ -1327,8 +1327,8 @@ class CollectionRepository {
 
 // api view all sub gategory getSubGategory
 
-async getSubGategory() {
-    const reponse = await Repository.get(`${baseUrl}/common/store/1/get-subCategory`)
+async getSubGategory(id) {
+    const reponse = await Repository.get(`${baseUrl}/common/store/${id}/get-subCategory`)
         .then(response => {
             return response.data.data;
         })
@@ -1383,17 +1383,52 @@ async getSubGategory() {
     async getProductsByCatId( cat_id,  limit, offset){
         console.log("repoooooooooo ",  cat_id,  limit, offset)
       
-        const reponse = await Repository.get(`${baseUrl}/common/product/products-by-main-category?mainCategoryId=${cat_id}&limit=${limit}&offset=${offset}`)
+        const response = await Repository.get(`${baseUrl}/common/product/products-by-main-category?storeTypeId=${cat_id}&limit=${limit}&offset=${offset}`)
         .then(response => {
             console.log("repoooooooooo  response", response.data)
             return response.data;
         })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     
         }
 
+// subscription api
+async postSubscription(payload) {
+    var info = {
+        "email": payload.sub_email,
+    };
+    console.log("info sub repo", info)
 
+    try {
+        const response = await Repository.post(`${baseUrl}/common/email-subscription`, info)
+        console.log("sub repo response",response)
+        return response;
+    } catch (error) {
+        return error;
+    }
+
+}
+
+//  send message
+// /ecommerce/common/contact-us-form/   POST
+// body = { fullName, email, content } 
+
+async sendMessage(payload) {
+    var info = {
+        "fullName": payload.fullname,
+        "email": payload.email,
+        "content": payload.message,
+
+    };
+    try {
+        const response = await Repository.post(`https://portal.chickchack.net/api/v1/ecommerce/common/contact-us-form`, info)
+        return response;
+    } catch (error) {
+        return error;
+    }
+
+}
 
 }
 
