@@ -33,7 +33,7 @@ class StoreView extends Component {
                                 </div> */}
                                 {this.props.storeinfo && this.props.storeinfo.image != null &&
                                     <div className="store_img">
-                                        <img src={this.props.storeinfo.image} alt={this.props.storeinfo.mall.name_en} style={{ width: "100%" }} />
+                                        <img src={this.props.storeinfo.image} alt={this.props.storeinfo["mall.name_en"]} style={{ width: "100%" }} />
                                     </div>
                                 }
                                 {this.props.storeinfo && this.props.storeinfo.image === null &&

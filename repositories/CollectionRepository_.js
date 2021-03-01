@@ -50,7 +50,7 @@ class CollectionRepository {
 
         async getCollectionsfortest() {
 
-            const reponse = await Repository.get(`https://check-chack-v2.herokuapp.com/api/v2/ecommerce/common/home/products`)
+            const reponse = await Repository.get(`https://portal.chickchack.net/api/v1/ecommerce/common/home/products`)
                 .then(response => {
                     return response.data;
                 })
