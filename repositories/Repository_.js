@@ -1,6 +1,6 @@
 import axios from 'axios';
 // const baseDomain = 'http://45.76.97.89:3000';
-const baseDomain = 'https://check-chack-v2.herokuapp.com/api/v2/ecommerce';
+const baseDomain = 'https://portal.chickchack.net/api/v1/ecommerce';
 const authorization_prefix = 'Bearer ';
 
 export const customHeaders = {
@@ -19,7 +19,7 @@ export const options = data => {
         //     Accept: 'application/json'
         // },
         data: data.data,
-        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+        url: "https://portal.chickchack.net/api/v1/ecommerce" + data.url
     })
 };
 
@@ -31,7 +31,7 @@ export const options_auth = data => {
         //     Accept: 'application/json',
         // }, 
         data: data.data,
-        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+        url: "https://portal.chickchack.net/api/v1/ecommerce" + data.url
     })
 };
 
@@ -43,7 +43,7 @@ export const options_ = data => {
         //     Accept: 'application/json'
         // },
 
-        url: "https://check-chack-v2.herokuapp.com/api/v2/ecommerce" + data.url
+        url: "https://portal.chickchack.net/api/v1/ecommerce" + data.url
     })
 };
 
@@ -69,7 +69,7 @@ export const serializeQuery = query => {
 
 // import axios from 'axios';
 // // const baseDomain = 'http://45.76.97.89:3000';
-// const baseDomain = 'https://check-chack-v2.herokuapp.com/api/v2/ecommerce';
+// const baseDomain = 'https://portal.chickchack.net/api/v1/ecommerce';
 // const authorization_prefix = 'Bearer ';
 
 // export const customHeaders = {

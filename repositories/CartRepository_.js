@@ -38,7 +38,7 @@ class CartRepository {
             "quantity": 5,
         };
         try {
-            const response = await Repository.post(`https://check-chack-v2.herokuapp.com/api/v2/ecommerce/cart/add`, info)
+            const response = await Repository.post(`https://portal.chickchack.net/api/v1/ecommerce/cart/add`, info)
             return response;
         } catch (error) {
             console.log(error)
