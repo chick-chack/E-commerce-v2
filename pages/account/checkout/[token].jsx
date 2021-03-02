@@ -18,23 +18,17 @@ import { unityLogin } from '../../../store/auth/action';
 const OrderTrackingPage = (props) => {
   const router = useRouter();
   useEffect(() => {
-    console.log(props);
+    console.log(router.query.token);
     const request = async () => {
       try {
         props.dispatch(unityLogin(router.query.token));
       } catch (error) {
+        Router.push('/');
         console.log(error);
       }
     };
     request();
   }, []);
-
-  useEffect(() => {
-    console.log(props.isLoggedIn);
-    if (props.isLoggedIn === false) {
-      Router.push('/');
-    }
-  }, [props.isLoggedIn]);
 
   const breadCrumb = [
     {

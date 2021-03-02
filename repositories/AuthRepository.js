@@ -1,5 +1,7 @@
-import Repository, { baseUrl, serializeQuery } from './Repository';
-import axios from 'axios';
+import Repository, { baseUrl } from './Repository';
+import Router from 'next/router';
+
+// import axios from 'axios';
 class AuthRepository {
   constructor(callback) {
     this.callback = callback;
@@ -22,15 +24,16 @@ class AuthRepository {
 
   async unityLogin(payload) {
     var info = {
-      token: payload.info.token,
+      token: payload.info,
     };
 
     try {
-      const response = await Repository.post(
-        `${baseUrl}/auth/login-from-unity?unityToken=${info.token}`
+      const response = await Repository.get(
+        `${baseUrl}/auth/login-from-unity/${info.token}`
       );
       return response;
     } catch (error) {
+      Router.push('/');
       return error;
     }
   }
