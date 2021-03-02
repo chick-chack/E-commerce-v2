@@ -15,7 +15,6 @@ import i18next from 'i18next'
 import { useRouter } from 'next/router'
 import { getAllStoresMalls, getTopStoresByMalls, getProductsByMalls, getMallInfoById} from '../../store/mall/action';
 import { getCollections } from '../../store/collection/action';
-import i18n from '~/i18next';
 
 class MallDefaultPage extends React.Component {
     constructor(props) {
@@ -37,8 +36,7 @@ class MallDefaultPage extends React.Component {
             this.props.dispatch(getAllStoresMalls(this.props.query.mallid ,8,0));
             this.props.dispatch(getTopStoresByMalls(this.props.query.mallid));
             this.props.dispatch(getProductsByMalls(this.props.query.mallid));
-            this.props.dispatch(getMallInfoById(this.props.query.mallid))
-        
+            this.props.dispatch(getMallInfoById(this.props.query.mallid))      
         }
     }
     render() {
@@ -64,32 +62,13 @@ class MallDefaultPage extends React.Component {
                 <HeaderDefault />
                 <HeaderMobile />
                 <NavigationList />
-                
-
                 <div className="ps-page--shop">
                     <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
                     <div className="ps-container">
                         <MallDetails />
-
-            
                         <LayoutMall mall_id={this.props.query.mallid}  mall_name={this.props.query.mallname} />
                         <StoreViewMall mall_id={this.props.query.mallid}  mall_name={this.props.query.mallname}  />
                         <MallDefault  mall_id={this.props.query.mallid}  mall_name={this.props.query.mallname} />
-               
-
-
-                        {/* <ShopBanner />
-                        <ShopBrands />
-                        <ShopCategories />
-                        <LayoutMall />
-                                        */}
-                        {/* <div className="ps-layout--shop">
-                            <ShopWidget />
-
-                            <div className="ps-layout__right">
-                                <LayoutMall />
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 {/* <Newletters layout="container" /> */}

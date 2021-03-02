@@ -22,7 +22,7 @@ import HomeDefaultTopCategories from '../components/partials/homepage/home-defau
 import TestProducts from '../components/partials/homepage/home-default/TestProducts';
 import SubscribePopup from '../components/shared/SubscribePopup';
 import { getCollections } from '../store/collection/action';
-import { getBannersBySlugs, getPromotionsBySlugs } from '../store/media/action';
+import { getHomeBanners, getHomePromotions } from '../store/collection/action';
 import SwicherDemo from '~/components/shared/switcher-demo/SwitcherDemo';
 import { switchDemoPanel } from '~/store/app/action';
 import { getMalls_Home, getProduct_Home,getAllHomePromotions, getAllHomeBanners } from '../store/collection/action';
@@ -49,18 +49,17 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
         const { query } = this.props;
-
         if (query) {
-
-            const bannerSlugs = ['banner-home-fullwidth'];
-            const promotionSlugs = ['home_fullwidth_promotions'];
-            this.props.dispatch(getBannersBySlugs(bannerSlugs));
-            this.props.dispatch(getPromotionsBySlugs(promotionSlugs));
+            // const bannerSlugs = ['banner-home-fullwidth'];
+            // const promotionSlugs = ['home_fullwidth_promotions'];
+            // this.props.dispatch(getBannersBySlugs(bannerSlugs));
+            // this.props.dispatch(getPromotionsBySlugs(promotionSlugs));
             this.props.dispatch(switchDemoPanel(false));
             this.props.dispatch(getMalls_Home());
             this.props.dispatch(getCollectionsfortest());
+            this.props.dispatch(getHomeBanners());
+            this.props.dispatch(getHomePromotions());
         }
 
         setTimeout(() => {

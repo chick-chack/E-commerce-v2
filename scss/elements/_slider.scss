@@ -1,3 +1,9 @@
+.slick-slider{
+    height: 100%!important;
+    .slick-list{
+        height: 100%!important;
+    }
+}
 .ps-carousel {
     position: relative;
     padding-right: 2px;
@@ -101,3 +107,12 @@
         }
     }
 }
+
+
+// .slick-track {
+//     display: flex !important;
+//   }
+  
+//   .slick-slide {
+//     height: auto;
+//   }

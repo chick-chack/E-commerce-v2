@@ -24,7 +24,7 @@ class Checkout extends Component {
         const { amount, cartTotal, cartItems, cartList } = this.props;
         return (
             <div className="ps-checkout ps-section--shopping">
-                <div className="container">
+                <div className="ps-container">
                     <div className="ps-section__content">
                         <FormCheckoutInformation
                             amount={amount}

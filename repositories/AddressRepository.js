@@ -8,17 +8,8 @@ class AddressRepository {
 
     // add new address
     async add_address(data1, countryVal) {
-        console.log("repo ", data1, "coooooooo repo ", countryVal)
-        // var info = {
-        //     "address": data,
-        // };
+
         var info ={
-            // "name": data1.name,
-            // "country": data1.country,
-            // "city": data1.city,
-            // "neighborhood": data1.neighborhood,
-            // "street": data1.street,
-            // "postCode": data1.postCode
             "name": data1.name,
             "country": countryVal.label,
             "countryCode": countryVal.value,
@@ -29,7 +20,6 @@ class AddressRepository {
         };
         try {
             const response = await Repository.post(`${baseUrl}/address/add`, info)
-            console.log("repo add res", response)
             return response.data;
         } catch (error) {
             console.log(error)

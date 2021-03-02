@@ -466,7 +466,7 @@
             // font-size: 24px;
             font-size: 1.8rem;
             font-weight: 400;
-            margin-right: 70px;
+            // margin-right: 70px;
         }
     }
 
@@ -2216,7 +2216,7 @@
 
     h3 {
         margin-bottom: 0;
-        font-size: 24px;
+        // font-size: 24px;
         font-weight: 600;
         display: flex;
         justify-content: space-between;
@@ -3372,21 +3372,80 @@
 
 
 .ps-block--checkout-order {
-    figure {
-        // margin-bottom: 25px;
-        margin-bottom: 10px;
-        // padding-bottom: 25px;
-        padding-bottom: 15px;
-        // border-bottom: 1px solid #eaeaea;
-        border-bottom: 1px solid $color-heading;
+    .ps-block__content{
+        p{
+            font-size: 1.8rem;
+            margin: 0 0 8px 0;
+            font-weight: 500;
+            &.note{
+                color: red;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+        }
+        
+        .collapse_item{
+            padding: 10px;
+            border-bottom: 1px solid #999;
+            .collapse_item_header{
+                display: inline-flex;
+                align-items: center;
+                border-bottom: 2px solid $color-heading;
+                i{
+                    color: $color-span;
+                }
+                a{
+                    margin: 0 10px;
+                    font-size: 1.8rem;
+                    color: $button-hover;
+                    padding: 0;
+                }
+            }
+            p{
+                margin: 2px 2px 2px 25px;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #666;
+            }
+            &:last-child{
+                // border-bottom: 1px solid transparent;
+            }
+        }
 
+        .ps-product--cart-mobile{
+            padding: 10px;
+            border-bottom: 1px solid #aeaeae;
+            .ps-product__thumbnail{
+                max-width: 120px;
+            }
+            .ps-product__content{
+                a{
+                    color: $color-heading;
+                }
+                small{
+                    color: #666;
+                }
+            }
+        }
+
+    }
+    figure {
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+       
+        &.line{
+            border-bottom: 1px solid $color-heading;
+        }
+        hr{
+            background-color: $color-heading;
+        }
         figcaption {
             display: flex;
             justify-content: space-between;
             font-weight: 400;
 
             strong {
-                font-size: 16px;
+                font-size: 1.8rem;
                 color: $color-heading;
                 font-weight: 600;
                 text-transform: uppercase;
@@ -3396,6 +3455,55 @@
                 font-size: 1.7rem;
                 font-weight: bold;
                 color :#666666;
+            }
+            &.order_title{
+                justify-content: center;
+                font-size: 3rem;
+                font-weight: bold;
+                color:  $color-heading;
+            }
+           
+        }
+
+        .collapse_content{
+            display: flex;
+            justify-content: space-between;
+            strong{
+                font-size: 1.8rem;
+                color: #666;
+            }
+
+        } 
+        strong{
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        .collapse_item{
+            padding: 10px;
+            border-bottom: 1px solid #999;
+            .collapse_item_header{
+                display: inline-flex;
+                align-items: center;
+                border-bottom: 2px solid $color-heading;
+                i{
+                    color: $color-span;
+                }
+                a{
+                    margin: 0 10px;
+                    font-size: 1.8rem;
+                    color: $button-hover;
+                    padding: 0;
+                }
+            }
+            p{
+                margin: 2px 2px 2px 25px;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #666;
+            }
+            &:last-child{
+                // border-bottom: 1px solid transparent;
             }
         }
     }
@@ -3411,11 +3519,12 @@
             font-weight: bold;
             color: #666666;
             &:last-child{
-                border-bottom: 1px solid transparent;
+                // border-bottom: 1px solid transparent;
             }
 
             strong {
                 font-weight: 600;
+                margin: 0 10px 0 0;
 
                 span {
                     color: $color-text;
@@ -3495,6 +3604,71 @@
             max-width: 100%;
         }
     }
+}
+.rtlpage 
+.ps-block--checkout-order {
+    figure {
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+       
+        &.line{
+            border-bottom: 1px solid $color-heading;
+        }
+        hr{
+            background-color: $color-heading;
+        }
+        figcaption {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 400;
+
+            strong {
+                font-size: 1.8rem;
+                color: $color-heading;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            small {
+                font-size: 1.7rem;
+                font-weight: bold;
+                color :#666666;
+            }
+            &.order_title{
+                justify-content: center;
+                font-size: 3rem;
+                font-weight: bold;
+                color:  $color-heading;
+            }
+           
+        }
+
+        .collapse_content{
+            display: flex;
+            justify-content: space-between;
+            strong{
+                font-size: 1.8rem;
+                color: #666;
+            }
+
+        } 
+        strong{
+            font-size: 1.5rem;
+            color: #666;
+        }
+
+        .collapse_item{
+            p{
+               display: flex;
+
+               span{
+                   margin: 0 10px;
+               }
+            }
+          
+        }
+    }
+
 }
 
 .ps-block--shipping {

@@ -101,7 +101,7 @@ class StoreDefaultPage extends React.Component {
                             {this.props.store.storeinfo && this.props.store.storeinfo.image != null
                                 ? <div className="store_img"  >
                                     <img
-                                        src={this.props.store.storeinfo.image} alt={this.props.store.storeinfo.mall.name_en} />
+                                        src={this.props.store.storeinfo.image} alt="store" />
                                 </div>
                                 : <div className="store_img" >
                                     <img

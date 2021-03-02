@@ -1,7 +1,9 @@
 #homepage-1 {
     .ps-home-banner {
-        padding-top: 30px;
-        margin-bottom: 30px;
+        // padding-top: 30px;
+        // margin-bottom: 30px;
+        padding-top: 0px;
+        margin-bottom: 0px;
 
         .ps-container {
             display: flex;
@@ -109,6 +111,9 @@
 
     .ps-top-categories {
         padding:15px 0;
+        .row{
+            justify-content: center;
+        }
 
         h3 {
             text-transform: capitalize;
@@ -123,19 +128,19 @@
         }
 
         @include media('<lg') {
-            padding: 60px 0;
+            // padding: 60px 0;
         }
 
         @include media('<md') {
-            padding: 50px 0;
+            // padding: 50px 0;
         }
 
         @include media('<sm') {
-            padding: 40px 0;
+            // padding: 40px 0;
         }
 
         @include media('<xs') {
-            padding: 35px 0;
+            // padding: 35px 0;
         }
     }
 
@@ -226,7 +231,7 @@
             flex-flow: column;
             .store_img img{
                 width: 75%;
-                margin: 0 auto;
+                margin: 30px auto;
                 display: flex;
             }
             .store_content_{

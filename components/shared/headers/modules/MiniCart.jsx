@@ -138,7 +138,9 @@ handleRemoveLocalCartItem = product => {
                                                   </small>
                                               </div>
                                           </div>
-                                      ))
+                                     
+                                     
+                                     ))
                                     : ''}
                             </div>
                             <div className="ps-cart__footer">

@@ -131,8 +131,7 @@ class InformationDefault extends Component {
     }
     };
     handleAddItemToCompare = e => {
-        e.preventDefault();    
-        console.log("nn",this.props.product.singleProduct)    
+        e.preventDefault();      
             let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
                 (item) => item.colorCode == null);
             this.props.dispatch(addItemToCompare(this.props.product.singleProduct,childProduct ));   
@@ -141,7 +140,6 @@ class InformationDefault extends Component {
 
     handleAddItemToWishlist = e => {
         e.preventDefault();
-        console.log("nn",this.props.product.singleProduct)
         let childProduct = this.props.product.singleProduct.productChildren_orginal.find(
             (item) => item.colorCode == null);
         this.props.dispatch(addItemToWishlist(this.props.product.singleProduct,childProduct ));
@@ -191,7 +189,6 @@ class InformationDefault extends Component {
     }
     componentDidMount() {
         const { product } = this.props;
-        console.log('parent', this.props)
         this.props.dispatch(getcartlist());
         if (product && product.singleProduct.productChildren.length > 0) {
             this.setState({ selectedVariant: product.singleProduct.productChildren[0] });
@@ -281,9 +278,9 @@ class InformationDefault extends Component {
                             <Link href="#">
                                 <a>{singleProduct.subCategory.name_en}</a>
                             </Link>
-                            <Link href="#">
+                            {/* <Link href="#">
                                 <a>{singleProduct.subSubCategory.name_en}</a>
-                            </Link>
+                            </Link> */}
                         </p>
                         : <p className="categories">
                             <strong> {i18next.t('categories')}:</strong>
@@ -293,16 +290,16 @@ class InformationDefault extends Component {
                             <Link href="#">
                                 <a>{singleProduct.subCategory.name_ar}</a>
                             </Link>
-                            <Link href="#">
+                            {/* <Link href="#">
                                 <a>{singleProduct.subSubCategory.name_ar}</a>
-                            </Link>
+                            </Link> */}
                         </p>
                     }
                     <p className="tags">
                         <strong> {i18next.t('tags')}</strong>
-                        {singleProduct.tags.map(item => {
+                        {singleProduct.tags.map((item, index) => {
                             return (
-                                <Link href="/shop">
+                                <Link href="/" key={index}>
                                     <a>{item}</a>
                                 </Link>
                             )

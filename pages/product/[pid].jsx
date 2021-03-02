@@ -36,7 +36,6 @@ class ProductDefaultPage extends React.Component {
             lang: localStorage.getItem('lang') || 'en'
         })
         if (this.props.query.id) {
-            console.log('hiiiiiiiiiii',this.props.query.id  )
             this.setState({ childern: this.props.query.id })
         }
         const { pid } = this.props.query;
@@ -51,7 +50,6 @@ class ProductDefaultPage extends React.Component {
                 'shop-recommend-items',
                 'widget_same_brand',
             ];
-            console.log(pid)
             this.props.dispatch(getProductsById(pid));
             // this.props.dispatch(getProductsByIdForTesting(37));
             // this.props.dispatch(getCollections(collectionsParams));
@@ -67,7 +65,6 @@ class ProductDefaultPage extends React.Component {
     render() {
         const { singleProductTest } = this.props;
         const { singleProduct } = this.props;
-        console.log("id query render",this.props.query.id )
         const render_id=this.props.query.id;
         const breadCrumb = [
             {

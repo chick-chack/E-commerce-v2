@@ -14,17 +14,6 @@ class StoreRepository {
         return reponse;
     }
 
-    // // api, the most sale products from each category are returned in-store by the store ID
-    // async getStoreproductsMostSale(payload) {
-    //     const reponse = await Repository.get(`${baseUrl}common/home/products`)
-    //         .then(response => {
-    //             console.log(response)
-    //             return response.data;
-    //         })
-    //         .catch(error => ({ error: JSON.stringify(error) }));
-    //     return reponse;
-    // }
-
     // api, the most sale products from each category are returned in-store by the store ID
     async getStoreproductsMostSale(id) {
         var data = [];

@@ -1,4 +1,4 @@
-import Repository, { baseUrl } from './Repository_';
+import Repository, { baseUrl } from './Repository';
 
 class CollectionRepository {
     constructor(callback) {
@@ -50,7 +50,7 @@ class CollectionRepository {
 
         async getCollectionsfortest() {
 
-            const reponse = await Repository.get(`https://check-chack-v2.herokuapp.com/api/v2/ecommerce/common/home/products`)
+            const reponse = await Repository.get(`${baseUrl}/common/home/products`)
                 .then(response => {
                     return response.data;
                 })
@@ -1352,28 +1352,28 @@ async getSubGategory(id) {
     }
 
 
-    // api, GET HOME PROMOTIONS
+/********************* home page  ***************/
+
+    // api, GET HOME PROMOTIONS "call banner in project api"
     async getHomePromotions(payload) {
-        const reponse = await Repository.get(`${baseUrl}/common/home-slider`)
+        const response = await Repository.get(`${baseUrl}/common/banner`)
             .then(response => {
-                console.log("repo promotions", response.data)
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
 
     
-    // api, GET HOME BANNERS
+    // api, GET HOME BANNERS "call malls slider in project api"
     async getHomeBanners(payload) {
-        const reponse = await Repository.get(`${baseUrl}/common/banner`)
+        const response = await Repository.get(`${baseUrl}/common/malls-slider`)
             .then(response => {
-                console.log("repo bannres", response.data)
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
 
@@ -1381,11 +1381,8 @@ async getSubGategory(id) {
     // get products by category id
 
     async getProductsByCatId( cat_id,  limit, offset){
-        console.log("repoooooooooo ",  cat_id,  limit, offset)
-      
         const response = await Repository.get(`${baseUrl}/common/product/products-by-main-category?storeTypeId=${cat_id}&limit=${limit}&offset=${offset}`)
         .then(response => {
-            console.log("repoooooooooo  response", response.data)
             return response.data;
         })
             .catch(error => ({ error: JSON.stringify(error) }));
@@ -1398,11 +1395,8 @@ async postSubscription(payload) {
     var info = {
         "email": payload.sub_email,
     };
-    console.log("info sub repo", info)
-
     try {
         const response = await Repository.post(`${baseUrl}/common/email-subscription`, info)
-        console.log("sub repo response",response)
         return response;
     } catch (error) {
         return error;
@@ -1411,23 +1405,18 @@ async postSubscription(payload) {
 }
 
 //  send message
-// /ecommerce/common/contact-us-form/   POST
-// body = { fullName, email, content } 
-
 async sendMessage(payload) {
     var info = {
         "fullName": payload.fullname,
         "email": payload.email,
         "content": payload.message,
-
     };
     try {
-        const response = await Repository.post(`https://portal.chickchack.net/api/v1/ecommerce/common/contact-us-form`, info)
+        const response = await Repository.post(`${baseUrl}/common/contact-us-form`, info)
         return response;
     } catch (error) {
         return error;
     }
-
 }
 
 }

@@ -22,6 +22,8 @@ import {
     getProductByCategortyIdError,
     subscriptionSuccess,
     sendMessageSuccess,
+    getHomeBannersSuccess,
+    getHomePromotionsSuccess
 } from './action';
 
 import CollectionRepository from '../../repositories/CollectionRepository';
@@ -161,26 +163,22 @@ function* getAllHometopstores({ limit, offset }) {
 }
 
 
-// get home promotions
-function* getHomePromotions({ }) {
-    console.log("saga promotions")
+/* home page */
+function* getHomeBanners({ payload }) {
     try {
-        const data = yield call(CollectionRepository.getHomePromotions);
-        yield put(getAllHomePromotionsSuccess(data));
+        const data = yield call(CollectionRepository.getHomeBanners);
+        yield put(getHomeBannersSuccess(data));
     } catch (err) {
-        yield put(getAllHomePromotionsError(err));
+        // console.log(err);
     }
 }
 
-
-// get home Banners
-function* getHomeBanners({ }) {
-    console.log("saga banners")
+function* getHomePromotions({ payload }) {
     try {
-        const data = yield call(CollectionRepository.getHomeBanners);
-        yield put(getAllHomeBannersSuccess(data));
+        const data = yield call(CollectionRepository.getHomePromotions,);
+        yield put(getHomePromotionsSuccess(data));
     } catch (err) {
-        yield put(getAllHomeBannersError(err));
+        // console.log(err);
     }
 }
 
@@ -192,7 +190,6 @@ function* getProductByCategortyId({ cat_id, limit, offset}){
 
     try {
         const data = yield call(CollectionRepository.getProductsByCatId, cat_id , limit, offset);
-        console.log("saaaaaaaga cat data", data)
         yield put(getProductByCategortyIdSuccess(data));
     } catch (err) {
         yield put(getProductByCategortyIdError(err));
@@ -201,7 +198,6 @@ function* getProductByCategortyId({ cat_id, limit, offset}){
 
 // subscription api
 function* subscription(payload) {
-    console.log("sub saga", payload)
     try {
         const data = yield call(CollectionRepository.postSubscription, payload);
         if (data.status == 200) {
@@ -247,9 +243,11 @@ export default function* rootSaga() {
     yield all([takeEvery(actionTypes.GET_MALLS_HOME, getMalls_Home)]);
     yield all([takeEvery(actionTypes.GET_PRODUCTS_HOME, getporducts_Home)]);
     // END HOME PAGE
-    yield all([takeEvery(actionTypes.GET_HOME_PROMOTIONS, getHomePromotions)]);
     yield all([takeEvery(actionTypes.GET_HOME_BANNERS, getHomeBanners)]);
+    yield all([takeEvery(actionTypes.GET_HOME_PROMOTIONS, getHomePromotions)]);
+
     yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_CAT_ID, getProductByCategortyId)]);
+
     // subscription api
     yield all([takeEvery(actionTypes.SUBSCRIPTION, subscription)]);
     // send message api

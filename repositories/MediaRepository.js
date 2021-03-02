@@ -4,7 +4,6 @@ class ProductRepository {
     constructor(callback) {
         this.callback = callback;
     }
-
     async getRecords(params) {
         const reponse = await Repository.get(
             `${baseUrl}/products?${serializeQuery(params)}`
@@ -91,5 +90,4 @@ class ProductRepository {
         return reponse;
     }
 }
-
 export default new ProductRepository();

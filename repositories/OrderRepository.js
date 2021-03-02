@@ -17,7 +17,6 @@ class OrdertRepository {
         };
         try {
             const response = await Repository.put(`${baseUrl}/order/preview`, info)
-            console.log(response)
             return response.data.data;
         } catch (error) {
             return error
@@ -26,14 +25,11 @@ class OrdertRepository {
 
     // preview orders
     async add_orders(addressId, paymentType) {
-
-        console.log(addressId, paymentType, paypalData)
         var info = {
             "addressId": addressId,
             "paymentType": paymentType,
             "paypalData": paypalData
         };
-        console.log(info)
         try {
             const response = await Repository.post(`${baseUrl}/order/add`, info)
             return response.data;

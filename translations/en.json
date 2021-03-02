@@ -175,6 +175,7 @@
     "store_desc":"We are pleased for your visit! we hope you will enjoy shopping in our store.",
     "store_desc_2":" We provide you with all the latest electronic devices that suit your passion.",
     "categories_":"Categories :",
+    
 
 
 
@@ -206,6 +207,13 @@
     "continuetoshipping":"Continue to shipping",
     "returntocart":" Return to shopping cart",
     "urorder":"Your order",
+    "reviewurorder":"Review your order & pay :",
+    "including":"including Shipping fees.",
+    "note":"Note: Your order will be delivered according to the groups shown below :",
+    "items":"Items",
+
+
+
     "calculatedatnextstep":"Calculated at next step",
     "buynow":"Buy Now",
     "soldby":"Sold By",

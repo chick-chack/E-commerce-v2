@@ -11,8 +11,8 @@ export const initialState = {
     malls_home: [],
     specific_home_section_products:[],
     all_home_top_stores:[],
-    banners:[],
-    promotions:[],
+    homeBanners:[],
+    homePromotions:[],
     productListByCategory:[],
     isSubscribed: false,
     isSended:false,
@@ -102,42 +102,19 @@ function reducer(state = initialState, action) {
         
         //  end all home top stores
 
-         //  home promotions
-         case actionTypes.GET_HOME_PROMOTIONS_SUCCESS:
-             console.log("red promotion", action.data.data)
-            
-            return {
-                        ...state,
-                        ...{ promotions: action.data.data },
-                    };
-        case actionTypes.GET_HOME_PROMOTIONS_ERROR:
-            return {
-                        ...state,
-                        ...{ error: action.error },
-                    };
-        
-        //  end  home promotions
-
-         //  home banners
-         case actionTypes.GET_HOME_BANNERS_SUCCESS:
-            console.log("red banners", action.data.data)
-            
-            return {
-                        ...state,
-                        ...{ banners: action.data.data },
-                    };
-        case actionTypes.GET_HOME_BANNERS_ERROR:
-            return {
-                        ...state,
-                        ...{ error: action.error },
-                    };
-        
-        //  end home banners
-
-        // GET PRODUCTS BY CATEGORY ID 
+      /* home page */
+      case actionTypes.GET_HOME_BANNERS_SUCCESS:
+        return {
+            ...state,
+            ...{ homeBanners: action.payload.data },
+        };
+    case actionTypes.GET_HOME_PROMOTIONS_SUCCESS:
+        return {
+            ...state,
+            ...{ homePromotions: action.payload.data },
+        };
+     
         case actionTypes.GET_PRODUCTS_BY_CAT_ID_SUCCESS:
-            console.log("red category", action.data.data)
-            
             return {
                         ...state,
                         ...{ productListByCategory: action.data.data },

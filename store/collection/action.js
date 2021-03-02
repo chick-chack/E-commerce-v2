@@ -42,16 +42,13 @@ export const actionTypes = {
     GET_ALL_HOME_TOP_STORES_SUCCESS: 'GET_ALL_HOME_TOP_STORES_SUCCESS',
     GET_ALL_HOME_TOP_STORES_ERROR: 'GET_ALL_HOME_TOP_STORES_ERROR',
 
-    // get promotion
-    GET_HOME_PROMOTIONS:'GET_HOME_PROMOTIONS',
-    GET_HOME_PROMOTIONS_SUCCESS:'GET_HOME_PROMOTIONS_SUCCESS',
-    GET_HOME_PROMOTIONS_ERROR:'GET_HOME_PROMOTIONS_ERROR',
+  /* get banner for home page */
+  GET_HOME_BANNERS: 'GET_HOME_BANNERS',
+  GET_HOME_BANNERS_SUCCESS: 'GET_HOME_BANNERS_SUCCESS',
 
-
-    // get Banners
-    GET_HOME_BANNERS:'GET_HOME_BANNERS',
-    GET_HOME_BANNERS_SUCCESS:'GET_HOME_BANNERS_SUCCESS',
-    GET_HOME_BANNERS_ERROR:'GET_HOME_BANNERS_ERROR',
+  /* get promotion for home page */
+  GET_HOME_PROMOTIONS: 'GET_HOME_PROMOTIONS',
+  GET_HOME_PROMOTIONS_SUCCESS: 'GET_HOME_PROMOTIONS_SUCCESS',
 
     // GET PRODUCTS BY CATEGORY ID
     GET_PRODUCTS_BY_CAT_ID:'GET_PRODUCTS_BY_CAT_ID',
@@ -215,47 +212,29 @@ export function getAllHomeTopStoresError(error) {
 
 
 
-// get  HOME PROMOTIONS
-export function getAllHomePromotions() {
-    console.log("promotions action")
-    return {
-        type: actionTypes.GET_HOME_PROMOTIONS,
-    };
+
+/* HOME PAGE */
+
+export function getHomeBanners() {
+    return { type: actionTypes.GET_HOME_BANNERS, };
 }
 
-export function getAllHomePromotionsSuccess(data) {
-    return {
-        type: actionTypes.GET_HOME_PROMOTIONS_SUCCESS,
-        data,
-    };
-}
-
-export function getAllHomePromotionsError(error) {
-    return {
-        type: actionTypes.GET_HOME_PROMOTIONS_ERROR,
-        error,
-    };
-}
-
-// get  HOME BANNER
-export function getAllHomeBanners() {
-    console.log("bannners action")
-    return {
-        type: actionTypes.GET_HOME_BANNERS,
-    };
-}
-
-export function getAllHomeBannersSuccess(data) {
+export function getHomeBannersSuccess(payload) {
     return {
         type: actionTypes.GET_HOME_BANNERS_SUCCESS,
-        data,
+        payload
     };
 }
 
-export function getAllHomeBannersError(error) {
+
+export function getHomePromotions() {
+    return { type: actionTypes.GET_HOME_PROMOTIONS, };
+}
+
+export function getHomePromotionsSuccess(payload) {
     return {
-        type: actionTypes.GET_HOME_BANNERS_ERROR,
-        error,
+        type: actionTypes.GET_HOME_PROMOTIONS_SUCCESS,
+        payload
     };
 }
 

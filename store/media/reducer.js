@@ -3,6 +3,8 @@ import { actionTypes } from './action';
 export const initialState = {
     banners: [],
     promotions: [],
+    homeBanners:[],
+    homePromotions:[],
 };
 
 function reducer(state = initialState, action) {

@@ -14,7 +14,6 @@ class AuthRepository {
 
         try {
             const response = await Repository.post(`${baseUrl}/auth/login`, info)
-            // console.log(response)
             return response;
         } catch (error) {
             return error;
