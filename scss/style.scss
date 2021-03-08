@@ -83,20 +83,19 @@
 /*5. HELPERS */
 @import 'elements/helpers';
 
-
-
 .rtlpage .react-tel-input .selected-flag {
-
-    padding: 0 8px 0 0px!important;
- 
+  padding: 0 8px 0 0px !important;
 }
 
 .rtlpage .react-tel-input .selected-flag .arrow {
-    left: -20px!important;
+  left: -20px !important;
 }
 
 .rtlpage .react-tel-input .form-control {
+  padding-right: 48px !important;
+}
 
-    padding-right: 48px!important;
-    
+.ant-select.form-control .ant-select-selector {
+  border: 0 !important;
+  height: 100%;
 }

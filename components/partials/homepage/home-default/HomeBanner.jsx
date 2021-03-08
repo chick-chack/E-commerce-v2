@@ -52,12 +52,12 @@ class HomeBanner extends Component {
         };
         const bannerData = getItemBySlug(banners, 'banner-home-fullwidth');
         const promotionData = getItemBySlug(promotions, 'home_fullwidth_promotions');
-        console.log("promotion data", promotionData);
+        // console.log("promotion data", promotionData);
 
         let promotion1, promotion2;
 
         if (promotionData) {
-            console.log("promotion data", promotionData);
+            // console.log("promotion data", promotionData);
             /* promotionData: [{
                 id,slug,name,created_by, created_at,
                 items:[{
