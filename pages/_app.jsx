@@ -26,52 +26,50 @@ import axios from 'axios';
 import i18next from 'i18next';
 
 class MyApp extends App {
+  constructor(props) {
+    super(props);
+    this.persistor = persistStore(props.store);
+  }
 
-    constructor(props) {
-        super(props);
-        this.persistor = persistStore(props.store);
+  state = {
+    lang: null,
+  };
+  getInitialProps() {}
+  componentDidMount() {
+    this.setState({ lang: localStorage.getItem('lang') || 'en' });
+
+    i18next.changeLanguage(this.state.lang);
+    if (this.state.lang === 'ar') {
+      document.getElementById('__next').classList.add('rtlpage');
     }
 
-    state = {
-        lang: null
+    setTimeout(function () {
+      document.getElementById('__next').classList.add('loaded');
+    }, 100);
+
+    this.setState({ open: true });
+    //console.log("loaded", document.getElementById('__next') )
+  }
+  render() {
+    i18next.changeLanguage(this.state.lang);
+    if (this.state.lang === 'ar') {
+      document.getElementById('__next').classList.add('rtlpage');
     }
 
-    componentDidMount() {
-        this.setState({ lang: localStorage.getItem('lang') || 'en' })
+    const { Component, pageProps, store } = this.props;
 
-        i18next.changeLanguage(this.state.lang);
-        if (this.state.lang === 'ar') {
-            document.getElementById('__next').classList.add('rtlpage');
-        }
-
-        setTimeout(function () {
-            document.getElementById('__next').classList.add('loaded');
-
-        }, 100);
-
-        this.setState({ open: true });
-        //console.log("loaded", document.getElementById('__next') )
-    }
-    render() {
-        i18next.changeLanguage(this.state.lang);
-        if (this.state.lang === 'ar') {
-            document.getElementById('__next').classList.add('rtlpage');
-        }
-
-        const { Component, pageProps, store } = this.props;
-
-        const getLayout =
-            Component.getLayout || (page => <DefaultLayout children={page} />);
-        return getLayout(
-            <Provider store={store}>
-                <PersistGate
-                    loading={<Component {...pageProps} />}
-                    persistor={this.persistor}>
-                    <Component {...pageProps} />
-                </PersistGate>
-            </Provider>
-        );
-    }
+    const getLayout =
+      Component.getLayout || ((page) => <DefaultLayout children={page} />);
+    return getLayout(
+      <Provider store={store}>
+        <PersistGate
+          loading={<Component {...pageProps} />}
+          persistor={this.persistor}>
+          <Component {...pageProps} />
+        </PersistGate>
+      </Provider>
+    );
+  }
 }
 
 export default withRedux(createStore)(withReduxSaga(MyApp));

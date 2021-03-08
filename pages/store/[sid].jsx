@@ -34,6 +34,7 @@ class StoreDefaultPage extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.query)
         this.setState({
             lang: localStorage.getItem('lang') || 'en'
         })
